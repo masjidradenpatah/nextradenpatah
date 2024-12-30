@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --clr-primary: #1EAAC8;
+    --clr-secondary: #DCF2F2;
+}
