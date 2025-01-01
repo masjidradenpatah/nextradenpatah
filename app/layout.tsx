@@ -23,10 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased`}
+      className={`${inter.variable} ${inter.className} antialiased flex flex-col bg-[#EDEDED]`}
       >
       <Navbar />
+      <main className={'flex-grow  flex flex-col items-center'}>
         {children}
+
+      </main>
       <Footer />
       </body>
     </html>

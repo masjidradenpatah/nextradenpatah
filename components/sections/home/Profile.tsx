@@ -1,18 +1,26 @@
 import React from "react";
+import SectionTitle from "@/components/SectionTitle";
+import profile from '@/public/profile.png'
+import Image from 'next/image'
 
 const Profile = () => {
   return (
+    <div className={'w-full '}>
     <div className={"container py-24"}>
-      <div className={"flex flex-col mb-4"}>
-        <h2 className={"text-3xl font-bold text-center"}>Profil Masjid Raden
-          Patah</h2>
-        <p className={"text-center"}>Lebih dekat dengan Masjid Raden Patah
-          yuk....</p>
-      </div>
-
-      <div className={"flex gap-4"}>
-        <div className={"min-w-96 size-96 bg-blue-200"}></div>
-        <div className={"flex flex-col gap-4 justify-center"}>
+      <SectionTitle
+        title={'Profil Masjid Raden Patah'}
+        subtitle={'Lebih dekat dengan Masjid Raden Patah yuk...'}
+      />
+      <div className={"flex gap-12"}>
+        <div className={"aspect-square rounded-3xl overflow-hidden basis-1/3" +
+          " bg-blue-200"}>
+          <Image
+            src={profile}
+            alt={'masjid raden patah'}
+            className={'w-full h-full object-cover'}
+          />
+        </div>
+        <div className={"flex flex-col gap-4 basis-2/3 justify-center"}>
           <p className={"text-3xl font-bold"}>Asal Usul <span
             className={"text-primary"}>Masjid Raden Patah</span></p>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
@@ -40,6 +48,7 @@ const Profile = () => {
         </div>
       </div>
 
+    </div>
     </div>
   );
 };

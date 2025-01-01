@@ -2,6 +2,7 @@ import InformationCard from "@/components/InformationCard";
 import InformationImage1 from "@/public/informations/friends.jpg";
 import InformationImage2 from "@/public/informations/alquran.jpg";
 import InformationImage3 from "@/public/informations/sunnah.jpg";
+import SectionTitle from "@/components/SectionTitle";
 
 const informationData = [
   {
@@ -29,12 +30,13 @@ const informationData = [
 
 const Information = () => {
   return (
-    <div className={"container py-24"}>
+    <div className={"container py-[120px]"}>
       <div className={"flex flex-col gap-4"}>
-        <div className={"flex flex-col"}>
-          <h2 className={"text-3xl font-bold"}>Informasi Terbaru</h2>
-          <p>Ikut program kajian favorit kalian</p>
-        </div>
+        <SectionTitle
+          title={'Informasi Terbaru'}
+          subtitle={'Ikuti program kajian favorit kalian'}
+        />
+
         <div className={"flex gap-4 w-full"}>
 
           {informationData.map((item, index) => (

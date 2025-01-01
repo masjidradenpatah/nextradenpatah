@@ -10,6 +10,9 @@ export default {
     container: {
       center: true,
     },
+    fontFamily: {
+      sans: ['var(--font-inter)']
+    },
     extend: {
       colors: {
         primary: 'var(--clr-primary)',
@@ -18,5 +21,5 @@ export default {
 
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp'), "prettier-plugin-tailwindcss"],
 } satisfies Config;

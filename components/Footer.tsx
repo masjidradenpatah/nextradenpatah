@@ -4,7 +4,7 @@ import unit from "@/public/units-compiled.png";
 
 const Footer = () => {
   return (
-    <div className={"bg-secondary p-4"}>
+    <div className={"bg-secondary py-[120px] text-black bottom-0 relative"}>
       <div className={"container flex "}>
         <div className={"flex flex-col"}>
           <Image src={mrplogo} alt={"logo mrp"} width={100}

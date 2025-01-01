@@ -19,6 +19,7 @@ import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import { StaticImageData } from "next/image";
 import { ReactNode, useState } from "react";
 import { log } from "node:util";
+import SectionTitle from "@/components/SectionTitle";
 
 // TODO: This is from DATABASE
 interface Facility {
@@ -116,12 +117,7 @@ const Facilities = () => {
   return (
     <>
       <div className={"bg-secondary w-full py-[120px] "}>
-        <div className={"flex flex-col mb-4"}>
-          <h2 className={"text-3xl font-bold text-center"}>Fasilitas di Masjid
-            Raden Patah</h2>
-          <p className={"text-center"}>Yuk kita lihat fasilitas yang ada di
-            Masjid Raden Patah</p>
-        </div>
+        <SectionTitle title={'Fasilitas di Masjid Raden Patah'} subtitle={'Yuk kita lihat fasilitas yang ada di Masjid Raden Patah'} />
 
 
         <div className={"container py-12 relative"}>
@@ -173,7 +169,7 @@ const Facilities = () => {
             return (
               <button
                 key={index}
-                className={`size-4 ${index === current ? 'bg-white' : 'bg-gray-500'} hover:bg-primary rounded-full`}
+                className={`size-4 ${index === current ? 'bg-primary' : 'bg-gray-400'} hover:bg-secondary rounded-full`}
                 onClick={() => {
                   console.log(index);
                   setCurrent(index)
