@@ -5,24 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bd83a4c-62e9-4497-9429-ad95018350f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/article/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/contact/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/profile/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/program/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/ProgramCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/SectionTitle.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/sections/home/Map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/actions/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(auth)/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(auth)/signIn/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(auth)/signUp/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(protected)/dashboard/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(public)/article/[id]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/(public)/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/SignOutButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/forms/SignInForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/forms/SignUpForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/User.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/db.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/next-auth.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schemas/authSchemas.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/article/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/services/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hello/page.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/sections/home/Facilities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Facilities.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/sections/home/Information.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Information.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/sections/home/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/profile/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/program/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/program/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/under-development/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +72,12 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Code\Web\nextradenpatah\app\(public)" />
+      <recent name="C:\Code\Web\nextradenpatah\app\(auth)" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -78,7 +97,9 @@
       <workItem from="1735203101930" duration="7655000" />
       <workItem from="1735519157246" duration="21005000" />
       <workItem from="1735655346246" duration="1679000" />
-      <workItem from="1735726758828" duration="4030000" />
+      <workItem from="1735726758828" duration="9628000" />
+      <workItem from="1735780659528" duration="1930000" />
+      <workItem from="1736059150193" duration="12690000" />
     </task>
     <servers />
   </component>

@@ -1,13 +1,49 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import NextAuth from "next-auth";
+import authConfig from "@/auth.config";
 
-const allowedIPs = ['YOUR_IP_ADDRESS']; // Tambahkan IP Anda dan localhost
+const { auth : middleware  } = NextAuth(authConfig);
 
-export function middleware(req: NextRequest) {
+import {
+  apiAuthPrefix,
+  authRoutes,
+  DEFAULT_LOGIN_REDIRECT, checkPublicRoute
+} from "@/routes";
 
-  return NextResponse.next();
-}
+
+// TODO: CHECK Different between return and return null
+export default middleware((req) => {
+  const route = req.nextUrl.pathname;
+  const isLoggedIn = !!req.auth;
+
+  const isApiAuthRoute = route.startsWith(apiAuthPrefix)
+  const isPublicRoute = checkPublicRoute(route);
+  const isAuthRoute = authRoutes.includes(route);
+
+
+  if(isApiAuthRoute) {
+    return; // return null;
+  }
+
+  if(isAuthRoute) {
+    if(isLoggedIn) {
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT,req.nextUrl));
+    }
+    return; // return null;
+  }
+
+  if(!isLoggedIn && !isPublicRoute) {
+    return Response.redirect(new URL("/signIn", req.nextUrl));
+  }
+
+
+  return; // return null;
+});
 
 export const config = {
-  matcher: '/:path*', // Terapkan ke semua halaman
-};
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ]
+}
