@@ -66,5 +66,5 @@ export default {
   		}
   	}
   },
-  plugins: [require('@tailwindcss/line-clamp'), "prettier-plugin-tailwindcss", require("tailwindcss-animate")],
+  plugins: ["prettier-plugin-tailwindcss", require("tailwindcss-animate")],
 } satisfies Config;

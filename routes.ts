@@ -4,6 +4,8 @@
  */
 export const publicRoutes : string[] = [
   '/',
+  '/new-verification',
+  '/reset-password'
 ];
 
 /**
@@ -23,8 +25,6 @@ export function checkPublicRoute(route:string) : boolean {
     return route.startsWith(routePrefix)
   })
 
-
-
   return temp || temp2;
 }
 
@@ -35,7 +35,10 @@ export function checkPublicRoute(route:string) : boolean {
  */
 export const authRoutes : string[] = [
   '/signIn',
-  '/signUp'
+  '/signUp',
+  // TODO : check. Is this should be here? or should be in public rotues
+  '/auth-error',
+  '/new-password'
 ];
 
 /**

@@ -19,3 +19,13 @@ export const signUpSchema = z.object({
     });
   }
 });
+
+export const resetPasswordSchema = z.object({
+  email: z.string().email(),
+})
+
+export const newPasswordSchema = z.object({
+  password: z.string().min(8, {
+    message: " Minimun of 8 characters required"
+  }),
+})

@@ -13,6 +13,7 @@ const Page = async () => {
         <p>user id: {user?.id}</p>
         <p>name: {user?.name}</p>
         <p>email: {user?.email}</p>
+        <p>email Verified: {user?.emailVerified}</p>
         <p>password: {user?.password}</p>
         <p>created at: {user?.createdAt}</p>
         <p>updated at: {user?.updatedAt}</p>
