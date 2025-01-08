@@ -9,8 +9,7 @@ import shoes from "@/public/facilities/rak_sepatu.jpg";
 import qris_mrp from "@/public/facilities/qris_mrp.jpg";
 import proyektor from "@/public/facilities/proyektor.jpg";
 import braille from "@/public/facilities/quran_braille.jpg";
-import etalase_barang_temuan
-  from "@/public/facilities/etalase_barang_temuan.jpg";
+import etalase_barang_temuan from "@/public/facilities/etalase_barang_temuan.jpg";
 import cctv from "@/public/facilities/cctv.jpg";
 import charger_box from "@/public/facilities/charger_box.jpg";
 
@@ -18,7 +17,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import { StaticImageData } from "next/image";
 import { ReactNode, useState } from "react";
-import { log } from "node:util";
 import SectionTitle from "@/components/SectionTitle";
 
 // TODO: This is from DATABASE
@@ -32,73 +30,68 @@ const facilities: Facility[] = [
   {
     title: "Kacamata Baca",
     image: eyeglasses,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Mukena",
     image: robe,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "CCTV",
     image: cctv,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Kotak P3K ",
     image: p3k,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Etalase Barang Temuan ",
     image: etalase_barang_temuan,
-    icon: <Eye className={"text-white"} />
-  }
-  ,
+    icon: <Eye className={"text-white"} />,
+  },
   {
     title: "Charger Box ",
     image: charger_box,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Tempat Penitipan Barang",
     image: penitipan_barang,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Plastik Alas Kaki Jama'ah",
     image: plastik_sepatu,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Kotak Infaq Digital (Qris)",
     image: qris_mrp,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Qur'an Braille",
     image: braille,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Lemari Alas Kaki",
     image: shoes,
-    icon: <Eye className={"text-white"} />
+    icon: <Eye className={"text-white"} />,
   },
   {
     title: "Proyektor",
     image: proyektor,
-    icon: <Eye className={"text-white"} />
-  }
+    icon: <Eye className={"text-white"} />,
+  },
 ];
 
 const Facilities = () => {
   const [current, setCurrent] = useState<number>(0);
 
-  const facilitiesLoop: Facility[] = [
-    ...facilities.slice(current, current + 5),
-    ...facilities.slice(0, Math.max(0, current + 5 - facilities.length)) // Wrap around if needed
-  ];
   const prev = () => {
     // Update current and loop
     const newCurrent = (current - 1 + facilities.length) % facilities.length;
@@ -113,25 +106,25 @@ const Facilities = () => {
     console.log(newCurrent * (100 / facilities.length));
   };
 
-
   return (
     <>
-      <div className={"bg-secondary w-full py-[120px] "}>
-        <SectionTitle title={'Fasilitas di Masjid Raden Patah'} subtitle={'Yuk kita lihat fasilitas yang ada di Masjid Raden Patah'} />
+      <div className={"w-full bg-secondary py-[120px]"}>
+        <SectionTitle
+          title={"Fasilitas di Masjid Raden Patah"}
+          subtitle={"Yuk kita lihat fasilitas yang ada di Masjid Raden Patah"}
+        />
 
-
-        <div className={"container py-12 relative"}>
-
+        <div className={"container relative py-12"}>
           <AnimatePresence>
-
             <motion.div
-              className="flex w-full gap-8  justify-center h-[350px]"
+              className="flex h-[350px] w-full justify-center gap-8"
               transition={{ staggerChildren: 0.5 }}
               // animate={{x: current * (100)}}
             >
               {Array.from({ length: 5 }).map((_, i) => {
                 // Hitung indeks dengan wrap-around
-                const index = (current - 2 + i + facilities.length) % facilities.length;
+                const index =
+                  (current - 2 + i + facilities.length) % facilities.length;
                 const item = facilities[index];
 
                 return (
@@ -145,43 +138,52 @@ const Facilities = () => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div
-            className="flex gap-2 w-full justify-between absolute inset-0 h-fit top-1/2">
-            <button className={"relative left-[102%] p-4 rounded-full" +
-              " bg-primary" +
-              " h-fit" +
-              " text-white"} onClick={next}>
+          <div className="absolute inset-0 top-1/2 flex h-fit w-full justify-between gap-2">
+            <button
+              className={
+                "relative left-[102%] rounded-full p-4" +
+                " bg-primary" +
+                " h-fit" +
+                " text-white"
+              }
+              onClick={next}
+            >
               <ChevronRight />
             </button>
-            <button className={"p-4 rounded-full right-[102%] relative" +
-              " bg-primary h-fit" +
-              " text-white"} onClick={prev}>
+            <button
+              className={
+                "relative right-[102%] rounded-full p-4" +
+                " h-fit bg-primary" +
+                " text-white"
+              }
+              onClick={prev}
+            >
               <ChevronLeft />
             </button>
           </div>
-
-
         </div>
-        <div className={'container flex gap-2' +
-          ' items-center justify-center' +
-          ' w-full pt-12 z-50'}>
+        <div
+          className={
+            "container flex gap-2" +
+            " items-center justify-center" +
+            " z-50 w-full pt-12"
+          }
+        >
           {facilities.map((_, index) => {
             return (
               <button
                 key={index}
-                className={`size-4 ${index === current ? 'bg-primary' : 'bg-gray-400'} hover:bg-secondary rounded-full`}
+                className={`size-4 ${index === current ? "bg-primary" : "bg-gray-400"} rounded-full hover:bg-secondary`}
                 onClick={() => {
                   console.log(index);
-                  setCurrent(index)
+                  setCurrent(index);
                 }}
               />
-            )
+            );
           })}
-
         </div>
       </div>
     </>
-  )
-    ;
+  );
 };
 export default Facilities;

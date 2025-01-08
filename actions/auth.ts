@@ -5,7 +5,8 @@ import bcrypt from "bcryptjs";
 import {
   signUpSchema,
   signInSchema,
-  resetPasswordSchema, newPasswordSchema
+  resetPasswordSchema,
+  newPasswordSchema,
 } from "@/schemas/authSchemas";
 import { getUserByEmail } from "@/data/User";
 import { prisma } from "@/lib/db";
@@ -14,19 +15,17 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { generateVerificationByEmail } from "@/lib/verification-token";
 import { sendResetPasswordEmail, sendVerificationEmail } from "@/lib/mail";
-import {
-  getVerificationTokenByToken
-} from "@/data/VerificationToken";
+import { getVerificationTokenByToken } from "@/data/VerificationToken";
 import { generateResetPasswordTokenByEmail } from "@/lib/reset-password-token";
-import {
-  extractInfoFromServerReferenceId
-} from "next/dist/client/components/router-reducer/reducers/server-reference-info";
+import { extractInfoFromServerReferenceId } from "next/dist/client/components/router-reducer/reducers/server-reference-info";
 import {
   getResetPasswordTokenByEmail,
-  getResetPasswordTokenByToken
+  getResetPasswordTokenByToken,
 } from "@/data/ResetPasswordToken";
 
-export const signInAction = async (values: z.infer<typeof signInSchema>): Promise<Record<string, string>> => {
+export const signInAction = async (
+  values: z.infer<typeof signInSchema>,
+): Promise<Record<string, string>> => {
   console.log("signIn Action");
   const validatedFields = signInSchema.safeParse(values);
 
@@ -43,19 +42,22 @@ export const signInAction = async (values: z.infer<typeof signInSchema>): Promis
 
   // TODO: Check if the email is Verified or not
   if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationByEmail(existingUser.email);
-    await sendVerificationEmail(verificationToken.email, verificationToken.token);
+    const verificationToken = await generateVerificationByEmail(
+      existingUser.email,
+    );
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token,
+    );
     return { success: "Email Verification has sent" };
   }
 
   try {
-
-    await signIn("credentials",
-      {
-        email,
-        password,
-        redirectTo: DEFAULT_LOGIN_REDIRECT
-      });
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -71,7 +73,9 @@ export const signInAction = async (values: z.infer<typeof signInSchema>): Promis
   return { success: "SignIn Succces Welcome Back" };
 };
 
-export const signUpAction = async (values: z.infer<typeof signUpSchema>): Promise<Record<string, string>> => {
+export const signUpAction = async (
+  values: z.infer<typeof signUpSchema>,
+): Promise<Record<string, string>> => {
   console.log("signUp Action");
   const validatedFields = signUpSchema.safeParse(values);
 
@@ -93,95 +97,98 @@ export const signUpAction = async (values: z.infer<typeof signUpSchema>): Promis
     data: {
       name,
       email,
-      password: hashedPassword
-    }
+      password: hashedPassword,
+    },
   });
 
   const verificationToken = await generateVerificationByEmail(email);
   await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
-
   return { success: `Verification token has been sent` };
 };
 
-export async function verifyEmail(token: string): Promise<Record<string, string>> {
+export async function verifyEmail(
+  token: string,
+): Promise<Record<string, string>> {
   const existingToken = await getVerificationTokenByToken(token);
   if (!existingToken) {
     return { error: "Token Doesn't exist" };
   }
 
   const hasExpired = new Date(existingToken.expires) < new Date();
-  if(hasExpired) {
+  if (hasExpired) {
     return { error: "Token Has Expires" };
   }
 
   const existingUser = await getUserByEmail(existingToken.email);
-  if(!existingUser) {
+  if (!existingUser) {
     return { error: "Email doesn't exist" };
   }
 
   await prisma.user.update({
-    where:{ id: existingUser.id} ,
+    where: { id: existingUser.id },
     data: {
       email: existingToken.email,
-      emailVerified: new Date()
-    }
+      emailVerified: new Date(),
+    },
   });
 
   await prisma.verificationToken.delete({
     where: {
-      id: existingToken.id
-    }
+      id: existingToken.id,
+    },
   });
 
   return { success: "Success verifying your email" };
 }
 
-export async function resetPasswordAction(values: z.infer<typeof resetPasswordSchema>) : Promise<Record<string, string>> {
+export async function resetPasswordAction(
+  values: z.infer<typeof resetPasswordSchema>,
+): Promise<Record<string, string>> {
   const validatedFields = resetPasswordSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Something went wrong" };
   }
 
-  const { email} = validatedFields.data;
+  const { email } = validatedFields.data;
 
   const existingUser = await getUserByEmail(email);
 
-  if(!existingUser || !existingUser.email) {
-    return {error: "Email doesn't exit"};
+  if (!existingUser || !existingUser.email) {
+    return { error: "Email doesn't exit" };
   }
 
   // Generate token & send email
   const token = await generateResetPasswordTokenByEmail(existingUser.email);
-  await sendResetPasswordEmail(token.email, token.token)
+  await sendResetPasswordEmail(token.email, token.token);
 
   return { success: "Reset password request successfully sent" };
 }
 
 export async function newPasswordAction(
   values: z.infer<typeof newPasswordSchema>,
-  token: string | null
-) : Promise<Record<string,string >> {
-  if(!token) {
-    return { error: "Token is Missing" }
+  token: string | null,
+): Promise<Record<string, string>> {
+  if (!token) {
+    return { error: "Token is Missing" };
   }
 
   const validatedFields = newPasswordSchema.safeParse(values);
-  if(!validatedFields) {
-    return { error: "Invalid Credentials" }
+  if (!validatedFields.success) {
+    return { error: "Invalid Credentials" };
   }
 
   const { password } = validatedFields.data;
   const existingToken = await getResetPasswordTokenByToken(token);
-  if(!existingToken) {
+  if (!existingToken) {
     return { error: "Token Doesn't exist" };
   }
 
   const hasExpired = new Date(existingToken.expires) < new Date();
 
   const existingUser = await getUserByEmail(existingToken.email);
-  if(!existingUser) {
+  if (!existingUser) {
     return { error: "Email Doesn't exist" };
   }
 
@@ -189,12 +196,12 @@ export async function newPasswordAction(
 
   await prisma.user.update({
     where: { id: existingUser.id },
-    data: {password: hashedPassword}
-  })
+    data: { password: hashedPassword },
+  });
 
   await prisma.resetPasswordToken.delete({
-    where: {id:existingToken.id}
-  })
+    where: { id: existingToken.id },
+  });
 
-  return { success: "Successfully changing to new password" }
+  return { success: "Successfully changing to new password" };
 }

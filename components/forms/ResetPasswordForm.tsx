@@ -1,11 +1,13 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import {
   Form,
-  FormControl, FormDescription,
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel, FormMessage
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,18 +25,16 @@ const ResetPasswordForm = () => {
     defaultValues: {
       email: "",
     },
-  })
+  });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
     console.log(values);
     try {
-      const response = await resetPasswordAction(values)
+      const response = await resetPasswordAction(values);
       setMessage(response);
-
     } catch {
-      setMessage({error: "Something went wrong from on submit function"});
-
+      setMessage({ error: "Something went wrong from on submit function" });
     }
   }
 
@@ -48,14 +48,21 @@ const ResetPasswordForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder="jhondoe@example.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="jhondoe@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
+              <FormDescription />
             </FormItem>
           )}
         />
         {message?.error && <p>{message.error}</p>}
-        {message?.success && <p>Success generating and sending new reset token</p>}
+        {message?.success && (
+          <p>Success generating and sending new reset token</p>
+        )}
         <Button type="submit">Submit</Button>
       </form>
     </Form>

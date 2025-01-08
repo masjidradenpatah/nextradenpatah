@@ -10,30 +10,28 @@ interface InformationProps {
   altText: string;
 }
 
-const InformationCard = ({
-                           title,
-                           speaker,
-                           location,
-                           date,
-                           subtitle,
-                           altText,
-                           image
-                         }: InformationProps) => {
+const InformationCard = ({ title, speaker, location }: InformationProps) => {
   return (
-    <div className={"flex flex-col rounded-3xl basis-1/3 bg-secondary" +
-      " overflow-hidden"}>
+    <div
+      className={
+        "flex basis-1/3 flex-col rounded-3xl bg-secondary" + " overflow-hidden"
+      }
+    >
       <div
-        className={`p-4 bg-[url("../public/informations/alquran.jpg")] bg-center bg-cover w-full h-[200px] flex flex-col justify-end`}>
-
-        <div className={"h-24 backdrop-blur-sm rounded-xl p-4 w-full" +
-          " bg-white/15"}>
-          <div className=" text-white flex gap-2 w-full">
-            <div className={'flex flex-col justify-center'}>
-              <p className={'font-bold text-xl'}>Kismala</p>
+        className={`flex h-[200px] w-full flex-col justify-end bg-[url("../public/informations/alquran.jpg")] bg-cover bg-center p-4`}
+      >
+        <div
+          className={
+            "h-24 w-full rounded-xl p-4 backdrop-blur-sm" + " bg-white/15"
+          }
+        >
+          <div className="flex w-full gap-2 text-white">
+            <div className={"flex flex-col justify-center"}>
+              <p className={"text-xl font-bold"}>Kismala</p>
               <p>Kajian Tematik Islam Menjelang Maghrib</p>
             </div>
             <div>
-              <p className={"bg-emerald-500 p-1 rounded-md text-white"}>
+              <p className={"rounded-md bg-emerald-500 p-1 text-white"}>
                 Hari ini
               </p>
               <p className={"text-center"}>16.00</p>
@@ -41,22 +39,31 @@ const InformationCard = ({
           </div>
         </div>
       </div>
-      <div className={"flex flex-col p-4 flex-grow"}>
+      <div className={"flex flex-grow flex-col p-4"}>
         <div className={"mb-2"}>
-          <h3 className={"font-medium text-2xl"}>{title}</h3>
+          <h3 className={"text-2xl font-medium"}>{title}</h3>
           <p>{speaker}</p>
         </div>
         {/*<p>{subtitle}</p>*/}
         <div className={"flex flex-grow items-end gap-2"}>
           <div
-            className={"size-12  bg-primary rounded-xl grid place-content-center"}>
-            <MapPinned className={"text-white"} /></div>
-          <div className={"flex items-center bg-white h-12 w-full px-4 my-" +
-            " rounded-xl" +
-            " font-medium"}>{location}</div>
+            className={
+              "grid size-12 place-content-center rounded-xl bg-primary"
+            }
+          >
+            <MapPinned className={"text-white"} />
+          </div>
+          <div
+            className={
+              "my- flex h-12 w-full items-center bg-white px-4" +
+              " rounded-xl" +
+              " font-medium"
+            }
+          >
+            {location}
+          </div>
         </div>
         {/*<p>Date: {date.toLocaleDateString()}</p> /!* Format tanggal *!/*/}
-
       </div>
     </div>
   );

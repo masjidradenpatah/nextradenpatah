@@ -5,7 +5,7 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader
+  CardHeader,
 } from "@/components/ui/card";
 import { useSearchParams } from "next/navigation";
 import { verifyEmail } from "@/actions/auth";
@@ -18,31 +18,24 @@ const NewVerificationForm = () => {
 
   const onSubmit = useCallback(() => {
     if (!token) {
-      setMessage({error: "Token is missing"});
+      setMessage({ error: "Token is missing" });
       return;
     }
 
     verifyEmail(token)
-      .then(data => setMessage(data))
+      .then((data) => setMessage(data))
       .catch(() => console.log("Something wen wrong"));
-
-
-  }, [token, message]);
+  }, [token]);
 
   useEffect(() => {
-    onSubmit()
+    onSubmit();
   }, [onSubmit]);
 
   return (
     <Card>
-      <CardHeader>
-        Confirm Your Email
-      </CardHeader>
+      <CardHeader>Confirm Your Email</CardHeader>
       <CardContent>
-        {
-          !message &&
-          <BeatLoader />
-        }
+        {!message && <BeatLoader />}
         {message && <p>message</p>}
       </CardContent>
       <CardFooter></CardFooter>

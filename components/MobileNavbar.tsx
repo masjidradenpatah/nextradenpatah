@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import NavLink from "@/components/NavLink";
 const MobileNavbar = ({ isNavbarOpen }: { isNavbarOpen: boolean }) => {
   return (

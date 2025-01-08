@@ -1,11 +1,10 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader
+  CardHeader,
 } from "@/components/ui/card";
 import { useSearchParams } from "next/navigation";
 import {
@@ -13,20 +12,18 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel, FormMessage
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { newPasswordSchema, signInSchema } from "@/schemas/authSchemas";
+import { newPasswordSchema } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { newPasswordAction, signInAction } from "@/actions/auth";
-// import { verifyEmail } from "@/actions/auth";
+import { newPasswordAction } from "@/actions/auth";
 
 const NewPasswordForm = () => {
-
-
   const [message, setMessage] = useState<Record<string, string> | undefined>();
   const searchParams = useSearchParams();
 
@@ -34,31 +31,28 @@ const NewPasswordForm = () => {
   const form = useForm<z.infer<typeof newPasswordSchema>>({
     resolver: zodResolver(newPasswordSchema),
     defaultValues: {
-      password: ""
+      password: "",
     },
-  })
+  });
 
   const token = searchParams.get("token");
 
-  async function onSubmit(values: z.infer<typeof signInSchema>) {
+  async function onSubmit(values: z.infer<typeof newPasswordSchema>) {
     if (!token) {
-      setMessage({error: "Token is missing"});
+      setMessage({ error: "Token is missing" });
       return;
     }
 
     newPasswordAction(values, token)
-      .then(data => setMessage(data))
+      .then((data) => setMessage(data))
       .catch(() => console.log("Something wen wrong"));
-    console.log(values)
+    console.log(values);
   }
 
   return (
     <Card>
-      <CardHeader>
-        Confirm Your Email
-      </CardHeader>
+      <CardHeader>Confirm Your Email</CardHeader>
       <CardContent>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -68,7 +62,7 @@ const NewPasswordForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' placeholder="*******" {...field} />
+                    <Input type="password" placeholder="*******" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,9 +72,8 @@ const NewPasswordForm = () => {
             <Button type="submit">Reset Password</Button>
           </form>
         </Form>
-
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>{message?.first}</CardFooter>
     </Card>
   );
 };

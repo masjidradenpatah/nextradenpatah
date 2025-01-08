@@ -1,11 +1,16 @@
-import React from "react";
+import React, { Suspense } from "react";
 import NewVerificationForm from "@/components/forms/NewVerificationForm";
 
 const Page = () => {
   return (
-    <div className={'w-full h-full flex items-center justify-center' +
-      ' min-h-screen'}>
-      <NewVerificationForm />
+    <div
+      className={
+        "flex h-full w-full items-center justify-center" + " min-h-screen"
+      }
+    >
+      <Suspense>
+        <NewVerificationForm />
+      </Suspense>
     </div>
   );
 };

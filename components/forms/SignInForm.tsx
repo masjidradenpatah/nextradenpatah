@@ -1,11 +1,13 @@
-'use client'
+"use client";
 import React from "react";
 import {
   Form,
-  FormControl, FormDescription,
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel, FormMessage
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,14 +23,15 @@ const SignInForm = () => {
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
-  })
+  });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signInSchema>) {
     const result = await signInAction(values);
-    console.log(values)
+    console.log(values);
+    console.log(result);
   }
   return (
     <Form {...form}>
@@ -40,9 +43,14 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder="jhondoe@example.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="jhondoe@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
+              <FormDescription />
             </FormItem>
           )}
         />
@@ -53,9 +61,10 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type='password' placeholder="*******" {...field} />
+                <Input type="password" placeholder="*******" {...field} />
               </FormControl>
               <FormMessage />
+              <FormDescription />
             </FormItem>
           )}
         />
