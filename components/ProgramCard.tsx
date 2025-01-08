@@ -51,7 +51,7 @@ export const ProgramCardWrapper = ({
       <div className={"px-8 py-4 flex flex-col gap-4"}>
         {children}
         {/*      TODO: IMPLEMENT DYNAMIC ROUTING OR MODAL*/}
-        <Link href={"/program"}
+        <Link href={"/programs"}
               className={"text-primary w-full text-center"}> Selengkapnya <ChevronRight
           className={"inline"} /></Link>
       </div>

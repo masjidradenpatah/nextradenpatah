@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className={"flex-grow  flex flex-col items-center"}>
+      <main className={"w-full h-full"}>
         {children}
 
       </main>
