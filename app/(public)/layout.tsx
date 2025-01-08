@@ -1,15 +1,14 @@
 import React, { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { auth } from "@/auth";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const session = await auth();
   return (
     <>
-      <Navbar />
-      <main className={"w-full h-full"}>
-        {children}
-
-      </main>
+      <Navbar isLoggedIn={!!session} />
+      <main className={"w-full"}>{children}</main>
       <Footer />
     </>
   );

@@ -2,29 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, :root{
+html, body, :root {
     height: 100%;
 }
-:root {
-    --clr-primary: #1EAAC8;
-    --clr-secondary: #DCF2F2;
-}
+
 @layer base {
-  :root {
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    :root {
         --background: 0 0% 100%;
         --foreground: 0 0% 3.9%;
         --card: 0 0% 100%;
         --card-foreground: 0 0% 3.9%;
         --popover: 0 0% 100%;
         --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
+        --primary: 191 75% 46%;
         --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
+        --secondary: 180 52% 91%;
+        --secondary-foreground: 191 75% 46%;
+        --muted: 180 52% 91%;
         --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
+        --accent: 180 52% 91%;
+        --accent-foreground: 191 75% 46%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
         --border: 0 0% 89.8%;
@@ -37,7 +43,8 @@ html, body, :root{
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
     }
-  .dark {
+
+    .dark {
         --background: 0 0% 3.9%;
         --foreground: 0 0% 98%;
         --card: 0 0% 3.9%;
@@ -45,7 +52,7 @@ html, body, :root{
         --popover: 0 0% 3.9%;
         --popover-foreground: 0 0% 98%;
         --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
+        --primary-foreground: 191 75% 46%;
         --secondary: 0 0% 14.9%;
         --secondary-foreground: 0 0% 98%;
         --muted: 0 0% 14.9%;
@@ -63,12 +70,25 @@ html, body, :root{
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
     }
+
 }
-@layer base {
-  * {
-    @apply border-border;
+
+@layer utilities {
+      .glassmorphic-lg {
+            @apply bg-white/[36%] backdrop-blur-[100px] shadow;
+      }
+      .glassmorphic-sm {
+          @apply bg-white/[36%] backdrop-blur-[12px] shadow;
+      }
+    .program-image-shadow {
+        @apply shadow-2xl;
     }
-  body {
-    @apply bg-background text-foreground;
-    }
+}
+
+.list_item {
+    @apply cursor-pointer text-black hover:font-medium hover:text-secondary;
+}
+
+.bars_element {
+    @apply absolute h-[6px] bg-primary rounded-full transition-all  origin-center w-3/4;
 }

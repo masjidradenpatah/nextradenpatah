@@ -7,8 +7,7 @@ import Map from "@/components/sections/home/Map";
 
 export default function Home() {
   return (
-    <div className={'w-full h-full flex items-center justify-center'}>
-      <h1>Helloo</h1>
+    <div className={"flex h-full w-full flex-col items-center"}>
       <Hero />
       <Information />
       <Profile />
