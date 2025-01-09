@@ -12,7 +12,7 @@ import NavLink from "@/components/NavLink";
 const Navbar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
   return (
-    <header className={"z-50 w-full bg-white"}>
+    <header className={"fixed z-50 w-full bg-white"}>
       <nav
         className={
           "container mt-2 flex w-full items-center justify-between p-4 px-2"

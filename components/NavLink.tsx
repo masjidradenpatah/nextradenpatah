@@ -5,18 +5,18 @@ import Link from "next/link";
 const NavLink = ({ link, text }: { link: string; text: string }) => {
   const pathname = usePathname();
 
-  function isCurrentPath(currentPath: string, linkPath: string): boolean {
-    if (currentPath === linkPath) return true;
-    if (currentPath === "/" || linkPath === "/") {
+  function isCurrentPath(): boolean {
+    if (pathname === link) return pathname === link;
+    if (pathname === "/" || link === "/") {
       return false;
     }
-    return currentPath.startsWith(linkPath);
+    return pathname.startsWith(link);
   }
 
   return (
     <Link
       href={link}
-      className={`${isCurrentPath(pathname, link) ? "font-bold text-primary" : ""}`}
+      className={`${isCurrentPath() ? "font-bold text-primary" : "transition duration-150 hover:text-primary/75"}`}
     >
       {text}
     </Link>

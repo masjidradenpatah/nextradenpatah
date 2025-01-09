@@ -74,12 +74,22 @@ html, body, :root {
 }
 
 @layer utilities {
-      .glassmorphic-lg {
-            @apply bg-white/[36%] backdrop-blur-[100px] shadow;
-      }
-      .glassmorphic-sm {
-          @apply bg-white/[36%] backdrop-blur-[12px] shadow;
-      }
+    .rounded-4xl {
+        @apply rounded-[32px];
+    }
+
+    .rounded-5xl {
+        @apply rounded-[48px];
+    }
+
+    .glassmorphic-lg {
+        @apply bg-white/35 backdrop-blur-[100px] shadow;
+    }
+
+    .glassmorphic-sm {
+        @apply bg-white/35 backdrop-blur-[12px] shadow;
+    }
+
     .program-image-shadow {
         @apply shadow-2xl;
     }
@@ -92,3 +102,19 @@ html, body, :root {
 .bars_element {
     @apply absolute h-[6px] bg-primary rounded-full transition-all  origin-center w-3/4;
 }
+
+.galleryItem1 { grid-area: 1 / 3 / 2 / 4; }
+.galleryItem2 { grid-area: 2 / 1 / 3 / 2; }
+.galleryItem3 { grid-area: 2 / 2 / 3 / 3; }
+.galleryItem4 { grid-area: 2 / 3 / 3 / 4; }
+.galleryItem5 { grid-area: 2 / 4 / 3 / 5; }
+.galleryItem6 { grid-area: 3 / 1 / 4 / 2; }
+.galleryItem7 { grid-area: 3 / 2 / 5 / 4; }
+.galleryItem8 { grid-area: 3 / 4 / 4 / 5; }
+.galleryItem9 { grid-area: 4 / 1 / 5 / 2; }
+.galleryItem10 { grid-area: 4 / 4 / 5 / 5; }
+.galleryItem11 { grid-area: 5 / 1 / 6 / 2; }
+.galleryItem12 { grid-area: 5 / 2 / 6 / 3; }
+.galleryItem13 { grid-area: 5 / 3 / 6 / 4; }
+.galleryItem14 { grid-area: 5 / 4 / 6 / 5; }
+.galleryItem15 { grid-area: 6 / 3 / 7 / 4; }
