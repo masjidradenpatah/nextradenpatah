@@ -1,5 +1,5 @@
 import React from "react";
-import { BgDouble, BgSingle, Shades } from "@/components/decorations/shades";
+import { BgSingle, Shades } from "@/components/decorations/shades";
 import Image from "next/image";
 import donate from "@/public/donate.svg";
 import qris from "@/public/qirs_mrp.png";

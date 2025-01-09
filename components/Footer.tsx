@@ -8,7 +8,6 @@ import tiktok from "@/public/icons/tiktok.svg";
 import tele from "@/public/icons/tele.svg";
 import ig from "@/public/icons/ig.svg";
 import fb from "@/public/icons/fb.svg";
-import web from "@/public/icons/web.svg";
 import wa from "@/public/icons/wa.svg";
 import Link from "next/link";
 
