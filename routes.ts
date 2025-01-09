@@ -1,4 +1,28 @@
 /**
+ * An array of routes that are accessible just when development
+ * @type {string[]}
+ */
+export const devRoutes: string[] = ["/test"];
+
+/**
+ * If a routes have this prefix than it should be accessible just when development
+ * e.g /article/articleId
+ * @type {string[]}
+ */
+export const devRoutesPrefix: string[] = [];
+
+export function checkDevelopmentRoute(route: string): boolean {
+  const check1 = devRoutes.includes(route);
+
+  // i want to check if the prefix is match or not, eventough only one is true
+  const check2 = devRoutesPrefix.some((routePrefix) => {
+    return route.startsWith(routePrefix);
+  });
+
+  return check1 || check2;
+}
+
+/**
  * An array of routes that are accessible for authenticate or non-authenticate user
  * @type {string[]}
  */
@@ -18,14 +42,14 @@ export const publicRoutes: string[] = [
 export const publicRoutesPrefix: string[] = ["/programs", "/article"];
 
 export function checkPublicRoute(route: string): boolean {
-  const temp = publicRoutes.includes(route);
+  const check1 = publicRoutes.includes(route);
 
   // i want to check if the prefix is match or not, eventough only one is true
-  const temp2 = publicRoutesPrefix.some((routePrefix) => {
+  const check2 = publicRoutesPrefix.some((routePrefix) => {
     return route.startsWith(routePrefix);
   });
 
-  return temp || temp2;
+  return check1 || check2;
 }
 
 /**
