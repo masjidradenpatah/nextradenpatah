@@ -41,9 +41,9 @@ const GalleryImage = ({
   useEffect(() => {
     if (isInView) {
       //   Fire the animation
-      mainAnimation.start("visible").then((_) => {});
+      mainAnimation.start("visible").then(() => {});
     }
-  }, [isInView]);
+  }, [isInView, mainAnimation]);
 
   const base = {
     hidden: { opacity: 0 },
