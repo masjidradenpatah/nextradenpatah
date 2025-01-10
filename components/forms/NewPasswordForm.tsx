@@ -45,8 +45,7 @@ const NewPasswordForm = () => {
 
     newPasswordAction(values, token)
       .then((data) => setMessage(data))
-      .catch(() => console.log("Something wen wrong"));
-    console.log(values);
+      .catch(() => {});
   }
 
   return (

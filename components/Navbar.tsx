@@ -30,7 +30,6 @@ const Navbar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         </div>
         <div className={"hidden gap-4 md:flex"}>
           {isLoggedIn ? (
-            // TODO: Add profile button to Dashboard
             <></>
           ) : (
             <>

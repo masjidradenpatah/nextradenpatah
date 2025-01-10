@@ -19,7 +19,6 @@ import { resetPasswordAction } from "@/actions/auth";
 
 const ResetPasswordForm = () => {
   const [message, setMessage] = useState<Record<string, string> | undefined>();
-  // 1. Define your form.
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
@@ -27,9 +26,7 @@ const ResetPasswordForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
-    console.log(values);
     try {
       const response = await resetPasswordAction(values);
       setMessage(response);
