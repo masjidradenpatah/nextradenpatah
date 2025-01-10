@@ -21,43 +21,53 @@ const HeroBackground = () => {
   return (
     <div className={"absolute -z-10 flex h-full w-full"}>
       <div className="glassmorphic-lg h-full flex-grow"></div>
-      <div className="h-full flex-grow bg-secondary"></div>
+      <div className="hidden h-full flex-grow bg-secondary md:block"></div>
     </div>
   );
 };
 
 const HeroLeftSide = () => {
   return (
-    <div className={"relative flex h-full w-1/2 flex-col justify-center"}>
+    <div
+      className={"relative flex h-full w-full flex-col justify-center md:w-1/2"}
+    >
       <CircleIcon
         icon={<Book />}
-        className={"absolute -translate-y-24 -rotate-12"}
+        className={
+          "absolute -rotate-12 sm:translate-x-12 md:translate-x-0 " +
+          "-translate-y-24 md:-translate-y-44 lg:-translate-y-32 2xl:-translate-y-24"
+        }
       />
       <CircleIcon
         icon={<GraduationCap />}
-        className={"absolute right-0 -translate-x-24 -translate-y-8 rotate-12"}
+        className={
+          "absolute right-0 -translate-y-12 rotate-12 sm:-translate-y-16 md:-translate-y-4 lg:-translate-y-16 2xl:-translate-y-10" +
+          " -translate-x-8 sm:-translate-x-12 md:-translate-x-40 lg:-translate-x-16 xl:-translate-x-36 2xl:-translate-x-20"
+        }
       />
-      <p className={"text-4xl text-muted-foreground"}>Selamat Datang di</p>
-      <h1 className={"my-2 text-7xl font-bold text-primary"}>
+      <p className={"text-center text-4xl text-muted-foreground md:text-left"}>
+        Selamat Datang di
+      </p>
+      <h1
+        className={
+          "my-2 text-center text-7xl font-bold text-primary md:text-left"
+        }
+      >
         Masjid Raden Patah
       </h1>
-      <p className={"text-2xl text-muted-foreground"}>Universitas Brawijaya</p>
+      <p className={"text-center text-2xl text-muted-foreground md:text-left"}>
+        Universitas Brawijaya
+      </p>
     </div>
   );
 };
 
 const HeroRightSide = () => {
   return (
-    <div className={"relative h-full w-1/2"}>
+    <div className={"relative hidden h-full w-1/2 md:block"}>
       {/* Start background here */}
-      <div className={"flex h-full w-full"}>
-        <div className={"relative h-full w-1/2 overflow-hidden"}>
-          <Shades className={"-translate-x-1/5 left-0 top-0 opacity-75"} />
-        </div>
-        <div className={"ov relative h-full w-1/2"}>
-          <Shades className={"bottom-0 right-0 translate-x-0 opacity-75"} />
-        </div>
-      </div>
+      <Shades className={"-translate-x-1/5 left-0 top-0 opacity-75"} />
+      <Shades className={"bottom-0 right-0 translate-x-0 opacity-75"} />
       {/* End background here */}
 
       <div

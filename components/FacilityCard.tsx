@@ -10,37 +10,30 @@ interface FacilityProps {
 
 const FacilityCard = ({ image, title, icon }: FacilityProps) => {
   return (
-    <motion.div
-      className={"bg-white border rounded-bl-none rounded-full" +
-        " flex-shrink-0 w-[250px] flex flex-col gap-4" +
-        " p-5 shadow flex-grow"}
-      initial={{
-        y: 50
-      }}
-      animate={{
-        y: 0
-      }}
-      exit={{
-        y: 50
-      }}
+    <div
+      className={
+        "flex w-[281px] flex-shrink-0 flex-grow flex-col gap-4 rounded-full rounded-bl-none border bg-white p-5 shadow"
+      }
     >
       {/*image here*/}
       <div className={"relative w-full"}>
-        <Image src={image} className={"aspect-square w-full" +
-          " object-cover rounded-full"} alt={"fasilitas di masjid raden" +
-          " patah"} />
-        <div className={"size-8  bottom-0.5 rounded-full" +
-          " absolute scale-150" +
-          " bg-primary right-0 grid place-content-center p-2"}>
+        <Image
+          src={image}
+          className={"aspect-square w-full" + " rounded-full object-cover"}
+          alt={"fasilitas di masjid raden" + " patah"}
+        />
+        <div
+          className={
+            "absolute bottom-0.5 right-0 grid size-8 scale-150 place-content-center rounded-full bg-primary p-2"
+          }
+        >
           {icon}
         </div>
       </div>
-      <div className={"flex-grow flex flex-col  justify-center"}>
-
-        <p className={"text-2xl font-medium"}>{title}</p>
+      <div className={"flex flex-grow flex-col justify-center"}>
+        <p className={"text-2xl font-medium text-black"}>{title}</p>
       </div>
-
-    </motion.div>
+    </div>
   );
 };
 export default FacilityCard;

@@ -91,6 +91,7 @@ const GalleryImage = ({
             src={image}
             alt={"Gallery Masjid Raden Patah"}
             className={"size-full object-cover object-center"}
+            loading={"eager"}
           />
         )}
       </motion.div>
