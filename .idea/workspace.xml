@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bd83a4c-62e9-4497-9429-ad95018350f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/components/sections/home/Donate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Donate.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/build_check.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +29,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "development",
-    "last_opened_file_path": "C:/Code/WorkingProject/nextradenpatah",
+    "last_opened_file_path": "C:/Code/WorkingProject/nextradenpatah/.github/workflows",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
     "node.js.detected.package.tslint": "true",
@@ -88,6 +90,7 @@
       <workItem from="1736330082281" duration="12507000" />
       <workItem from="1736380445517" duration="17071000" />
       <workItem from="1736407980769" duration="15933000" />
+      <workItem from="1736476203150" duration="721000" />
     </task>
     <servers />
   </component>
