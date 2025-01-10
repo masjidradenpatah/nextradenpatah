@@ -16,14 +16,12 @@ const Facilities = () => {
     // Update current and loop
     const newCurrent = (current - 1 + facilities.length) % facilities.length;
     setCurrent(newCurrent);
-    console.log(newCurrent);
   };
 
   const next = () => {
     // Update current and loop
     const newCurrent = (current + 1) % facilities.length;
     setCurrent(newCurrent);
-    console.log(newCurrent * (100 / facilities.length));
   };
 
   return (

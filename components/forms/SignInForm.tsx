@@ -18,7 +18,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signInAction } from "@/actions/auth";
 
 const SignInForm = () => {
-  // 1. Define your form.
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -27,11 +26,8 @@ const SignInForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signInSchema>) {
-    const result = await signInAction(values);
-    console.log(values);
-    console.log(result);
+    await signInAction(values);
   }
   return (
     <Form {...form}>

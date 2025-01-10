@@ -4,6 +4,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import SectionTitle from "@/components/SectionTitle";
 import { motion, useAnimation, useInView } from "framer-motion";
+
 import { BgSingle, BgTriple } from "@/components/decorations/shades";
 import { GalleryImageArr } from "@/data/GalleryImage";
 import { GalleryImageType } from "@/types/GalleryImage";
@@ -55,6 +56,7 @@ const GalleryImage = ({
 
   useEffect(() => {
     if (isInView) {
+      //   Fire the animation
       mainAnimation.start("visible").then(() => {});
     }
   }, [isInView, mainAnimation]);
@@ -64,6 +66,7 @@ const GalleryImage = ({
     visible: { opacity: 1.5 },
   };
 
+  // Merge base animation with overridden variants
   const finalVariants = {
     hidden: { ...base.hidden, ...variants?.hidden },
     visible: { ...base.visible, ...variants?.visible },
@@ -88,7 +91,6 @@ const GalleryImage = ({
             src={image}
             alt={"Gallery Masjid Raden Patah"}
             className={"size-full object-cover object-center"}
-            loading={"eager"}
           />
         )}
       </motion.div>

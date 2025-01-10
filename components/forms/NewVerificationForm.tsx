@@ -24,7 +24,7 @@ const NewVerificationForm = () => {
 
     verifyEmail(token)
       .then((data) => setMessage(data))
-      .catch(() => console.log("Something wen wrong"));
+      .catch(() => {});
   }, [token]);
 
   useEffect(() => {

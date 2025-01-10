@@ -39,7 +39,6 @@ export const BgDouble = ({
   position = "center",
 }: BackgroundProps) => {
   return (
-    // TODO: Check the sizes
     <Image
       src={bgDoubleImg}
       alt={""}

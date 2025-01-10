@@ -1,11 +1,12 @@
-'use client'
+"use client";
 import React from "react";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel, FormMessage
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,23 +18,20 @@ import { signUpAction } from "@/actions/auth";
 import { redirect } from "next/navigation";
 
 const SignUpForm = () => {
-  // 1. Define your form.
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
-  })
+  });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     const result = await signUpAction(values);
 
-    if(result.success) {
-      redirect('/signIn');
+    if (result.success) {
+      redirect("/signIn");
     }
-    console.log(values)
   }
   return (
     <Form {...form}>
@@ -45,7 +43,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Nama</FormLabel>
               <FormControl>
-                <Input type='text' placeholder="Abdullah" {...field} />
+                <Input type="text" placeholder="Abdullah" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -58,7 +56,11 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type='email' placeholder="jhondoe@example.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="jhondoe@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -71,7 +73,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type='password' placeholder="*******" {...field} />
+                <Input type="password" placeholder="*******" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,7 +86,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type='password' placeholder="*******" {...field} />
+                <Input type="password" placeholder="*******" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
