@@ -13,9 +13,9 @@ export default function Home() {
         "flex h-full w-full flex-col items-center gap-32 overflow-hidden py-[122px]"
       }
     >
-      <Hero />
-      <Information />
-      <Profile />
+      {/*<Hero />*/}
+      {/*<Information />*/}
+      {/*<Profile />*/}
       <Facilities />
       <Gallery />
       <Donate />

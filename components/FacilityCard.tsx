@@ -12,7 +12,7 @@ const FacilityCard = ({ image, title, icon }: FacilityProps) => {
   return (
     <div
       className={
-        "flex w-[281px] flex-shrink-0 flex-grow flex-col gap-4 rounded-full rounded-bl-none border bg-white p-5 shadow"
+        "flex w-full flex-shrink-0 flex-grow flex-col gap-4 rounded-full rounded-bl-none border bg-white p-2 shadow md:p-3 lg:p-4 xl:p-5"
       }
     >
       {/*image here*/}
@@ -31,7 +31,13 @@ const FacilityCard = ({ image, title, icon }: FacilityProps) => {
         </div>
       </div>
       <div className={"flex flex-grow flex-col justify-center"}>
-        <p className={"text-2xl font-medium text-black"}>{title}</p>
+        <p
+          className={
+            "text-base font-medium text-black md:text-lg lg:text-xl xl:text-2xl"
+          }
+        >
+          {title}
+        </p>
       </div>
     </div>
   );
