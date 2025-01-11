@@ -31,10 +31,17 @@ const Facilities = () => {
       const boxWidth = parentWidth / numberItem;
       const calculatedBoxStartPos: number = index * boxWidth;
 
+      let opacity = 1;
+      let blur: string = "blur(0px)";
+      if (index === 4 || index === 0) {
+        opacity = 0.7;
+        blur = "blur(2px)";
+      }
       return {
-        opacity: 1,
+        opacity,
         x: calculatedBoxStartPos,
         y: 0,
+        filter: blur,
         transition: {
           ease: "easeInOut",
           type: "tween",
@@ -99,14 +106,11 @@ const Facilities = () => {
             ease: "easeInOut",
             type: "tween",
           }}
-          className={cn(
-            "relative mx-auto flex h-[225px] w-full min-w-[768px] gap-12 lg:h-[300px] xl:h-[360px]",
-          )}
+          className={
+            "relative mx-auto flex h-fit min-h-20 w-full min-w-[768px] gap-12"
+          }
         >
           {/* Children Starts Here */}
-          {/*
-          //   ? Bagaimana cara agar length atau nilai dari parentWidht dan boxWidth disini sesuai dengan ukuran dari window
-          */}
           {Array.from({ length: 5 }).map((_, i) => {
             const index =
               (current - 2 + (i + 1) + facilities.length) % facilities.length;
@@ -115,7 +119,8 @@ const Facilities = () => {
               <motion.div
                 variants={childVariant}
                 key={index}
-                className="absolute flex w-1/5 flex-col items-center justify-center p-1 text-2xl font-bold text-white xl:p-4 2xl:h-[360px]"
+                whileHover={{ scale: 1.05, transition: { duration: 0.01 } }}
+                className="absolute flex h-fit w-1/5 flex-col items-center justify-center p-1 text-2xl font-bold text-white xl:p-4"
                 transition={{ duration: 1 }}
                 custom={{
                   index: i,
@@ -127,52 +132,60 @@ const Facilities = () => {
               </motion.div>
             );
           })}
+
+          <div className="pointer-events-none relative flex h-fit w-1/5 flex-col items-center justify-center p-1 text-2xl font-bold text-white opacity-0 xl:p-4">
+            <FacilityCard
+              {...facilities[0]}
+              title={"Long Text Given Here Hahahaha"}
+            />
+          </div>
           {/* Children Ends Here */}
+          <div
+            className={
+              "container pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-50 flex h-full items-center justify-between"
+            }
+          >
+            <button
+              className={
+                "pointer-events-auto relative h-fit rounded-lg bg-secondary p-4 text-primary shadow-xl hover:bg-white hover:text-primary" +
+                " hover:text-white" +
+                " active:bg-primary"
+              }
+              onClick={prev}
+            >
+              <ChevronLeft />
+            </button>
+            <button
+              className={
+                "pointer-events-auto relative h-fit rounded-lg bg-secondary p-4 text-primary shadow-xl hover:bg-white hover:text-primary hover:text-white" +
+                " active:bg-primary"
+              }
+              onClick={next}
+            >
+              <ChevronRight />
+            </button>
+          </div>
         </motion.div>
 
-        <div
-          className={
-            "container absolute z-50 flex translate-y-56 justify-center gap-2 md:left-0 md:right-0 md:translate-y-0 md:justify-between"
-          }
-        >
-          <button
-            className={
-              "relative h-fit rounded-full bg-primary p-4 text-white hover:bg-secondary " +
-              " hover:text-gray-600"
-            }
-            onClick={prev}
-          >
-            <ChevronLeft />
-          </button>
-          <button
-            className={
-              "relative h-fit rounded-full bg-primary p-4 text-white hover:bg-secondary " +
-              " hover:text-gray-600"
-            }
-            onClick={next}
-          >
-            <ChevronRight />
-          </button>
-        </div>
-        <div
-          className={
-            "container hidden gap-2 md:flex" +
-            " items-center justify-center" +
-            " z-50 w-full"
-          }
-        >
-          {facilities.map((_, index) => {
-            return (
-              <button
-                key={index}
-                className={`size-4 ${index === current ? "bg-primary" : "bg-gray-400"} rounded-full hover:bg-secondary`}
-                onClick={() => {
-                  setCurrent(index);
-                }}
-              />
-            );
-          })}
-        </div>
+        {/*<div*/}
+        {/*  className={*/}
+        {/*    "container hidden gap-2 md:flex" +*/}
+        {/*    " items-center justify-center" +*/}
+        {/*    " z-50 w-full"*/}
+        {/*  }*/}
+        {/*>*/}
+        {/*  {facilities.map((_, index) => {*/}
+        {/*    return (*/}
+        {/*      <button*/}
+        {/*        key={index}*/}
+        {/*        className={`size-4 ${index === current ? "bg-primary" : "bg-gray-400"} rounded-full hover:bg-secondary`}*/}
+        {/*        onClick={() => {*/}
+        {/*          setCurrent(index);*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    );*/}
+        {/*  })}*/}
+        {/*</div>*/}
       </div>
     </section>
   );

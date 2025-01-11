@@ -9,7 +9,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
     <>
       <Navbar isLoggedIn={!!session} />
       <main className={"w-full"}>{children}</main>
-      <Footer />
+      {/*<Footer />*/}
     </>
   );
 };

@@ -6,11 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="5bd83a4c-62e9-4497-9429-ad95018350f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(public)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(public)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/sections/home/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Hero.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/FacilityCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/FacilityCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Facilities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Facilities.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Facilities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/Facilities.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/Facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Facility.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +33,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "development",
+    "git-widget-placeholder": "animation-dev",
     "js.linters.configure.manually.selectedeslint": "true",
     "last_opened_file_path": "C:/Code/WorkingProject/nextradenpatah",
     "node.js.detected.package.eslint": "true",
