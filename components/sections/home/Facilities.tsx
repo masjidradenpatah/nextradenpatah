@@ -8,15 +8,6 @@ import { facilities } from "@/data/Facilities";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 
-const getBreakpointWidth = (width: number): number => {
-  if (width < 640) return 768; // None
-  if (width < 768) return 768; // sm
-  if (width < 1024) return 768; // md
-  if (width < 1280) return 1024; // lg
-  if (width < 1536) return 1280; // xl
-  return 1536; // 2xl
-};
-
 const Facilities = () => {
   // Variants Start Here
   const parentVariant = {
@@ -54,16 +45,14 @@ const Facilities = () => {
   };
   // Variants End Here
 
-  const [parentWidth, setParentWidth] = useState(
-    getBreakpointWidth(window.innerWidth),
-  );
+  const [parentWidth, setParentWidth] = useState(window.innerWidth);
 
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
-      const res = getBreakpointWidth(window.innerWidth);
-      setParentWidth(res);
+      if (window.innerWidth < 768) setParentWidth(768);
+      else setParentWidth(window.innerWidth);
     };
 
     // Tambahkan event listener
@@ -91,7 +80,7 @@ const Facilities = () => {
     <section className={"glassmorphic-lg w-full py-[120px]"}>
       <div
         className={
-          "container relative flex w-full flex-col items-center justify-center gap-6 px-4 md:px-0"
+          "relative flex w-full flex-col items-center justify-center gap-6 px-4 md:px-0"
         }
       >
         <SectionTitle
@@ -111,7 +100,7 @@ const Facilities = () => {
             type: "tween",
           }}
           className={cn(
-            "container relative mx-auto flex h-[200px] w-full min-w-[768px] gap-12 md:h-[225px] lg:h-[300px] xl:h-[360px]",
+            "relative mx-auto flex h-[225px] w-full min-w-[768px] gap-12 lg:h-[300px] xl:h-[360px]",
           )}
         >
           {/* Children Starts Here */}
@@ -143,26 +132,26 @@ const Facilities = () => {
 
         <div
           className={
-            "absolute z-50 flex justify-between gap-2 max-md:translate-y-56 md:left-0 md:right-0"
+            "container absolute z-50 flex translate-y-56 justify-center gap-2 md:left-0 md:right-0 md:translate-y-0 md:justify-between"
           }
         >
           <button
             className={
-              "relative left-full h-fit -translate-x-full rounded-full bg-primary p-4 text-white hover:bg-secondary md:-translate-x-1/2" +
-              " hover:text-gray-600"
-            }
-            onClick={next}
-          >
-            <ChevronRight />
-          </button>
-          <button
-            className={
-              "relative right-full h-fit translate-x-full rounded-full bg-primary p-4 text-white hover:bg-secondary md:translate-x-1/2" +
+              "relative h-fit rounded-full bg-primary p-4 text-white hover:bg-secondary " +
               " hover:text-gray-600"
             }
             onClick={prev}
           >
             <ChevronLeft />
+          </button>
+          <button
+            className={
+              "relative h-fit rounded-full bg-primary p-4 text-white hover:bg-secondary " +
+              " hover:text-gray-600"
+            }
+            onClick={next}
+          >
+            <ChevronRight />
           </button>
         </div>
         <div
