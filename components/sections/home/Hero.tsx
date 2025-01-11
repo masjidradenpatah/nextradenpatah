@@ -19,18 +19,16 @@ export default Hero;
 
 const HeroBackground = () => {
   return (
-    <div className={"absolute -z-10 flex h-full w-full"}>
-      <div className="glassmorphic-lg h-full flex-grow"></div>
-      <div className="hidden h-full flex-grow bg-secondary md:block"></div>
+    <div className={"absolute -z-10 flex size-full"}>
+      <div className="glassmorphic-lg h-full grow"></div>
+      <div className="hidden h-full grow bg-secondary md:block"></div>
     </div>
   );
 };
 
 const HeroLeftSide = () => {
   return (
-    <div
-      className={"relative flex h-full w-full flex-col justify-center md:w-1/2"}
-    >
+    <div className={"relative flex size-full flex-col justify-center md:w-1/2"}>
       <CircleIcon
         icon={<Book />}
         className={
