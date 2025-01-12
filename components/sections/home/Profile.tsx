@@ -28,8 +28,12 @@ const Profile = () => {
           }
         />
         {/* End Background Here*/}
-        <h2 className={"text-6xl font-bold lg:hidden"}>
-          Masjid <span className={"text-primary"}>Raden Patah</span>
+        <h2
+          className={
+            "text-center text-4xl font-bold sm:text-5xl md:text-6xl lg:hidden"
+          }
+        >
+          Masjid <span className={"text-nowrap text-primary"}>Raden Patah</span>
         </h2>
         <div
           className={
@@ -44,7 +48,8 @@ const Profile = () => {
 
           <div className={"flex flex-col gap-3"}>
             <h2 className={"hidden text-6xl font-bold lg:block"}>
-              Masjid <span className={"text-primary"}>Raden Patah</span>
+              Masjid{" "}
+              <span className={"text-nowrap text-primary"}>Raden Patah</span>
             </h2>
             <p className={"text-xl font-light max-lg:text-justify"}>
               Masjid Raden Patah merupakan masjid kampus terbesar yang ada di
