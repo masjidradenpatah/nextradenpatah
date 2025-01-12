@@ -2,7 +2,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className={'w-full h-full flex flex-col justify-center items-center'}>Article</div>
+    <div className={'flex size-full flex-col items-center justify-center'}>Article</div>
   );
 };
 export default Page;

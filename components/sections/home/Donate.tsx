@@ -6,7 +6,10 @@ import qris from "@/public/qirs_mrp.png";
 
 const Donate = () => {
   return (
-    <section className={"relative h-fit w-full"}>
+    <section
+      data-testid="donate-section"
+      className={"relative h-fit w-full p-4"}
+    >
       {/*  Start Background Here*/}
       <BgSingle
         position={"bottomLeft"}
@@ -16,7 +19,9 @@ const Donate = () => {
       {/*  End Background Here*/}
       <div
         className={
-          "glassmorphic-lg container flex w-full gap-10 overflow-hidden rounded-3xl border-8 border-white !bg-white/20 p-12"
+          "glassmorphic-lg container flex w-full flex-col items-center gap-12 overflow-hidden rounded-3xl border-8 border-white lg:gap-10" +
+          " !bg-white/20 p-12" +
+          " lg:flex-row"
         }
       >
         <Shades
@@ -28,9 +33,15 @@ const Donate = () => {
           }
         />
         <div
-          className={"flex w-1/2 flex-col items-center justify-center gap-12"}
+          className={
+            "flex w-full flex-col items-center justify-center gap-12 lg:w-1/2"
+          }
         >
-          <p className={"text-center text-4xl leading-snug"}>
+          <p
+            className={
+              "text-center text-2xl leading-snug sm:text-3xl lg:text-4xl"
+            }
+          >
             Mari Membersamai{" "}
             <span className={"text-nowrap font-bold text-primary"}>
               Masjid Raden Patah
@@ -39,7 +50,7 @@ const Donate = () => {
           </p>
           <Image src={donate} alt={"box and love icon"} />
         </div>
-        <div className={"flex w-1/2 justify-center gap-3"}>
+        <div className={"flex w-full justify-center gap-3 lg:w-1/2"}>
           <Image
             src={qris}
             alt={"Kode Qris MRP"}

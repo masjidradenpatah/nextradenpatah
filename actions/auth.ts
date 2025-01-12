@@ -10,25 +10,22 @@ import {
 } from "@/schemas/authSchemas";
 import { getUserByEmail } from "@/data/User";
 import { prisma } from "@/lib/db";
-import { signIn } from "@/auth";
+// import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { generateVerificationByEmail } from "@/lib/verification-token";
 import { sendResetPasswordEmail, sendVerificationEmail } from "@/lib/mail";
 import { getVerificationTokenByToken } from "@/data/VerificationToken";
 import { generateResetPasswordTokenByEmail } from "@/lib/reset-password-token";
-import { extractInfoFromServerReferenceId } from "next/dist/client/components/router-reducer/reducers/server-reference-info";
-import {
-  getResetPasswordTokenByEmail,
-  getResetPasswordTokenByToken,
-} from "@/data/ResetPasswordToken";
+import { getResetPasswordTokenByToken } from "@/data/ResetPasswordToken";
+import { signIn } from "@/auth";
 
 export const signInAction = async (
   values: z.infer<typeof signInSchema>,
 ): Promise<Record<string, string>> => {
-  console.log("signIn Action");
   const validatedFields = signInSchema.safeParse(values);
 
+  // signIn Action Test 01
   if (!validatedFields.success) {
     return { error: "Something went wrong" };
   }
@@ -62,7 +59,9 @@ export const signInAction = async (
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Invalid Credentials" };
+          // just for testing
+          // return { success: "Succesfull" };
+          return { error: "Invalid credentials" };
         default:
           return { error: "Something went wrong" };
       }
@@ -76,7 +75,6 @@ export const signInAction = async (
 export const signUpAction = async (
   values: z.infer<typeof signUpSchema>,
 ): Promise<Record<string, string>> => {
-  console.log("signUp Action");
   const validatedFields = signUpSchema.safeParse(values);
 
   if (!validatedFields.success) {

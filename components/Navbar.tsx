@@ -50,7 +50,7 @@ const Navbar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           value={isNavbarOpen}
           onChange={() => setIsNavbarOpen((prev) => !prev)}
         />
-        <div className="absolute top-0 h-full w-full md:hidden">
+        <div className="absolute top-0 size-full md:hidden">
           <MobileNavbar isNavbarOpen={isNavbarOpen} />
         </div>
       </nav>

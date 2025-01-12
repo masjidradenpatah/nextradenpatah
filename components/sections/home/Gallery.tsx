@@ -11,7 +11,7 @@ import { GalleryImageType } from "@/types/GalleryImage";
 
 const Gallery = () => {
   return (
-    <section className={"relative w-full"}>
+    <section data-testid="gallery-section" className={"relative w-full"}>
       {/* Start Background */}
       <BgSingle
         position={"topLeft"}
@@ -24,10 +24,12 @@ const Gallery = () => {
           title={"Gallery Masjid Raden Patah"}
           subtitle={"Yuk keliling lihat pojok Masjid Raden Patah"}
         />
-        <div className={"flex w-full gap-6"}>
-          <div className={"flex-grow"}></div>
+        <div className={"flex w-full gap-6 px-4 sm:px-8 md:px-0"}>
+          <div className={"hidden grow lg:block"}></div>
           <motion.div
-            className={"relative grid basis-8/12 grid-cols-4 grid-rows-6 gap-6"}
+            className={
+              "relative grid grid-cols-4 grid-rows-6 gap-3 md:gap-6 lg:basis-8/12"
+            }
           >
             {GalleryImageArr.map((gallery, index) => (
               <GalleryImage key={index} {...gallery} />
@@ -91,6 +93,7 @@ const GalleryImage = ({
             src={image}
             alt={"Gallery Masjid Raden Patah"}
             className={"size-full object-cover object-center"}
+            loading={"eager"}
           />
         )}
       </motion.div>
