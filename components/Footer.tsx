@@ -13,19 +13,22 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer
+    <div
       className={
-        "glassmorphic-lg h-fit min-h-[900px] w-full overflow-hidden rounded-3xl rounded-b-none border-8 border-x-0 border-b-0 border-white" +
-        " !bg-white/25" +
-        " p-16 pb-0"
+        "glassmorphic-lg relative flex h-fit flex-col rounded-3xl" +
+        " rounded-b-none border-8 border-x-0 border-b-0 border-white !bg-white/25 p-8 lg:p-16"
       }
     >
-      <Shades
-        className={"translate-x-1/5 right-0 top-0 -translate-y-1/4 blur-3xl"}
-      />
-      <Shades
-        className={"bottom-0 left-0 -translate-x-1/4 translate-y-1/3 blur-3xl"}
-      />
+      <div className={"absolute inset-0 overflow-hidden rounded-3xl"}>
+        <Shades
+          className={"translate-x-1/5 right-0 top-0 -translate-y-1/4 blur-3xl"}
+        />
+        <Shades
+          className={
+            "bottom-0 left-0 -translate-x-1/4 translate-y-1/3 blur-3xl"
+          }
+        />
+      </div>
 
       <div
         className={
@@ -37,7 +40,7 @@ const Footer = () => {
           className={"flex w-full flex-col items-center justify-center gap-8"}
         >
           <Image src={logoMrp} alt={"Logo Masjid Raden Patah"} />
-          <div className={"text-center"}>
+          <div className={"space-y-2 text-center"}>
             <p className={"text-xl font-medium lg:text-2xl"}>
               Jalan Kampus Universitas Brawijaya
             </p>
@@ -48,7 +51,7 @@ const Footer = () => {
         </div>
         <div
           className={
-            "flex w-full justify-center gap-10 [&_p]:text-center [&_p]:text-lg"
+            "hidden w-full justify-center gap-10 lg:flex [&_p]:text-center [&_p]:text-base lg:[&_p]:text-lg"
           }
         >
           {/*  Start Links Here*/}
@@ -76,6 +79,7 @@ const Footer = () => {
           <p className={"text-center text-2xl font-medium"}>Ikuti Kami</p>
           <Image
             src={unit}
+            className={"h-[100px] object-contain"}
             alt={
               "Imam Muda, Digital Creative, Umar, Pusat Tahfidz Qur'an, dan MRP Lunch Space "
             }
@@ -85,7 +89,7 @@ const Footer = () => {
         </div>
         {/** End Content Here */}
       </div>
-    </footer>
+    </div>
   );
 };
 export default Footer;
@@ -94,7 +98,7 @@ const SocmedFooter = () => {
   return (
     <div
       className={
-        "flex w-full items-center justify-center gap-4 [&_p]:text-xl [&_p]:font-medium"
+        "flex w-full flex-col items-center justify-center gap-4 md:flex-row [&_p]:text-lg [&_p]:font-medium"
       }
     >
       {/*  Start Here*/}

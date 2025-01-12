@@ -28,11 +28,12 @@ const Facilities = () => {
       boxWidth: number;
     }) => {
       const boxWidth = parentWidth / numberItem;
-      const calculatedBoxStartPos: number = index * boxWidth;
+      let calculatedBoxStartPos: number = index * boxWidth;
+      if (boxWidth <= 301) calculatedBoxStartPos += 32 * index - 1;
 
       let opacity = 1;
       let blur: string = "blur(0px)";
-      if (index === 4 || index === 0) {
+      if ((index === 4 || index === 0) && boxWidth > 301) {
         opacity = 0.7;
         blur = "blur(2px)";
       }
@@ -56,9 +57,11 @@ const Facilities = () => {
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
+    // setParentWidth(window.innerWidth);
+
     const handleResize = () => {
-      if (window.innerWidth < 768) setParentWidth(768);
-      else setParentWidth(window.innerWidth);
+      setParentWidth(window.innerWidth);
+      if (window.innerWidth < 1536) setParentWidth(1536);
     };
 
     // Tambahkan event listener
@@ -68,15 +71,22 @@ const Facilities = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [parentWidth]);
 
   const prev = () => {
+    setParentWidth(window.innerWidth);
+    if (window.innerWidth < 1536) setParentWidth(1536);
+
     // Update current and loop
     const newCurrent = (current - 1) % facilities.length;
-    setCurrent(newCurrent);
+
+    setCurrent(newCurrent < 0 ? facilities.length - 1 : newCurrent);
   };
 
   const next = () => {
+    setParentWidth(window.innerWidth);
+    if (window.innerWidth < 1536) setParentWidth(1536);
+
     // Update current and loop
     const newCurrent = (current + 1) % facilities.length;
     setCurrent(newCurrent);
@@ -87,11 +97,7 @@ const Facilities = () => {
       data-testid="facilities-section"
       className={"glassmorphic-lg w-full py-[120px]"}
     >
-      <div
-        className={
-          "relative flex w-full flex-col items-center justify-center gap-6 px-4 md:px-0"
-        }
-      >
+      <div className={"relative w-full space-y-6 px-4 md:px-0"}>
         <SectionTitle
           title={"Fasilitas di Masjid Raden Patah"}
           subtitle={"Yuk kita lihat fasilitas yang ada di Masjid Raden Patah"}
@@ -108,9 +114,7 @@ const Facilities = () => {
             ease: "easeInOut",
             type: "tween",
           }}
-          className={
-            "relative mx-auto flex h-fit min-h-20 w-full min-w-[768px] gap-12"
-          }
+          className={"relative flex h-fit min-h-20 min-w-[1536px] gap-12"}
         >
           {/* Children Starts Here */}
           {Array.from({ length: 5 }).map((_, i) => {
@@ -122,7 +126,7 @@ const Facilities = () => {
                 variants={childVariant}
                 key={index}
                 whileHover={{ scale: 1.05, transition: { duration: 0.01 } }}
-                className="absolute flex h-fit w-1/5 flex-col items-center justify-center p-1 text-2xl font-bold text-white xl:p-4"
+                className="absolute flex h-fit w-1/5 min-w-[300px] flex-col items-center justify-center p-1 text-2xl font-bold text-white xl:p-4"
                 transition={{ duration: 1 }}
                 custom={{
                   index: i,
@@ -144,12 +148,14 @@ const Facilities = () => {
           {/* Children Ends Here */}
           <div
             className={
-              "container pointer-events-none absolute inset-0 z-50 flex h-full items-center justify-between"
+              "pointer-events-none absolute z-50 flex h-full w-screen justify-center p-8 2xl:container md:items-center lg:inset-0" +
+              " items-end max-md:pb-0 md:justify-between 2xl:p-0"
             }
           >
             <button
               className={
                 "pointer-events-auto relative h-fit rounded-lg bg-secondary p-4 text-primary shadow-xl hover:bg-white hover:text-primary" +
+                " max-md:translate-y-[150%]" +
                 " hover:text-white" +
                 " active:bg-primary"
               }
@@ -159,8 +165,8 @@ const Facilities = () => {
             </button>
             <button
               className={
-                "pointer-events-auto relative h-fit rounded-lg bg-secondary p-4 text-primary shadow-xl hover:bg-white hover:text-primary hover:text-white" +
-                " active:bg-primary"
+                "pointer-events-auto relative h-fit rounded-lg bg-secondary p-4 text-primary shadow-xl hover:bg-white hover:text-primary" +
+                " hover:text-white active:bg-primary max-md:translate-y-[150%]"
               }
               onClick={next}
             >
@@ -169,25 +175,23 @@ const Facilities = () => {
           </div>
         </motion.div>
 
-        {/*<div*/}
-        {/*  className={*/}
-        {/*    "container hidden gap-2 md:flex" +*/}
-        {/*    " items-center justify-center" +*/}
-        {/*    " z-50 w-full"*/}
-        {/*  }*/}
-        {/*>*/}
-        {/*  {facilities.map((_, index) => {*/}
-        {/*    return (*/}
-        {/*      <button*/}
-        {/*        key={index}*/}
-        {/*        className={`size-4 ${index === current ? "bg-primary" : "bg-gray-400"} rounded-full hover:bg-secondary`}*/}
-        {/*        onClick={() => {*/}
-        {/*          setCurrent(index);*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    );*/}
-        {/*  })}*/}
-        {/*</div>*/}
+        <div
+          className={
+            "container z-50 mt-8 hidden w-full items-center justify-center gap-2 md:flex"
+          }
+        >
+          {facilities.map((_, index) => {
+            return (
+              <button
+                key={index}
+                className={`size-4 ${index === current ? "bg-primary" : "bg-gray-400"} rounded-full hover:bg-secondary`}
+                onClick={() => {
+                  setCurrent(index);
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
   );

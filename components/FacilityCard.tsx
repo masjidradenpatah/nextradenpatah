@@ -15,7 +15,7 @@ interface FacilityProps {
 
 const FacilityCard = ({ image, title }: FacilityProps) => {
   return (
-    <Card className={"h-full w-fit max-w-[300px] overflow-hidden"}>
+    <Card className={"h-full w-[300px] overflow-hidden"}>
       <CardHeader className={"relative"}>
         <Shades
           className={

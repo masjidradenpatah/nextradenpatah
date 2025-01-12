@@ -15,14 +15,14 @@ import gallery1 from "@/public/gallery/gallery (1).jpg";
 export const GalleryImageArr: GalleryImageType[] = [
   { className: "galleryItem1", image: gallery14 },
   {
-    className: "galleryItem2 relative -translate-x-16 overflow-visible ",
+    className: "galleryItem2 relative -translate-x-1/3 overflow-visible ",
     chldrenClassName: "bg-gradient-to-br from-[#99E9FB] to-[#1EAAC8]",
     variants: {
-      hidden: { x: -20 },
+      hidden: { x: -200 },
       visible: { x: 0 },
     },
     transition: {
-      duration: 2.5,
+      duration: 4,
     },
   },
   { className: "galleryItem3", image: gallery9 },
