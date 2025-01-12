@@ -5,7 +5,7 @@ import { BgDouble } from "@/components/decorations/shades";
 
 const Map = () => {
   return (
-    <section className={"relative w-full"}>
+    <section data-testid="map-section" className={"relative w-full"}>
       {/*  Start Background Here*/}
       <BgDouble position={"bottomRight"} className={"lg:size-[740px]"} />
       {/*  End Background Here*/}
@@ -33,7 +33,7 @@ const Map = () => {
             <Image
               src={map}
               alt={"gambar masjid raden patah"}
-              className={"absolute h-full w-full object-cover"}
+              className={"absolute size-full object-cover"}
             />
             <div
               className={"inset-0 bg-gradient-to-t from-primary" + " absolute"}

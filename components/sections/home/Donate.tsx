@@ -6,7 +6,7 @@ import qris from "@/public/qirs_mrp.png";
 
 const Donate = () => {
   return (
-    <section className={"relative h-fit w-full"}>
+    <section data-testid="donate-section" className={"relative h-fit w-full"}>
       {/*  Start Background Here*/}
       <BgSingle
         position={"bottomLeft"}

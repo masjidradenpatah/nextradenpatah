@@ -5,7 +5,7 @@ import { BgDouble, Shades } from "@/components/decorations/shades";
 
 const Profile = () => {
   return (
-    <section className={"relative w-full"}>
+    <section data-testid="profile-section" className={"relative w-full"}>
       {/* Start Background Here*/}
       <BgDouble
         className={"size-[650px] -translate-x-1/4 translate-y-1/3 -rotate-12"}

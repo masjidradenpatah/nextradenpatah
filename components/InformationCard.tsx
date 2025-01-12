@@ -39,13 +39,13 @@ const InformationCard = ({ title, speaker, location }: InformationProps) => {
           </div>
         </div>
       </div>
-      <div className={"flex flex-grow flex-col p-4"}>
+      <div className={"flex grow flex-col p-4"}>
         <div className={"mb-2"}>
           <h3 className={"text-2xl font-medium"}>{title}</h3>
           <p>{speaker}</p>
         </div>
         {/*<p>{subtitle}</p>*/}
-        <div className={"flex flex-grow items-end gap-2"}>
+        <div className={"flex grow items-end gap-2"}>
           <div
             className={
               "grid size-12 place-content-center rounded-xl bg-primary"

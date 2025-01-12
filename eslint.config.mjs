@@ -14,9 +14,15 @@ const compat = new FlatCompat({
 const isProduction = process.env.NODE_ENV === "production";
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals","plugin:tailwindcss/recommended", "next/typescript","prettier"),
+  ...compat.extends(
+    "next/core-web-vitals",
+      "plugin:tailwindcss/recommended",
+      "plugin:testing-library/react",
+      "plugin:jest-dom/recommended",
+      "next/typescript",
+      "prettier"
+    ),
   {
-
     rules: {
       "tailwindcss/no-custom-classname":"off",
       // Aturan linting umum
@@ -30,6 +36,7 @@ const eslintConfig = [
         },
       ],
     },
+
   },
 ];
 

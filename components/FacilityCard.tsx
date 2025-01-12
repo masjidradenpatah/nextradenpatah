@@ -43,7 +43,7 @@ const FacilityCard = ({ image, title }: FacilityProps) => {
         />
         <p
           className={
-            "h-fit w-full flex-grow-0 items-center justify-center text-center text-xl font-medium"
+            "h-fit w-full grow-0 items-center justify-center text-center text-xl font-medium"
           }
         >
           {title}

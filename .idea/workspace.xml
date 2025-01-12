@@ -5,14 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bd83a4c-62e9-4497-9429-ad95018350f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/__test__/Home.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__test__/signInAction.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jest.setup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/actions/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(public)/article/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/article/[id]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(public)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(public)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(public)/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/FacilityCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/FacilityCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/InformationCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/InformationCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/decorations/shades.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/decorations/shades.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Donate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Donate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/sections/home/Facilities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Facilities.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Facilities.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/Facilities.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/Facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/Facility.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Gallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Gallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Information.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Information.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sections/home/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sections/home/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +48,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "animation-dev",
+    "git-widget-placeholder": "testing-dev",
     "js.linters.configure.manually.selectedeslint": "true",
     "last_opened_file_path": "C:/Code/WorkingProject/nextradenpatah",
     "node.js.detected.package.eslint": "true",

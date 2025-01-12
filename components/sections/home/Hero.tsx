@@ -6,13 +6,16 @@ import { Book, GraduationCap } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div className={"relative flex h-[650px] w-full"}>
+    <section
+      data-testid="hero-section"
+      className={"relative flex h-[650px] w-full"}
+    >
       <HeroBackground />
       <div className={"container flex"}>
         <HeroLeftSide />
         <HeroRightSide />
       </div>
-    </div>
+    </section>
   );
 };
 export default Hero;
