@@ -11,7 +11,10 @@ import { GalleryImageType } from "@/types/GalleryImage";
 
 const Gallery = () => {
   return (
-    <section data-testid="gallery-section" className={"relative w-full"}>
+    <section
+      data-testid="gallery-section"
+      className={"relative w-full max-sm:px-4"}
+    >
       {/* Start Background */}
       <BgSingle
         position={"topLeft"}

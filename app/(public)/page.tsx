@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div
       className={
-        "flex size-full flex-col items-center gap-32 overflow-hidden py-[122px] max-md:px-4"
+        "flex size-full flex-col items-center gap-32 overflow-hidden py-[122px]"
       }
     >
       <Hero />

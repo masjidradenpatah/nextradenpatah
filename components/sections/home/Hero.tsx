@@ -56,7 +56,7 @@ const HeroLeftSide = () => {
       >
         Masjid Raden Patah
       </h1>
-      <p className={"text-center text-2xl text-muted-foreground md:text-left"}>
+      <p className={"text-center text-3xl text-muted-foreground md:text-left"}>
         Universitas Brawijaya
       </p>
     </div>

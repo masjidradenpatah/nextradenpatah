@@ -26,3 +26,5 @@ jobs:
         run: npx prisma generate
       - name: Run Build
         run: npm run build
+      - name: Run Testing
+        run: npm run test

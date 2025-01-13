@@ -33,9 +33,11 @@ const Facilities = () => {
 
       let opacity = 1;
       let blur: string = "blur(0px)";
-      if ((index === 4 || index === 0) && boxWidth > 301) {
-        opacity = 0.7;
-        blur = "blur(2px)";
+      if (index === 4 || index === 0) {
+        if (parentWidth > 1536) {
+          opacity = 0.7;
+          blur = "blur(2px)";
+        }
       }
       return {
         opacity,
