@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  getAnnualProgram,
-  getDailyRoutineProgram,
-  getUpcomingProgram,
-} from "@/data/Programs";
+
 import { ProgramList, UpcomingProgramList } from "@/components/ProgramList";
 
 const Page = () => {
@@ -20,19 +16,17 @@ const Page = () => {
         <UpcomingProgramList
           title={"Program yang Akan Datang"}
           subtitle={"Jangan sampai ketinggalan..."}
-          programExecutions={getUpcomingProgram()}
-          numberItemShown={"all"}
         />
         <ProgramList
           title={"Program Rutin Harian"}
           subtitle={"Ikuti program kajian favorit kalian..."}
-          programs={getDailyRoutineProgram()}
+          type={"DAILY"}
           numberItemShown={"all"}
         />
         <ProgramList
           title={"Program Tahunan"}
           subtitle={"Ikuti program kajian favorit kalian..."}
-          programs={getAnnualProgram()}
+          type={"ANNUALY"}
           numberItemShown={"all"}
         />
       </section>

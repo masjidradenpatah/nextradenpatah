@@ -1,9 +1,8 @@
-import { getUpcomingProgram } from "@/data/Programs";
 import { BgSingle, BgTriple } from "@/components/decorations/shades";
 import { UpcomingProgramList } from "@/components/ProgramList";
 import React from "react";
 
-const Information = () => {
+const Information = async () => {
   return (
     <section data-testid="information-section" className={"w-full"}>
       <div className="container relative flex flex-col items-center gap-8 max-sm:px-4 lg:gap-16">
@@ -22,8 +21,6 @@ const Information = () => {
         <UpcomingProgramList
           title={"Program yang Akan Datang"}
           subtitle={"Jangan sampai ketinggalan..."}
-          programExecutions={getUpcomingProgram()}
-          numberItemShown={"all"}
         />
         {/* Upcoming Innformation Here */}
       </div>

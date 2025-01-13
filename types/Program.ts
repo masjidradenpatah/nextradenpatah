@@ -6,7 +6,7 @@ export interface Program {
   title: string;
   image: string | StaticImageData;
   description: string;
-  type: "DAILY" | "ANNUAL";
+  type: "DAILY" | "ANNUALY";
 }
 
 export interface ProgramExecution {

@@ -17,7 +17,7 @@ export const ProgramCard = ({ title, id, image }: ProgramCardProps) => {
       }
     >
       <Image
-        src={image}
+        src={image} // fixme
         className={
           "relative w-full rounded-2xl border-2 border-white transition duration-200 " +
           " group-hover:-translate-y-12 group-hover:scale-[105%] group-hover:shadow-[0_0_18px_0_rgba(30,170,200,0.7)]"
