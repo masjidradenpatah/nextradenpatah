@@ -10,8 +10,9 @@ export const ProgramCard = ({ href, image, title }: ProgramCardProps) => {
   return (
     <div
       className={
-        "glassmorphic-lg rounded-5xl group flex h-[255px] flex-col justify-end gap-4 border-2 border-white px-6 pb-8 hover:bg-white " +
-        " mt-52 sm:mt-24 lg:mt-12 xl:mt-36 2xl:mt-56" +
+        "glassmorphic-lg sm:rounded-5xl group flex h-fit flex-col justify-end gap-4 rounded-2xl border-2 border-white px-2 py-2 hover:bg-white" +
+        " sm:px-6 sm:pb-8" +
+        " mt-0 sm:mt-24 lg:mt-12 xl:mt-36 2xl:mt-56" +
         " relative transition duration-200 md:h-[323px]"
       }
     >

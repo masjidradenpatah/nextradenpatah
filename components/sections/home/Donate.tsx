@@ -25,11 +25,13 @@ const Donate = () => {
         }
       >
         <Shades
-          className={"translate-x-1/5 right-0 top-0 -translate-y-1/4 blur-3xl"}
+          className={
+            "translate-x-1/5 right-0 top-0 -translate-y-1/4 opacity-50 blur-3xl"
+          }
         />
         <Shades
           className={
-            "bottom-0 left-0 -translate-x-1/4 translate-y-1/3 blur-3xl"
+            "bottom-0 left-0 -translate-x-1/4 translate-y-1/3 opacity-75 blur-3xl"
           }
         />
         <div

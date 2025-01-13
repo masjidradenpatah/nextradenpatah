@@ -5,7 +5,10 @@ import { BgDouble, Shades } from "@/components/decorations/shades";
 
 const Profile = () => {
   return (
-    <section data-testid="profile-section" className={"relative w-full"}>
+    <section
+      data-testid="profile-section"
+      className={"relative w-full max-sm:px-4"}
+    >
       {/* Start Background Here*/}
       <BgDouble
         className={"size-[650px] -translate-x-1/4 translate-y-1/3 -rotate-12"}
@@ -15,7 +18,9 @@ const Profile = () => {
 
       <div
         className={
-          "glassmorphic-lg container flex w-full flex-col gap-10 overflow-hidden rounded-3xl border-8 border-white !bg-white/20 p-12 lg:flex-row"
+          "glassmorphic-lg container flex w-full flex-col gap-10 overflow-hidden rounded-3xl border-8 border-white !bg-white/20 px-4 py-10" +
+          " lg:p-12" +
+          " lg:flex-row"
         }
       >
         {/* Start Background Here*/}
@@ -43,7 +48,9 @@ const Profile = () => {
           <Image
             src={profile}
             alt={"Gambar Menara Masjid Raden Patah"}
-            className={"aspect-square w-1/3 rounded-3xl object-contain"}
+            className={
+              "aspect-square w-2/3 rounded-3xl object-contain max-md:min-w-[200px] md:w-1/2 lg:w-1/3"
+            }
           />
 
           <div className={"flex flex-col gap-3"}>
@@ -51,7 +58,7 @@ const Profile = () => {
               Masjid{" "}
               <span className={"text-nowrap text-primary"}>Raden Patah</span>
             </h2>
-            <p className={"text-xl font-light max-lg:text-justify"}>
+            <p className={"text-lg font-light max-lg:text-justify lg:text-xl"}>
               Masjid Raden Patah merupakan masjid kampus terbesar yang ada di
               lingkungan civitas akademika Universitas Brawijaya. Masjid Raden
               Patah berdiri sejak tahun 1975 dan hanya menampung sebanyak 200

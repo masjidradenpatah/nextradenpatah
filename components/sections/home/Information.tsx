@@ -6,7 +6,7 @@ import { BgSingle, BgTriple } from "@/components/decorations/shades";
 const Information = () => {
   return (
     <section data-testid="information-section" className={"w-full"}>
-      <div className="container relative flex flex-col items-center gap-8 lg:gap-16">
+      <div className="container relative flex flex-col items-center gap-8 max-sm:px-4 lg:gap-16">
         {/* Start Background*/}
         <BgSingle
           className={"size-[450px] -translate-x-2/3 -translate-y-1/3"}

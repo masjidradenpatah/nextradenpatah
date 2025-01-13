@@ -76,10 +76,12 @@ const Footer = () => {
         </div>
         <div className={"flex flex-col items-center justify-center gap-3"}>
           {/*  */}
-          <p className={"text-center text-2xl font-medium"}>Ikuti Kami</p>
+          <p className={"text-center text-xl font-medium lg:text-2xl"}>
+            Ikuti Kami
+          </p>
           <Image
             src={unit}
-            className={"h-[100px] object-contain"}
+            className={"h-[75px] object-contain md:h-[100px]"}
             alt={
               "Imam Muda, Digital Creative, Umar, Pusat Tahfidz Qur'an, dan MRP Lunch Space "
             }
@@ -98,7 +100,7 @@ const SocmedFooter = () => {
   return (
     <div
       className={
-        "flex w-full flex-col items-center justify-center gap-4 md:flex-row [&_p]:text-lg [&_p]:font-medium"
+        "flex w-full flex-col items-center justify-center gap-4 md:flex-row [&_p]:text-base [&_p]:font-medium md:[&_p]:text-lg"
       }
     >
       {/*  Start Here*/}
@@ -106,21 +108,29 @@ const SocmedFooter = () => {
         href={"https://wa.me/628993117777"}
         className={"flex items-center gap-3"}
       >
-        <Image className={"size-6"} src={wa} alt={"whatsaapp 0899 311 7777"} />
+        <Image
+          className={"size-5 md:size-6"}
+          src={wa}
+          alt={"whatsaapp 0899 311 7777"}
+        />
         <p className={""}>0899 311 7777</p>
       </Link>
       <Link
         href={"https://youtube.com/@mrpmedia?si=BNpQh4uYrEqmxN_7"}
         className={"flex items-center gap-3"}
       >
-        <Image className={"size-6"} src={yt} alt={"whatsaapp 0899 311 7777"} />
+        <Image
+          className={"size-5 md:size-6"}
+          src={yt}
+          alt={"whatsaapp 0899 311 7777"}
+        />
         <p className={""}>mrpmedia</p>
       </Link>
       <div className={"flex items-center gap-3"}>
         <div className={"flex gap-2"}>
           <Link href={"https://t.me/masjidradenpatah_ub"} target="_blank">
             <Image
-              className={"size-6"}
+              className={"size-5 md:size-6"}
               src={tele}
               alt={"Telegram: masjidradenpatah.ub"}
             />
@@ -130,7 +140,7 @@ const SocmedFooter = () => {
             target="_blank"
           >
             <Image
-              className={"size-6"}
+              className={"size-5 md:size-6"}
               src={fb}
               alt={"Facebook: masjidradenpatah.ub"}
             />
@@ -140,7 +150,7 @@ const SocmedFooter = () => {
             target="_blank"
           >
             <Image
-              className={"size-6"}
+              className={"size-5 md:size-6"}
               src={ig}
               alt={"Instagram: masjidradenpatah.ub"}
             />
@@ -150,7 +160,7 @@ const SocmedFooter = () => {
             target="_blank"
           >
             <Image
-              className={"size-6"}
+              className={"size-5 md:size-6"}
               src={tiktok}
               alt={"Tiktok: masjidradenpatah.ub"}
             />
