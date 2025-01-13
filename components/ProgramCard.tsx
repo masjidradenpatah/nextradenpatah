@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Program } from "@/types/Program";
 import { Button } from "@/components/ui/button";
+import { IKImage } from "imagekitio-next";
 
 export type ProgramCardProps = {} & Program;
 
@@ -16,12 +17,14 @@ export const ProgramCard = ({ title, id, image }: ProgramCardProps) => {
         " relative transition duration-200 md:h-[323px]"
       }
     >
-      <Image
-        src={image} // fixme
+      <IKImage
         className={
           "relative w-full rounded-2xl border-2 border-white transition duration-200 " +
           " group-hover:-translate-y-12 group-hover:scale-[105%] group-hover:shadow-[0_0_18px_0_rgba(30,170,200,0.7)]"
         }
+        path={image}
+        width={400}
+        height={400}
         alt={`Gambar dari program ${title}`}
       />
       <Button variant={"fullPrgram"} className={"py-6"}>

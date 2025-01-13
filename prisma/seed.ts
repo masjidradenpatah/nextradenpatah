@@ -9,7 +9,7 @@ async function main() {
       {
         id: "kelas-psikologi-islam",
         title: "Kelas Psikologi Islam",
-        image: "kelas-psikologi-islam.jpg",
+        image: "/programs/KPI.png",
         description:
           "Program harian membahas psikologi dalam perspektif Islam.",
         type: "DAILY",
@@ -17,7 +17,7 @@ async function main() {
       {
         id: "kelas-tahsin",
         title: "Kelas Tahsin",
-        image: "kelas-tahsin.jpg",
+        image: "/programs/TAHSIN.png",
         description:
           "Program harian untuk meningkatkan kualitas bacaan Al-Qur'an.",
         type: "DAILY",
@@ -25,133 +25,131 @@ async function main() {
       {
         id: "kajian-tafsir-al-munir",
         title: "Kajian Tafsir Al-Munir",
-        image: "kajian-tafsir-al-munir.jpg",
+        image: "/programs/TAFSIR MUNIR.png",
         description: "Kajian mendalam membahas tafsir kitab Al-Munir.",
         type: "DAILY",
       },
       {
         id: "kajian-islam-tematik-menjelang-maghrib",
         title: "Kajian Islam Tematik Menjelang Maghrib",
-        image: "kismala.jpg",
+        image: "/programs/KISMALA.png",
         description: "Kajian tematik membahas isu-isu Islam setiap sore.",
         type: "DAILY",
       },
       {
         id: "kultum-zuhur",
         title: "Kultum Zuhur",
-        image: "kultum-zuhur.jpg",
+        image: "/programs/KULTUM.png",
         description: "Ceramah pendek setiap Zuhur di masjid kampus.",
         type: "DAILY",
       },
       {
         id: "kajian-fiqih-4-mazhab",
         title: "Kajian Fiqih 4 Mazhab",
-        image: "kajian-fiqih-4-mazhab.jpg",
+        image: "/programs/KAJIAN FIQIH.png",
         description: "Diskusi mendalam tentang fiqih empat mazhab.",
         type: "DAILY",
       },
       {
         id: "baca-tulis-al-quran",
         title: "Baca Tulis Al-Qur'an",
-        image: "baca-tulis-al-quran.jpg",
+        image: "/programs/BTA.png",
         description: "Program literasi Al-Qur'an untuk pemula.",
         type: "DAILY",
       },
       {
         id: "kelas-pra-nikah-parenting",
         title: "Kelas Pra-Nikah & Parenting",
-        image: "kelas-pra-nikah-parenting.jpg",
+        image: "/programs/KELAS PRANIKAH.png",
         description: "Pembekalan pra-nikah dan parenting Islami.",
         type: "DAILY",
       },
       {
         id: "kajian-tazkiyatun-nafs",
         title: "Kajian Tazkiyatun Nafs",
-        image: "kajian-tazkiyatun-nafs.jpg",
+        image: "/programs/TAZKIYATUN NAFS.png",
         description: "Kajian pembersihan hati dan jiwa menurut Islam.",
         type: "DAILY",
       },
       {
         id: "kajian-tafsir-surah-al-fatihah",
         title: "Kajian Tafsir Surah Al-Fatihah",
-        image: "kajian-tafsir-surah-al-fatihah.jpg",
+        image: "/programs/TAFSIR FATIHAH.png",
         description: "Pembahasan mendalam Surah Al-Fatihah.",
         type: "DAILY",
       },
       {
         id: "gebyar-ramadhan",
         title: "Gebyar Ramadhan",
-        image: "gebyar-ramadhan.jpg",
+        image: "/programs/GEBYAR.png",
         description: "Kegiatan akbar selama bulan Ramadhan.",
         type: "ANNUALY",
       },
       {
         id: "wisuda-tahfidz",
         title: "Wisuda Tahfidz",
-        image: "wisuda-tahfidz.jpg",
+        image: "/programs/WISUDA.png",
         description: "Wisuda santri penghafal Al-Qur'an.",
         type: "ANNUALY",
       },
       {
         id: "mrp-mengabdi",
         title: "MRP Mengabdi",
-        image: "mrp-mengabdi.jpg",
+        image: "/programs/MRP MENGABDI.png",
         description: "Pengabdian masyarakat oleh Masjid Raden Patah.",
         type: "ANNUALY",
       },
       {
         id: "cafe-mrp",
         title: "Cafe MRP",
-        image: "cafe-mrp.jpg",
+        image: "/programs/CAFE MRP.png",
         description: "Diskusi ringan dan santai di cafe masjid.",
         type: "ANNUALY",
       },
       {
         id: "cafe-ramadhan",
         title: "Cafe Ramadhan",
-        image: "cafe-ramadhan.jpg",
+        image: "/programs/CAFE RAMADHAN.png",
         description: "Diskusi Islami santai selama Ramadhan.",
         type: "ANNUALY",
       },
       {
         id: "tabligh-akbar",
         title: "Tabligh Akbar",
-        image: "tabligh-akbar.jpg",
+        image: "/programs/TABLIGH AKBAR.png",
         description: "Acara besar dengan tema keislaman tertentu.",
         type: "ANNUALY",
       },
       {
         id: "seminar-qurani",
         title: "Seminar Qur'ani",
-        image: "seminar-qurani.jpg",
+        image: "/programs/SEMINAR QUR'ANI.png",
         description: "Seminar membahas topik Al-Qur'an dan Islam.",
         type: "ANNUALY",
       },
       {
         id: "ptq-berkarya",
         title: "PTQ Berkarya",
-        image: "ptq-berkarya.jpg",
+        image: "/programs/PTQ BERKARYA.png",
         description: "Program Tahfidz Qur'an untuk masyarakat.",
         type: "ANNUALY",
       },
       {
         id: "tahfidz-camp",
         title: "Tahfidz Camp",
-        image: "tahfidz-camp.jpg",
+        image: "/programs/TAHFIDZ CAMP.png",
         description: "Kegiatan kemah untuk tahfidz Al-Qur'an.",
         type: "ANNUALY",
       },
       {
         id: "syiar-dakwah-disabilitas",
         title: "Syi'ar Dakwah Disabilitas",
-        image: "syiar-dakwah-disabilitas.jpg",
+        image: "/programs/SYI'AR DAKWAH.png",
         description: "Dakwah Islami untuk masyarakat disabilitas.",
         type: "ANNUALY",
       },
     ],
   });
-
-  console.log(`Seeded ${programs.count} programs.`);
 
   // Seed for program executions
   const programExecutions = await prisma.programExecution.createMany({
@@ -278,17 +276,13 @@ async function main() {
       },
     ],
   });
-
-  console.log(`Seeded ${programExecutions.count} program executions.`);
 }
 
 main()
   .then(() => {
-    console.log("Seeding completed.");
     prisma.$disconnect();
   })
-  .catch((error) => {
-    console.error("Error seeding database:", error);
+  .catch(() => {
     prisma.$disconnect();
     process.exit(1);
   });

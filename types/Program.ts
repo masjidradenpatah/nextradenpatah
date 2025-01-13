@@ -1,10 +1,7 @@
-import { StaticImageData } from "next/image";
-
-// TODO: Probably this is temporary, If the data taken from database. This could be replaced from Prisma
 export interface Program {
   id: string;
   title: string;
-  image: string | StaticImageData;
+  image: string;
   description: string;
   type: "DAILY" | "ANNUALY";
 }
