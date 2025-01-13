@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export type ProgramCardProps = {} & Program;
 
-export const ProgramCard = ({ href, image, title }: ProgramCardProps) => {
+export const ProgramCard = ({ title, id, image }: ProgramCardProps) => {
   return (
     <div
       className={
@@ -25,7 +25,7 @@ export const ProgramCard = ({ href, image, title }: ProgramCardProps) => {
         alt={`Gambar dari program ${title}`}
       />
       <Button variant={"fullPrgram"} className={"py-6"}>
-        <Link href={href}>Selengkapnya</Link>
+        <Link href={id}>Selengkapnya</Link>
       </Button>
     </div>
   );
