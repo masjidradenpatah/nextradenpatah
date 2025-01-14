@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Seed for programs
-  const programs = await prisma.program.createMany({
+  await prisma.program.createMany({
     data: [
       {
         id: "kelas-psikologi-islam",
@@ -152,7 +152,7 @@ async function main() {
   });
 
   // Seed for program executions
-  const programExecutions = await prisma.programExecution.createMany({
+  await prisma.programExecution.createMany({
     data: [
       {
         id: "execution-1",

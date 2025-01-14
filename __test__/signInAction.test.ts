@@ -14,19 +14,19 @@ global.Request = jest.fn(() => ({
   url: "",
 })) as unknown as typeof Request;
 
-jest.mock("../auth", () => ({
+jest.mock("@/auth", () => ({
   signIn: jest.fn(),
 }));
 
-jest.mock("../data/User", () => ({
+jest.mock("@/data/User", () => ({
   getUserByEmail: jest.fn(),
 }));
 
-jest.mock("../lib/verification-token", () => ({
+jest.mock("@/lib/verification-token", () => ({
   generateVerificationByEmail: jest.fn(),
 }));
 
-jest.mock("../lib/mail", () => ({
+jest.mock("@/lib/mail", () => ({
   sendVerificationEmail: jest.fn(),
 }));
 

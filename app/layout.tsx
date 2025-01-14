@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import ImageKitProviderWrapper from "@/components/ImageKitProvider";
+import { ImageKitProvider } from "@/components/ImageKit";
+import { ReactNode } from "react";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -16,18 +17,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
+  modal: ReactNode;
 }>) {
   return (
     <html lang="en">
-      <ImageKitProviderWrapper>
+      <ImageKitProvider>
         <body
           className={`${poppins.variable} ${poppins.className} flex flex-col bg-[#EDEDED] antialiased`}
         >
+          {modal}
           {children}
         </body>
-      </ImageKitProviderWrapper>
+      </ImageKitProvider>
     </html>
   );
 }

@@ -73,3 +73,17 @@ export const getPrograms = async (
     return null;
   }
 };
+
+export const getProgramByID = async (
+  programId: string,
+): Promise<Program | null> => {
+  try {
+    const program = await prisma.program.findUnique({
+      where: { id: programId },
+    });
+
+    return program;
+  } catch {
+    return null;
+  }
+};
