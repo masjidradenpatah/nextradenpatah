@@ -5,7 +5,6 @@ import ProgramDetail from "@/components/ProgramDetail";
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const program = await getProgramByID(id);
-  console.log({ program });
   return (
     <div
       className={"mt-32 flex size-full flex-col items-center overflow-hidden"}
