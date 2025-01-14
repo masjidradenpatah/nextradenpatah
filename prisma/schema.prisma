@@ -61,3 +61,31 @@ model resetPasswordToken {
 
   @@unique([email, token])
 }
+
+enum programType {
+  DAILY
+  ANNUALY
+}
+
+model program {
+  id               String             @id // title-year-identifier
+  title            String
+  description      String
+  image            String
+  type             programType
+  programExecution programExecution[]
+}
+
+enum programStatus {
+  UPCOMING
+  DONE
+  CANCELED
+}
+
+model programExecution {
+  id        String        @id
+  program   program       @relation(fields: [programId], references: [id])
+  date      DateTime
+  programId String
+  status    programStatus
+}

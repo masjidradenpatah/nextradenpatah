@@ -19,7 +19,11 @@ const Footer = () => {
         " rounded-b-none border-8 border-x-0 border-b-0 border-white !bg-white/25 p-8 lg:p-16"
       }
     >
-      <div className={"absolute inset-0 overflow-hidden rounded-3xl"}>
+      <div
+        className={
+          "pointer-events-none absolute inset-0 overflow-hidden rounded-3xl"
+        }
+      >
         <Shades
           className={"translate-x-1/5 right-0 top-0 -translate-y-1/4 blur-3xl"}
         />
