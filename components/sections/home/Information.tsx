@@ -1,6 +1,7 @@
+"use client";
 import { BgSingle, BgTriple } from "@/components/decorations/shades";
-import { UpcomingProgramList } from "@/components/ProgramList";
 import React from "react";
+import { UpcomingProgramRender } from "@/components/UpcomingProgramRender";
 
 const Information = () => {
   return (
@@ -18,7 +19,11 @@ const Information = () => {
         {/* End Background*/}
 
         {/* Upcoming Innformation Here */}
-        <UpcomingProgramList
+        {/*<UpcomingProgramList*/}
+        {/*  title={"Program yang Akan Datang"}*/}
+        {/*  subtitle={"Jangan sampai ketinggalan..."}*/}
+        {/*/>*/}
+        <UpcomingProgramRender
           title={"Program yang Akan Datang"}
           subtitle={"Jangan sampai ketinggalan..."}
         />

@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ImageKitProvider } from "@/components/ImageKit";
 import { ReactNode } from "react";
+import QueryClientWrapper from "@/components/QueryClientWrapper";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -24,14 +25,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ImageKitProvider>
-        <body
-          className={`${poppins.variable} ${poppins.className} flex flex-col bg-[#EDEDED] antialiased`}
-        >
-          {modal}
-          {children}
-        </body>
-      </ImageKitProvider>
+      <QueryClientWrapper>
+        <ImageKitProvider>
+          <body
+            className={`${poppins.variable} ${poppins.className} flex flex-col bg-[#EDEDED] antialiased`}
+          >
+            {modal}
+            {children}
+          </body>
+        </ImageKitProvider>
+      </QueryClientWrapper>
     </html>
   );
 }
