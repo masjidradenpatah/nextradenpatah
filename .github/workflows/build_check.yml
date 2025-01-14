@@ -8,6 +8,7 @@ on:
   # Runs on pushes targeting the default branch
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   # Build job

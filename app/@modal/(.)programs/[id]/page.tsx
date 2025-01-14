@@ -14,7 +14,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <Modal modalTitle={"Program Masjid Raden Patah"}>
       {/*<section className={"container flex w-full flex-col gap-32"}>*/}
-      <ProgramDetail {...program} className={""} />
+      <ProgramDetail program={program} className={""} />
     </Modal>
   );
 };
