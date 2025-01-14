@@ -11,7 +11,7 @@ on:
 
 jobs:
   # Build job
-  check_lint:
+  Test-Build-Before-Merge:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +25,8 @@ jobs:
       - name: Run Prisma Generate
         run: npx prisma generate
       - name: Run Build
+        env:
+          NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY }}
         run: npm run build
       - name: Run Testing
-
         run: npm run test
