@@ -20,7 +20,9 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         fullPrgram:
           "rounded-2xl border-2 border-white flex  bg-gradient-to-br from-[#DCF2F2] via-[#C6EAED] via-50% to-[#46D7F6] py-2 text-center text-2xl" +
-          " font-semibold text-primary hover:bg-red ",
+          " font-semibold text-primary bg-gradient-to-br from-[#DCF2F2] via-[#C6EAED] via-50% to-[#46D7F6] transition duration-150 hover:to-[#DCF2F2] active:from-primary" +
+          " active:to-primary" +
+          " active:text-white",
       },
       size: {
         default: "h-10 px-4 py-2",
