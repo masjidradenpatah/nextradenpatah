@@ -30,6 +30,6 @@ jobs:
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY }}
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT }}
           IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
-        run: echo "NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY $NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY."
+        run: npm run build
       - name: Run Testing
         run: npm run test
