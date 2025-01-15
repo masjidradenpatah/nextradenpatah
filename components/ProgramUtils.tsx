@@ -4,10 +4,19 @@ import handPray from "@/public/hand-pray.svg";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const ProgramListLoading = () => {
+export const ProgramListLoading = ({
+  numberItemShown,
+}: {
+  numberItemShown?: number | "all";
+}) => {
   return (
     <>
-      {Array.from({ length: 3 }).map((_, i) => {
+      {Array.from({
+        length:
+          numberItemShown === undefined || numberItemShown === "all"
+            ? 3
+            : numberItemShown,
+      }).map((_, i) => {
         return (
           <div
             key={i}

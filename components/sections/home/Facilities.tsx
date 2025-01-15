@@ -54,12 +54,12 @@ const Facilities = () => {
   };
   // Variants End Here
 
-  const [parentWidth, setParentWidth] = useState(window.innerWidth);
+  const [parentWidth, setParentWidth] = useState(0);
 
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
-    // setParentWidth(window.innerWidth);
+    if (parentWidth === 0) setParentWidth(window.innerWidth);
 
     const handleResize = () => {
       setParentWidth(window.innerWidth);

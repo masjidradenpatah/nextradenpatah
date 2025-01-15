@@ -54,12 +54,12 @@ export const ProgramRender = ({
   if (status === "pending") {
     return (
       <ProgramListWrapper title={title} subtitle={subtitle}>
-        <ProgramListLoading />
+        <ProgramListLoading numberItemShown={numberItemShown} />
       </ProgramListWrapper>
     );
   }
 
-  if (status === "error") {
+  if (status === "error" || programs === null) {
     return (
       <ErrorMessage
         title={title}

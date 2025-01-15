@@ -63,7 +63,7 @@ export const UpcomingProgramRender = ({
     );
   }
 
-  if (status === "error") {
+  if (status === "error" || programs === null) {
     return (
       <ErrorMessage
         title={title}

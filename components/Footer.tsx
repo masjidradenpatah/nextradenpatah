@@ -126,7 +126,7 @@ const SocmedFooter = () => {
         <Image
           className={"size-5 md:size-6"}
           src={yt}
-          alt={"whatsaapp 0899 311 7777"}
+          alt={"Youtube mrpmedia"}
         />
         <p className={""}>mrpmedia</p>
       </Link>

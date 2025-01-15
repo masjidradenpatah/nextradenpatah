@@ -1,6 +1,5 @@
 import React from "react";
 
-import { ProgramList, UpcomingProgramList } from "@/components/ProgramUtils";
 import { UpcomingProgramRender } from "@/components/UpcomingProgramRender";
 import { ProgramRender } from "@/components/ProgramRender";
 
@@ -19,6 +18,7 @@ const Page = () => {
           title={"Program yang Akan Datang"}
           subtitle={"Jangan sampai ketinggalan..."}
         />
+
         <ProgramRender
           title={"Program Rutin Harian"}
           subtitle={"Ikuti program kajian favorit kalian..."}
