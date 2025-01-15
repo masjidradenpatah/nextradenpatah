@@ -30,7 +30,7 @@ export const publicRoutes: string[] = [
   "/",
   "/new-verification",
   "/reset-password",
-  "/services",
+
   "/contact",
 ];
 
@@ -39,7 +39,11 @@ export const publicRoutes: string[] = [
  * e.g /article/articleId
  * @type {string[]}
  */
-export const publicRoutesPrefix: string[] = ["/programs", "/article"];
+export const publicRoutesPrefix: string[] = [
+  "/programs",
+  "/services",
+  "/article",
+];
 
 export function checkPublicRoute(route: string): boolean {
   const check1 = publicRoutes.includes(route);

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { CloudAlert } from "lucide-react";
 
 type Props = {
-  program: Program | null; // Program bisa null
+  program: Program | null | Error; // Program bisa null
   className: string;
 };
 
@@ -17,7 +17,7 @@ const ProgramDetail = ({ program, className }: Props) => {
         className,
       )}
     >
-      {program ? (
+      {program && !(program instanceof Error) ? (
         <>
           <ImageKitImage
             height={400}

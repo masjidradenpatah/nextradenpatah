@@ -1,6 +1,7 @@
 import React from "react";
 
-import { ProgramList, UpcomingProgramList } from "@/components/ProgramList";
+import { UpcomingProgramRender } from "@/components/UpcomingProgramRender";
+import { ProgramRender } from "@/components/ProgramRender";
 
 const Page = () => {
   return (
@@ -13,17 +14,18 @@ const Page = () => {
         data-testid="daily-program-section"
         className={"flex w-full flex-col gap-32 py-24"}
       >
-        <UpcomingProgramList
+        <UpcomingProgramRender
           title={"Program yang Akan Datang"}
           subtitle={"Jangan sampai ketinggalan..."}
         />
-        <ProgramList
+
+        <ProgramRender
           title={"Program Rutin Harian"}
           subtitle={"Ikuti program kajian favorit kalian..."}
           type={"DAILY"}
           numberItemShown={"all"}
         />
-        <ProgramList
+        <ProgramRender
           title={"Program Tahunan"}
           subtitle={"Ikuti program kajian favorit kalian..."}
           type={"ANNUALY"}

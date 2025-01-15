@@ -1,8 +1,8 @@
+"use server";
 import { Program, ProgramExecution } from "@/types/Program";
-
 import { prisma } from "@/lib/db";
 
-export const getUpcomingProgram = async (
+export const getUpcomingProgramsAction = async (
   numberItem?: number | "all",
 ): Promise<ProgramExecution[] | null> => {
   const now = new Date();
@@ -47,13 +47,10 @@ export const getUpcomingProgram = async (
   }
 };
 
-export const getPrograms = async (
+export const getProgramsAction = async (
   type: "ALL" | "DAILY" | "ANNUALY" = "ALL",
   numberItem: "all" | number = 3,
 ): Promise<Program[] | null> => {
-  // todo remove
-  new Promise((resolve) => setTimeout(resolve, 3000));
-  console.log("Hellooooooooo");
   try {
     const programs = await prisma.program.findMany({
       where: type === "ALL" ? undefined : { type },
@@ -77,7 +74,7 @@ export const getPrograms = async (
   }
 };
 
-export const getProgramByID = async (
+export const getProgramByIdAction = async (
   programId: string,
 ): Promise<Program | null> => {
   try {

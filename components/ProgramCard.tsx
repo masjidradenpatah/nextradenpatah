@@ -13,7 +13,7 @@ export const ProgramCard = ({ title, id, image }: ProgramCardProps) => {
         "glassmorphic-lg sm:rounded-5xl group flex h-fit flex-col justify-end gap-4 rounded-2xl border-2 border-white px-2 py-2 hover:bg-white" +
         " sm:px-6 sm:pb-8" +
         " mt-0 sm:mt-24 lg:mt-12 xl:mt-36 2xl:mt-56" +
-        " relative transition duration-200 md:h-[323px]"
+        " relative transition duration-200 sm:h-[323px]"
       }
     >
       <ImageKitImage
