@@ -34,10 +34,9 @@ export const signInAction = async (
 
   const existingUser = await getUserByEmail(email);
   if (!existingUser || !existingUser.email || !existingUser.password) {
-    return { error: "Something went wrong" };
+    return { error: "User not found" };
   }
 
-  // TODO: Check if the email is Verified or not
   if (!existingUser.emailVerified) {
     const verificationToken = await generateVerificationByEmail(
       existingUser.email,
@@ -46,7 +45,10 @@ export const signInAction = async (
       verificationToken.email,
       verificationToken.token,
     );
-    return { success: "Email Verification has sent" };
+    return {
+      success:
+        "Please verify your email. We've send the verfication link to your email",
+    };
   }
 
   try {
@@ -59,8 +61,6 @@ export const signInAction = async (
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          // just for testing
-          // return { success: "Succesfull" };
           return { error: "Invalid credentials" };
         default:
           return { error: "Something went wrong" };
@@ -87,8 +87,7 @@ export const signUpAction = async (
   const existinguser = await getUserByEmail(email);
 
   if (existinguser) {
-    // ERROR, can't make a user if the email already exist in database
-    return { error: "Something went wrong" };
+    return { error: "Email already used" };
   }
 
   await prisma.user.create({
@@ -100,9 +99,12 @@ export const signUpAction = async (
   });
 
   const verificationToken = await generateVerificationByEmail(email);
+  // TODO: Handle if the account has created but failed to send email verification
   await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
-  return { success: `Verification token has been sent` };
+  return {
+    success: `Congratulations!!! Your Account has successfully created. Please verify your email. We've sent the verification link to your email.`,
+  };
 };
 
 export async function verifyEmail(
@@ -150,28 +152,27 @@ export async function resetPasswordAction(
   }
 
   const { email } = validatedFields.data;
-
   const existingUser = await getUserByEmail(email);
-
   if (!existingUser || !existingUser.email) {
     return { error: "Email doesn't exit" };
   }
 
-  // Generate token & send email
   const token = await generateResetPasswordTokenByEmail(existingUser.email);
-  await sendResetPasswordEmail(token.email, token.token);
+  try {
+    // TODO: Handle if sending email failed
+    await sendResetPasswordEmail(token.email, token.token);
+  } catch {
+    return { error: "Failed to sending reset password link to email" };
+  }
 
   return { success: "Reset password request successfully sent" };
 }
 
 export async function newPasswordAction(
   values: z.infer<typeof newPasswordSchema>,
-  token: string | null,
+  token: string,
 ): Promise<Record<string, string>> {
-  if (!token) {
-    return { error: "Token is Missing" };
-  }
-
+  //  TODO!!!!!!!!!!!!
   const validatedFields = newPasswordSchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid Credentials" };
@@ -184,6 +185,9 @@ export async function newPasswordAction(
   }
 
   const hasExpired = new Date(existingToken.expires) < new Date();
+  if (hasExpired) {
+    return { error: "Token has expired" };
+  }
 
   const existingUser = await getUserByEmail(existingToken.email);
   if (!existingUser) {
@@ -191,7 +195,6 @@ export async function newPasswordAction(
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-
   await prisma.user.update({
     where: { id: existingUser.id },
     data: { password: hashedPassword },

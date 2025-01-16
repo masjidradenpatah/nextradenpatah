@@ -70,7 +70,7 @@ const Page = () => {
             {/*  Start Contact Infomation */}
             <div
               className={
-                "group flex flex-col gap-2 text-primary transition-colors duration-200"
+                "group flex flex-col gap-2 text-primary transition duration-200"
               }
             >
               <p
@@ -81,14 +81,16 @@ const Page = () => {
               <Link
                 href={"https://wa.me/628993117777"}
                 className={
-                  "relative w-fit text-3xl font-bold group-hover:text-emerald-500 md:text-4xl lg:text-5xl"
+                  "relative w-fit text-3xl font-bold transition duration-200 group-hover:text-emerald-500 md:text-4xl lg:text-5xl"
                 }
               >
                 <CircleIcon
                   className={
                     "absolute right-0 top-0 -translate-y-2/3 translate-x-2/3 rotate-12 scale-75 shadow-lg md:scale-100"
                   }
-                  innerClassName={"group-hover:bg-emerald-500"}
+                  innerClassName={
+                    "group-hover:from-emerald-500 transition duration-200  group-hover:to-emerald-500"
+                  }
                 >
                   <Image
                     className={"size-5 md:size-6"}
@@ -99,7 +101,9 @@ const Page = () => {
                 0899 311 7777
               </Link>
               <p
-                className={"text-2xl font-medium group-hover:text-emerald-500"}
+                className={
+                  "text-2xl font-medium transition duration-200 group-hover:text-emerald-500"
+                }
               >
                 (Whatsapp Only)
               </p>

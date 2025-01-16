@@ -1,18 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+
 import { useSearchParams } from "next/navigation";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -22,12 +16,13 @@ import z from "zod";
 import { newPasswordSchema } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newPasswordAction } from "@/actions/auth";
+import { FeedbackMessage } from "@/components/FeedbackMessage";
 
 const NewPasswordForm = () => {
-  const [message, setMessage] = useState<Record<string, string> | undefined>();
+  const [error, setError] = useState<string>();
+  const [success, setSuccess] = useState<string>();
   const searchParams = useSearchParams();
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof newPasswordSchema>>({
     resolver: zodResolver(newPasswordSchema),
     defaultValues: {
@@ -39,41 +34,76 @@ const NewPasswordForm = () => {
 
   async function onSubmit(values: z.infer<typeof newPasswordSchema>) {
     if (!token) {
-      setMessage({ error: "Token is missing" });
+      setError("Token is missing");
       return;
     }
 
-    newPasswordAction(values, token)
-      .then((data) => setMessage(data))
-      .catch(() => {});
+    const response = await newPasswordAction(values, token);
+    if (response.error) setError(response.error);
+    else if (response.success) setSuccess(response.sucess);
   }
 
   return (
-    <Card>
-      <CardHeader>Confirm Your Email</CardHeader>
-      <CardContent>
+    <>
+      <div
+        className={
+          "mx-auto flex w-full max-w-[460px] flex-col items-center justify-center gap-8"
+        }
+      >
+        <p
+          className={
+            "mb-4 text-center text-3xl font-semibold text-muted-foreground"
+          }
+        >
+          Reset Password
+        </p>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-2"
+          >
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="*******" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="New Password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Password Confirmation"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit">Reset Password</Button>
+            <Button type="submit" className={"w-full"}>
+              Reset Password
+            </Button>
+            {error && <FeedbackMessage type={"error"} message={error} />}
+            {success && <FeedbackMessage type={"success"} message={success} />}
           </form>
         </Form>
-      </CardContent>
-      <CardFooter>{message?.first}</CardFooter>
-    </Card>
+      </div>
+    </>
   );
 };
 export default NewPasswordForm;

@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -15,9 +14,12 @@ import z from "zod";
 import { signUpSchema } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpAction } from "@/actions/auth";
-import { redirect } from "next/navigation";
+import GoogleSignIn from "@/components/GoogleSignIn";
+import { FeedbackMessage } from "@/components/FeedbackMessage";
 
 const SignUpForm = () => {
+  const [error, setError] = useState<string>();
+  const [success, setSuccess] = useState<string>();
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -27,75 +29,102 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
-    const result = await signUpAction(values);
-
-    if (result.success) {
-      redirect("/signIn");
+    const response = await signUpAction(values);
+    if (response.error) {
+      setError(response.error);
+    } else if (response.success) {
+      setSuccess(response.success);
     }
   }
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nama</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="Abdullah" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="jhondoe@example.com"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="*******" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="*******" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <div className={"flex w-full flex-col items-center justify-center"}>
+        <p
+          className={
+            "mb-12 text-center text-3xl font-semibold text-muted-foreground"
+          }
+        >
+          Selamat Datang di{" "}
+          <span className={"text-nowrap text-primary"}>
+            {" "}
+            Masjid Raden Patah
+          </span>
+        </p>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-6"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input type="text" placeholder="Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input type="email" placeholder="Email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input type="password" placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Password Confirmation"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+            <Button type="submit" className={"w-full"}>
+              Sign Up
+            </Button>
+            {error && <FeedbackMessage type={"error"} message={error} />}
+            {success && <FeedbackMessage type={"success"} message={success} />}
+          </form>
+        </Form>
+      </div>
+      <div
+        className={
+          "flex flex-col items-center justify-center gap-4 text-lg text-muted-foreground"
+        }
+      >
+        <p>Or Sign Up With</p>
+        <GoogleSignIn />
+      </div>
+    </>
   );
 };
 export default SignUpForm;
