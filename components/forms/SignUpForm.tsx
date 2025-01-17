@@ -23,16 +23,20 @@ const SignUpForm = () => {
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     const response = await signUpAction(values);
     if (response.error) {
+      setSuccess(undefined);
       setError(response.error);
     } else if (response.success) {
+      setError(undefined);
       setSuccess(response.success);
     }
   }
@@ -111,8 +115,11 @@ const SignUpForm = () => {
             <Button type="submit" className={"w-full"}>
               Sign Up
             </Button>
-            {error && <FeedbackMessage type={"error"} message={error} />}
-            {success && <FeedbackMessage type={"success"} message={success} />}
+            {error ? (
+              <FeedbackMessage type={"error"} message={error} />
+            ) : success ? (
+              <FeedbackMessage type={"success"} message={success} />
+            ) : null}
           </form>
         </Form>
       </div>

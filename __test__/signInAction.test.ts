@@ -52,7 +52,7 @@ describe("Sign In Action Testing Unit", () => {
   it("Should return error if user does not exist", async () => {
     mockGetUserByEmail.mockResolvedValue(null);
     const result = await signInAction(validValues);
-    expect(result).toEqual({ error: "Something went wrong" });
+    expect(result).toEqual({ error: "User not found" });
     expect(mockGetUserByEmail).toHaveBeenCalledWith(validValues.email);
   });
 
@@ -78,7 +78,10 @@ describe("Sign In Action Testing Unit", () => {
 
     const result = await signInAction(validValues);
 
-    expect(result).toEqual({ success: "Email Verification has sent" });
+    expect(result).toEqual({
+      success:
+        "Please verify your email. We've send the verfication link to your email",
+    });
     expect(mockGenerateVerificationByEmail).toHaveBeenCalledWith(
       validValues.email,
     );
@@ -102,7 +105,6 @@ describe("Sign In Action Testing Unit", () => {
     });
 
     mockSignIn.mockRejectedValue(new AuthError("CredentialsSignin"));
-    // mockSignIn.mockImplementation(() => Promise.reject("error"));
 
     const result = await signInAction({
       email: validValues.email,

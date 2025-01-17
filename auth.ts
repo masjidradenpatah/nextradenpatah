@@ -1,44 +1,37 @@
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@auth/prisma-adapter';
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
-import { prisma } from '@/lib/db'
+import { prisma } from "@/lib/db";
 
-import authConfig from '@/auth.config'
+import authConfig from "@/auth.config";
 import { getUserById } from "@/data/User";
 export const {
-  handlers: {GET, POST},
+  handlers: { GET, POST },
   auth,
   signIn,
-  signOut
+  signOut,
 } = NextAuth({
   pages: {
-    signIn: '/signIn',
-    error: '/auth-error',
+    signIn: "/signIn",
+    error: "/auth-error",
   },
   events: {
-    async linkAccount({user}) {
+    async linkAccount({ user }) {
       await prisma.user.update({
         where: { id: user.id },
-        data: { emailVerified: new Date() }
+        data: { emailVerified: new Date() },
       });
-    }
+    },
   },
   callbacks: {
-    async signIn({user, account, profile, email, credentials}) {
+    async signIn({ user, account, profile, email, credentials }) {
       // Allow Oauth without email verification
-      if(account?.provider !== 'credentials') {
+      if (account?.provider !== "credentials") {
         return true;
       }
 
       const existingUser = await getUserById(user.id as string);
-      if(!existingUser?.emailVerified) {
-        return false;
-      }
-
-      // TODO: Add 2FA Check
-
-
-      return true;
+      return !!existingUser;
     },
     async redirect({ url, baseUrl }) {
       return baseUrl;
@@ -48,13 +41,13 @@ export const {
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      if(user) {
+      if (user) {
         token.user = user;
       }
-       return token
-    }
+      return token;
+    },
   },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
-  ...authConfig
+  ...authConfig,
 });

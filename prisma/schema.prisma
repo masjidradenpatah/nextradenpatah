@@ -62,6 +62,12 @@ model resetPasswordToken {
   @@unique([email, token])
 }
 
+model resetPasswordRequest {
+  id    String   @id @default(cuid())
+  date  DateTime
+  email String
+}
+
 enum programType {
   DAILY
   ANNUALY
