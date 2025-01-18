@@ -18,8 +18,8 @@ const Layout = async ({ children }: { children: ReactNode }) => {
         <DashboardSidebar user={session.user} />
         {/*<div className={"w-full bg-blue-700/50"}></div>*/}
       </div>
-      <div className={"size-full bg-red-800/15"}>
-        <div className={"bg-sidebar flex w-full items-center gap-4 p-4"}>
+      <div className={"flex size-full flex-col"}>
+        <div className={"flex w-full items-center gap-4 bg-sidebar p-4"}>
           <SidebarTriggerButton />
           <Link href={"/"}>
             <House></House>
@@ -27,7 +27,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
           <DynamicBreadcrumb />
           {/*  TODO: Add breadcrumb here*/}
         </div>
-        {children}
+        <div className={"w-full grow p-12"}>{children}</div>
       </div>
     </SidebarProvider>
   );

@@ -31,37 +31,50 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { split_array, SplitArrayResult } from "@/lib/utils";
 
 const ITEMS_TO_DISPLAY = 3; // Jumlah breadcrumb yang selalu ditampilkan
 
-function generateBreadcrumbs(pathname: string) {
+interface Breadcrumb {
+  href: string;
+  title: string;
+}
+type GeneratedBreadcrumps = SplitArrayResult<Breadcrumb>;
+
+function generateBreadcrumbs(pathname: string): GeneratedBreadcrumps {
   const segments = pathname.split("/").filter(Boolean); // Pisahkan URL berdasarkan '/'
-  return segments.map((segment, index) => {
+  const segmentedBreadcrumb = segments.map((segment, index) => {
     const href = "/" + segments.slice(0, index + 1).join("/");
     const title = decodeURIComponent(segment).replace(/-/g, " "); // Format judul
     return { href, title };
   });
+
+  return split_array(segmentedBreadcrumb, 3);
 }
 
 export function DynamicBreadcrumb() {
   const pathname = usePathname(); // Ambil URL saat ini
-  const breadcrumbs = generateBreadcrumbs(pathname);
+  const { numberElement, firstElement, middleElement, lastElement } =
+    generateBreadcrumbs(pathname);
   const isDesktop = useMediaQuery("(min-width: 768px)"); // Deteksi ukuran layar
   const [open, setOpen] = useState(false); // State untuk Drawer atau Dropdown
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {/* Tampilkan elemen pertama */}
+        {/*  /!* Tampilkan elemen pertama *!/*/}
         <BreadcrumbItem>
-          <BreadcrumbLink href={breadcrumbs[0].href}>
-            {breadcrumbs[0].title}
+          <BreadcrumbLink href={firstElement.href}>
+            {firstElement.title}
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator className={"flex items-center"} />
+
+        {numberElement > 1 && (
+          <BreadcrumbSeparator className={"flex items-center"} />
+        )}
 
         {/* Breadcrumb collapsible jika terlalu panjang */}
-        {breadcrumbs.length > ITEMS_TO_DISPLAY ? (
+        {middleElement ? (
           <>
             {/* Elemen tengah dalam Dropdown/Drawer */}
             <BreadcrumbItem>
@@ -74,7 +87,7 @@ export function DynamicBreadcrumb() {
                     <BreadcrumbEllipsis className="size-4" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
-                    {breadcrumbs.slice(1, -2).map((crumb, index) => (
+                    {middleElement.map((crumb, index) => (
                       <DropdownMenuItem key={index}>
                         <Link href={crumb.href}>{crumb.title}</Link>
                       </DropdownMenuItem>
@@ -94,7 +107,7 @@ export function DynamicBreadcrumb() {
                       </DrawerDescription>
                     </DrawerHeader>
                     <div className="grid gap-1 px-4">
-                      {breadcrumbs.slice(1, -2).map((crumb, index) => (
+                      {middleElement.map((crumb, index) => (
                         <Link
                           key={index}
                           href={crumb.href}
@@ -118,24 +131,16 @@ export function DynamicBreadcrumb() {
         ) : null}
 
         {/* Breadcrumb akhir yang selalu ditampilkan */}
-        {breadcrumbs.length == 2 && (
-          <BreadcrumbItem>
-            <BreadcrumbLink href={breadcrumbs[1].href}>
-              {breadcrumbs[1].title}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        )}
-        {breadcrumbs.length > 2 &&
-          breadcrumbs.slice(-ITEMS_TO_DISPLAY + 1).map((crumb, index) => (
+
+        {lastElement &&
+          lastElement.map((crumb, index) => (
             <BreadcrumbItem key={index}>
-              {index === breadcrumbs.slice(-ITEMS_TO_DISPLAY).length - 1 ? (
+              {index === lastElement.length - 1 ? (
                 <BreadcrumbPage>{crumb.title}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink href={crumb.href}>{crumb.title}</BreadcrumbLink>
               )}
-              {index < breadcrumbs.slice(-ITEMS_TO_DISPLAY).length - 1 && (
-                <BreadcrumbSeparator />
-              )}
+              {index < lastElement.length - 1 && <BreadcrumbSeparator />}
             </BreadcrumbItem>
           ))}
       </BreadcrumbList>
