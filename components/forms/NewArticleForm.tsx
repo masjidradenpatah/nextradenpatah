@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FeedbackMessage } from "@/components/FeedbackMessage";
 import { useToast } from "@/hooks/use-toast";
 
 const NewArticleForm = ({ user }: { user: User }) => {

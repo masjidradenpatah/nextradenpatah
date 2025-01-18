@@ -97,12 +97,20 @@ model programExecution {
   status    programStatus
 }
 
+enum articleStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 model article {
-  id       String @id @default(cuid())
+  id       String        @id @default(cuid())
   title    String
-  slug     String @unique
+  slug     String        @unique
   category String
   content  String
-  author   User   @relation(fields: [authorId], references: [id])
+  views    Int           @default(0)
+  status   articleStatus @default(DRAFT)
+  author   User          @relation(fields: [authorId], references: [id])
   authorId String
 }
