@@ -16,15 +16,6 @@ import { Command, renderItems } from "novel/extensions";
 
 export const suggestionItems = createSuggestionItems([
   {
-    title: "Send Feedback",
-    description: "Let us know how we can improve.",
-    icon: <MessageSquarePlus size={18} />,
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).run();
-      window.open("/feedback", "_blank");
-    },
-  },
-  {
     title: "Text",
     description: "Just start typing with plain text.",
     searchTerms: ["p", "paragraph"],
@@ -36,15 +27,6 @@ export const suggestionItems = createSuggestionItems([
         .deleteRange(range)
         .toggleNode("paragraph", "paragraph")
         .run();
-    },
-  },
-  {
-    title: "To-do List",
-    description: "Track tasks with a to-do list.",
-    searchTerms: ["todo", "task", "list", "check", "checkbox"],
-    icon: <CheckSquare size={18} />,
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleTaskList().run();
     },
   },
   {
@@ -120,14 +102,6 @@ export const suggestionItems = createSuggestionItems([
         .toggleNode("paragraph", "paragraph")
         .toggleBlockquote()
         .run(),
-  },
-  {
-    title: "Code",
-    description: "Capture a code snippet.",
-    searchTerms: ["codeblock"],
-    icon: <Code size={18} />,
-    command: ({ editor, range }) =>
-      editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
   },
 ]);
 

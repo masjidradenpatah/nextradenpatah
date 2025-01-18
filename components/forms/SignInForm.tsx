@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signInAction } from "@/actions/auth";
 import GoogleSignIn from "@/components/GoogleSignIn";
 import { LogIn, TriangleAlert } from "lucide-react";
+import { FeedbackMessage } from "@/components/FeedbackMessage";
 
 const SignInForm = () => {
   const [error, setError] = useState<string>();
@@ -78,25 +79,11 @@ const SignInForm = () => {
             <Button type="submit" className={"w-full text-lg"}>
               Sign In <LogIn className={"size-full text-white"}></LogIn>
             </Button>
-            {error && (
-              <div
-                className={
-                  "flex w-full items-center justify-center gap-2 rounded-sm bg-red-400/25 py-3 text-center tracking-wide text-red-600"
-                }
-              >
-                <TriangleAlert className={"stroke-1"}></TriangleAlert>
-                {error}
-              </div>
-            )}
-            {success && (
-              <div
-                className={
-                  "flex w-full items-center justify-center gap-2 rounded-sm bg-emerald-400/25 py-3 text-center tracking-wide text-emerald-600"
-                }
-              >
-                {success}
-              </div>
-            )}
+            {error ? (
+              <FeedbackMessage type={"error"} message={error} />
+            ) : success ? (
+              <FeedbackMessage type={"success"} message={success} />
+            ) : null}
           </form>
         </Form>
       </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import { ImageKitProvider } from "@/components/ImageKit";
 import { ReactNode } from "react";
 import QueryClientWrapper from "@/components/QueryClientWrapper";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -32,6 +33,7 @@ export default function RootLayout({
           >
             {modal}
             {children}
+            <Toaster />
           </body>
         </ImageKitProvider>
       </QueryClientWrapper>

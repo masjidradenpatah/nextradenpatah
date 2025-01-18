@@ -24,7 +24,6 @@ export const signInAction = async (
 
   // signIn Action Test 01
   if (!validatedFields.success) {
-    console.log("eror");
     return { error: "Something went wrong" };
   }
 
