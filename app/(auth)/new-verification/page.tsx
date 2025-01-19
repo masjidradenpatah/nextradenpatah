@@ -1,7 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import NewVerificationForm from "@/components/forms/NewVerificationForm";
 
 const Page = () => {
-  return <NewVerificationForm />;
+  return (
+    <Suspense>
+      <NewVerificationForm />
+    </Suspense>
+  );
 };
 export default Page;

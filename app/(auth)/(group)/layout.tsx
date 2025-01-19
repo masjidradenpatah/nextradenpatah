@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { House } from "lucide-react";
 import Image from "next/image";
-import sidePhoto from "@/public/gallery/gallery (2).jpg";
+import sidePhoto from "@/public/gallery/gallery(2).jpg";
 import NavLink from "@/components/NavLink";
 
 const Layout = ({ children }: { children: ReactNode }) => {

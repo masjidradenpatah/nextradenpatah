@@ -1,15 +1,16 @@
-"use client";
-import React, { useEffect, useRef } from "react";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
+import React from "react";
 import SectionTitle from "@/components/SectionTitle";
-import { motion, useAnimation, useInView } from "framer-motion";
 
 import { BgSingle, BgTriple } from "@/components/decorations/shades";
-import { GalleryImageArr } from "@/data/GalleryImage";
-import { GalleryImageType } from "@/types/GalleryImage";
+import { GalleryDecoration, GalleryImageArr } from "@/data/GalleryImage";
+import { GalleryImageDecoration } from "@/components/GalleryImage";
+import { addBlurredDataUrls } from "@/lib/getBase64";
 
-const Gallery = () => {
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+const Gallery = async () => {
+  const processedImages = await addBlurredDataUrls(GalleryImageArr);
   return (
     <section
       data-testid="gallery-section"
@@ -28,78 +29,36 @@ const Gallery = () => {
           subtitle={"Yuk keliling lihat pojok Masjid Raden Patah"}
         />
         <div className={"flex w-full gap-6 px-4 sm:px-8 md:px-0"}>
-          <div className={"hidden grow lg:block"}></div>
-          <motion.div
-            className={
-              "relative grid grid-cols-4 grid-rows-6 gap-3 md:gap-6 lg:basis-8/12"
-            }
-          >
-            {GalleryImageArr.map((gallery, index) => (
-              <GalleryImage key={index} {...gallery} />
-            ))}
-          </motion.div>
+          <div className={"ms-auto lg:basis-9/12"}>
+            <div
+              className={
+                "relative grid grid-cols-4 grid-rows-6 gap-3 md:gap-6 lg:basis-8/12"
+              }
+            >
+              {processedImages.map(({ alt, className, ...props }, index) => (
+                <Image
+                  key={index}
+                  {...props}
+                  className={cn(
+                    "size-full object-cover object-center",
+                    className,
+                  )}
+                  alt={alt}
+                  placeholder={"blur"}
+                  width={302}
+                  height={537}
+                  priority
+                />
+              ))}
+
+              {GalleryDecoration.map((decoration, index) => (
+                <GalleryImageDecoration key={index} {...decoration} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 export default Gallery;
-
-type GalleryImageProps = GalleryImageType;
-
-const GalleryImage = ({
-  image,
-  className,
-  chldrenClassName,
-  variants,
-  transition,
-}: GalleryImageProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref);
-
-  const mainAnimation = useAnimation();
-
-  useEffect(() => {
-    if (isInView) {
-      //   Fire the animation
-      mainAnimation.start("visible").then(() => {});
-    }
-  }, [isInView, mainAnimation]);
-
-  const base = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1.5 },
-  };
-
-  // Merge base animation with overridden variants
-  const finalVariants = {
-    hidden: { ...base.hidden, ...variants?.hidden },
-    visible: { ...base.visible, ...variants?.visible },
-  };
-
-  const defaultTransition = { duration: 0.5, delay: 0.25 };
-
-  return (
-    <motion.div
-      ref={ref}
-      className={cn("flex h-full w-full overflow-hidden", className)}
-    >
-      <motion.div
-        variants={finalVariants}
-        initial={"hidden"}
-        animate={mainAnimation}
-        transition={{ ...defaultTransition, ...transition }}
-        className={cn("h-full w-full bg-primary", chldrenClassName)}
-      >
-        {image && (
-          <Image
-            src={image}
-            alt={"Gallery Masjid Raden Patah"}
-            className={"size-full object-cover object-center"}
-            loading={"eager"}
-          />
-        )}
-      </motion.div>
-    </motion.div>
-  );
-};

@@ -1,13 +1,12 @@
 import React from "react";
 import NavLink from "@/components/NavLink";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import SignOutButton from "@/components/SignOutButton";
 const MobileNavbar = ({
   isNavbarOpen,
   isLoggedIn,
-  username,
 }: {
   isNavbarOpen: boolean;
   isLoggedIn: boolean;
