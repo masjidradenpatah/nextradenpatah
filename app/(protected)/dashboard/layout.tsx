@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { DashboardSidebar } from "@/components/dashboard/Sidebar";
-import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { SidebarTriggerButton } from "@/components/SidebarTriggerButton";

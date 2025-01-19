@@ -1,9 +1,8 @@
-import { StaticImageData } from "next/image";
-
 export interface GalleryImageType {
-  image?: StaticImageData;
+  src: string;
+  blurData?: string;
   className?: string;
-  chldrenClassName?: string;
+  sizes?: string;
   variants?: {
     hidden: Record<string, unknown>;
     visible: Record<string, unknown>;

@@ -49,7 +49,7 @@ function generateBreadcrumbs(pathname: string): GeneratedBreadcrumps {
     return { href, title };
   });
 
-  return split_array(segmentedBreadcrumb, 3);
+  return split_array(segmentedBreadcrumb, ITEMS_TO_DISPLAY);
 }
 
 export function DynamicBreadcrumb() {
