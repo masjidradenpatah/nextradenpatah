@@ -1,7 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/table-core";
-import { Article } from "@/data/DummyArticles";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowUpDown,
   MoreHorizontal,
   ScanSearch,
   Send,
@@ -19,10 +17,11 @@ import {
   Trash,
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { article, User } from "@prisma/client";
+import { article } from "@prisma/client";
 import { convert } from "html-to-text";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
 
 interface ArticleColumn extends article {
   author: { name: string | null };
@@ -56,12 +55,7 @@ export const columns: ColumnDef<ArticleColumn>[] = [
   {
     accessorKey: "number",
     header: ({ column }) => (
-      <Button
-        variant={"ghost"}
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        no <ArrowUpDown className={"ml-2 size-4"} />
-      </Button>
+      <DataTableColumnHeader column={column} title={"no"} />
     ),
     cell: ({ row, table }) => (
       <div className={"flex justify-center"}>
@@ -72,17 +66,18 @@ export const columns: ColumnDef<ArticleColumn>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <Button
-        variant={"ghost"}
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        title <ArrowUpDown className={"ml-2 size-4"} />
-      </Button>
+      <DataTableColumnHeader column={column} title={"title"} />
     ),
   },
   {
     accessorKey: "content",
-    header: "content",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        isSortable={false}
+        title={"content"}
+      />
+    ),
     cell: ({ row }) => {
       const content = row.original.content;
       const text = convert(content, { wordwrap: 130 });
@@ -92,12 +87,7 @@ export const columns: ColumnDef<ArticleColumn>[] = [
   {
     accessorKey: "authorId",
     header: ({ column }) => (
-      <Button
-        variant={"ghost"}
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        author <ArrowUpDown className={"ml-2 size-4"} />
-      </Button>
+      <DataTableColumnHeader column={column} title={"author"} />
     ),
     cell: ({ row }) => {
       const rowData = row.original;
@@ -108,12 +98,7 @@ export const columns: ColumnDef<ArticleColumn>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <Button
-        variant={"ghost"}
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        status <ArrowUpDown className={"ml-2 size-4"} />
-      </Button>
+      <DataTableColumnHeader column={column} title={"status"} />
     ),
     cell: ({ row }) => {
       const status = row.original.status;
@@ -136,14 +121,17 @@ export const columns: ColumnDef<ArticleColumn>[] = [
     },
   },
   {
-    // TODO: Change this
     accessorKey: "category",
-    header: "category",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title={"category"} />
+    ),
     cell: ({ row }) => <div>{row.getValue("category")}</div>,
   },
   {
     accessorKey: "totalView",
-    header: () => <div className={"max-w-[100px]"}>views</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title={"views"} />
+    ),
     cell: ({ row }) => (
       <div className={"flex w-full justify-center"}>
         {row.getValue("totalView") || 0}
@@ -152,7 +140,13 @@ export const columns: ColumnDef<ArticleColumn>[] = [
   },
   {
     accessorKey: "slug",
-    header: () => <div className={"max-w-[100px]"}>Slug</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        isSortable={false}
+        title={"slug"}
+      />
+    ),
     cell: ({ row }) => (
       <div className={"max-w-[100px] overflow-hidden"}>
         {row.getValue("slug")}
@@ -163,8 +157,6 @@ export const columns: ColumnDef<ArticleColumn>[] = [
     id: "actions",
     header: () => <div className={"text-center"}>More actions</div>,
     cell: ({ row }) => {
-      const article = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

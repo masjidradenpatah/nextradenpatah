@@ -1,6 +1,108 @@
 "use server";
 import { Program, ProgramExecution } from "@/types/Program";
 import { prisma } from "@/lib/db";
+import { program, programExecution, programStatus } from "@prisma/client";
+
+export async function getAllPrograms(): Promise<program[]> {
+  return await prisma.program.findMany();
+}
+
+export async function deleteManyProgramsByID(
+  ids: string[],
+): Promise<Record<string, string>> {
+  try {
+    // Check if users exist or not
+    const programs = await prisma.program.findMany({
+      where: {
+        id: { in: ids },
+      },
+    });
+
+    if (programs.length === 0) {
+      return { error: "Programs do not exist" };
+    }
+
+    // Delete programs in parallel
+    const deletePromises = ids.map((id) =>
+      prisma.user.delete({
+        where: { id },
+      }),
+    );
+
+    await Promise.all(deletePromises);
+
+    return { success: "Successfully deleted programs" };
+  } catch {
+    // handle if error
+    return { error: "Something went wrong" };
+  }
+}
+
+export async function getAllUpcomingProgram(): Promise<programExecution[]> {
+  return await prisma.programExecution.findMany();
+}
+
+export async function deleteManyUpcomingProgramByID(
+  ids: string[],
+): Promise<Record<string, string>> {
+  try {
+    // Check if upcoming program exist or not
+    const upcomingPrograms = await prisma.programExecution.findMany({
+      where: {
+        id: { in: ids },
+      },
+    });
+
+    if (upcomingPrograms.length === 0) {
+      return { error: "Upcoming programs do not exist" };
+    }
+
+    // Delete upcomingPrograms in parallel
+    const deletePromises = ids.map((id) =>
+      prisma.user.delete({
+        where: { id },
+      }),
+    );
+
+    await Promise.all(deletePromises);
+
+    return { success: "Successfully deleted programs" };
+  } catch {
+    // handle if error
+    return { error: "Something went wrong" };
+  }
+}
+
+export async function updateUpcomingProgramStatus(
+  id: string,
+  newStatus: programStatus,
+): Promise<Record<string, string>> {
+  try {
+    // check if user exist or not
+    const upcomingProgram = await prisma.programExecution.findUnique({
+      where: { id },
+    });
+
+    // handle if error
+    if (!upcomingProgram) return { error: "Upcoming program doesn't exist" };
+
+    // update the role
+    await prisma.programExecution.update({
+      data: {
+        ...upcomingProgram,
+        status: newStatus,
+      },
+      where: {
+        id,
+      },
+    });
+
+    return { success: "Success updating new status" };
+  } catch {
+    // handle if error
+    return { error: "Something went wrong" };
+  }
+}
 
 export const getUpcomingProgramsAction = async (
   numberItem?: number | "all",
@@ -24,23 +126,6 @@ export const getUpcomingProgramsAction = async (
       },
     });
 
-    // return programs.map(
-    //   (item) =>
-    //     ({
-    //       id: item.id,
-    //       date: item.date,
-    //       programId: item.programId,
-    //       status: item.status,
-    //       program: {
-    //         id: item.program.id,
-    //         title: item.program.title,
-    //         image: item.program.image,
-    //         description: item.program.description,
-    //         type: item.program.type,
-    //       },
-    //     }) as ProgramExecution,
-    // );
-
     return programs as ProgramExecution[];
   } catch {
     return null;
@@ -56,17 +141,6 @@ export const getProgramsAction = async (
       where: type === "ALL" ? undefined : { type },
       take: numberItem === "all" ? undefined : numberItem || 3,
     });
-
-    // const formattedPrograms: Program[] = programs.map(
-    //   (program) =>
-    //     ({
-    //       id: program.id,
-    //       description: program.description,
-    //       type: program.title,
-    //       image: program.id,
-    //       title: program.title,
-    //     }) as Program,
-    // );
 
     return programs as Program[];
   } catch {

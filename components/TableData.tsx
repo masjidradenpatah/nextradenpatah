@@ -30,19 +30,43 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Trash } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { toast } from "@/hooks/use-toast";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
-interface ArticlesTable<TData, TValue> {
+interface TableData<TData, TValue> {
+  queryKey: string;
+  queryAction: () => Promise<TData[]>;
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  filterBy: string;
+  deleteFNAction: (ids: string[]) => Promise<Record<string, string>>;
 }
 
 export function DataTable<TData, TValue>({
-  data,
+  queryKey,
+  queryAction,
   columns,
-}: ArticlesTable<TData, TValue>) {
+  filterBy,
+  deleteFNAction,
+}: TableData<TData, TValue>) {
+  const { data, status } = useQuery({
+    queryKey: [queryKey],
+    queryFn: async () => queryAction(),
+    initialData: [],
+  });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
   const table = useReactTable({
     data,
     columns,
@@ -65,10 +89,12 @@ export function DataTable<TData, TValue>({
       <div className={"flex justify-between"}>
         <div className="flex items-center py-4">
           <Input
-            placeholder="Search by title..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            placeholder={`Search by ${filterBy}....`}
+            value={
+              (table.getColumn(filterBy)?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("title")?.setFilterValue(event.target.value)
+              table.getColumn(filterBy)?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -100,21 +126,71 @@ export function DataTable<TData, TValue>({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => {
-              const selected = table
-                .getRowModel()
-                .rows.filter((row) => row.getIsSelected());
-              console.log({ selected });
-            }}
-            disabled={
-              !table.getRowModel().rows.some((row) => row.getIsSelected())
-            }
-          >
-            Delete <Trash />
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="destructive"
+                size="sm"
+                disabled={
+                  !table.getRowModel().rows.some((row) => row.getIsSelected())
+                }
+              >
+                Delete
+                <Trash />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+              </DialogHeader>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </DialogDescription>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button type="button" className={"w-1/2"}>
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => {
+                    const selected = table
+                      .getRowModel()
+                      .rows.filter((row) => row.getIsSelected());
+
+                    // deleted selected user here
+                    deleteFNAction(selected.map((item) => item.id)).then(
+                      (response: Record<string, string>) => {
+                        if (response.error) {
+                          toast({
+                            title: "Error",
+                            description: response.error,
+                            variant: "destructive",
+                          });
+                        } else if (response.success) {
+                          toast({
+                            title:
+                              "Congratulations!!! User successfully deleted",
+                            description: response.success,
+                          });
+                        }
+                      },
+                    );
+                  }}
+                  disabled={
+                    !table.getRowModel().rows.some((row) => row.getIsSelected())
+                  }
+                  className={"w-1/2"}
+                >
+                  Delete Anyway
+                  <Trash />
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <Table className={"rounded-md bg-white"}>

@@ -49,3 +49,12 @@ export function split_array<T>(
     };
   }
 }
+
+export function mapEnum<T extends object, R>(
+  e: T,
+  callback: (key: keyof T, value: T[keyof T]) => R,
+): R[] {
+  return Object.entries(e).map(([key, value]) =>
+    callback(key as keyof T, value as T[keyof T]),
+  );
+}
