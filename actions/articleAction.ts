@@ -21,6 +21,12 @@ export async function getAllArticle(): Promise<ArticleColumn[]> {
   });
 }
 
+export async function getUserArticle(id: string): Promise<article[]> {
+  return prisma.article.findMany({
+    where: { authorId: id },
+  });
+}
+
 export async function createNewArticle(
   values: z.infer<typeof newArticleSchema>,
 ): Promise<Record<string, string>> {

@@ -13,7 +13,7 @@ import { CollapsibleMenuItems } from "@/components/dashboard/Sidebar";
 export const PROFILE_SIDEBAR: CollapsibleMenuItems[] = [
   {
     title: "Profile",
-    url: "/dashboard/",
+    url: "/dashboard",
     icon: Home,
   },
   { title: "Articles", url: "/dashboard/articles", icon: PenLine },

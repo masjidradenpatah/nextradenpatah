@@ -1,3 +1,4 @@
+"use client";
 import { Lock, UserCircle, LucideProps, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import {
@@ -26,6 +27,7 @@ import logoMRP from "@/public/mrp-logo.png";
 import Link from "next/link";
 import { ADMIN_SIDEBAR, PROFILE_SIDEBAR } from "@/data/Sidebar";
 import { SidebarDropdownFooter } from "@/components/SidebarFooter";
+import { usePathname } from "next/navigation";
 
 const dropdownFooterItems: ReactNode[] = [
   // "Account",
@@ -63,63 +65,83 @@ const CollapsibleMenuGroup = ({
   label,
   items,
   MenuIcon,
-}: CollapsibleMenuGroupProps) => (
-  <SidebarGroup>
-    <Collapsible defaultOpen className="group/collapsible">
-      <SidebarGroupLabel>
-        <CollapsibleTrigger asChild>
-          <SidebarMenuButton>
-            {MenuIcon && <MenuIcon className="me-2" />}
-            {label}
-            <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-          </SidebarMenuButton>
-        </CollapsibleTrigger>
-      </SidebarGroupLabel>
-      <SidebarSeparator className="my-2" />
-      <CollapsibleContent>
-        <SidebarGroupContent>
-          <SidebarMenu>
-            {items.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  className={"ps-6"}
-                  asChild={!!item.url}
-                  disabled={!item.url}
-                >
-                  {item.url ? (
-                    <Link href={item.url}>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                    </Link>
-                  ) : (
-                    <>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                    </>
+}: CollapsibleMenuGroupProps) => {
+  const path = usePathname();
+  return (
+    <SidebarGroup>
+      <Collapsible defaultOpen className="group/collapsible">
+        <SidebarGroupLabel>
+          <CollapsibleTrigger asChild>
+            <SidebarMenuButton>
+              {MenuIcon && <MenuIcon className="me-2" />}
+              {label}
+              <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+            </SidebarMenuButton>
+          </CollapsibleTrigger>
+        </SidebarGroupLabel>
+        <SidebarSeparator className="my-2" />
+        <CollapsibleContent>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map(({ url, title, icon: Icon, subItems }) => (
+                <SidebarMenuItem key={title}>
+                  <SidebarMenuButton
+                    className={"ps-6"}
+                    asChild={!!url}
+                    disabled={!url}
+                  >
+                    {url ? (
+                      <Link
+                        href={url}
+                        className={
+                          url === path ? "text-medium text-primary" : ""
+                        }
+                      >
+                        {Icon && <Icon />}
+                        <span>{title}</span>
+                      </Link>
+                    ) : (
+                      <>
+                        {Icon && <Icon />}
+                        <span>{title}</span>
+                      </>
+                    )}
+                  </SidebarMenuButton>
+                  {subItems && (
+                    <SidebarMenu>
+                      {subItems.map(({ title, url, icon: Icon }) => (
+                        <SidebarMenuSubItem key={title}>
+                          <SidebarMenuButton className={"ps-10"} asChild>
+                            {url ? (
+                              <Link
+                                href={url}
+                                className={
+                                  url === path ? "text-medium text-primary" : ""
+                                }
+                              >
+                                {Icon && <Icon />}
+                                <span>{title}</span>
+                              </Link>
+                            ) : (
+                              <>
+                                {Icon && <Icon />}
+                                <span>{title}</span>
+                              </>
+                            )}
+                          </SidebarMenuButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenu>
                   )}
-                </SidebarMenuButton>
-                {item.subItems && (
-                  <SidebarMenu>
-                    {item.subItems.map(({ title, url, icon: Icon }) => (
-                      <SidebarMenuSubItem key={title}>
-                        <SidebarMenuButton className={"ps-10"} asChild>
-                          <a href={url}>
-                            {Icon && <Icon />}
-                            <span>{title}</span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenu>
-                )}
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </CollapsibleContent>
-    </Collapsible>
-  </SidebarGroup>
-);
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </CollapsibleContent>
+      </Collapsible>
+    </SidebarGroup>
+  );
+};
 
 export function DashboardSidebar({ user }: { user: User }) {
   return (

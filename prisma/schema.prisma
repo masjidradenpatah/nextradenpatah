@@ -25,6 +25,8 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  bio           String?
+  gender        String?
   accounts      Account[]
   role          UserRole  @default(JAMAAH)
   createdAt     DateTime  @default(now())
