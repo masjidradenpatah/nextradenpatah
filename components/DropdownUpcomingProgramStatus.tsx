@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 
 import { programStatus } from "@prisma/client";
 import { cn, mapEnum } from "@/lib/utils";
-import { updateUserRole } from "@/actions/user";
 import { toast } from "@/hooks/use-toast";
 import { updateUpcomingProgramStatus } from "@/actions/programActions";
 

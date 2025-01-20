@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -15,11 +15,11 @@ import { signUpSchema } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpAction } from "@/actions/auth";
 import GoogleSignIn from "@/components/GoogleSignIn";
-import { FeedbackMessage } from "@/components/FeedbackMessage";
+import { toast } from "@/hooks/use-toast";
+import { LoaderCircle, LogIn } from "lucide-react";
 
 const SignUpForm = () => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -31,14 +31,21 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
-    const response = await signUpAction(values);
-    if (response.error) {
-      setSuccess(undefined);
-      setError(response.error);
-    } else if (response.success) {
-      setError(undefined);
-      setSuccess(response.success);
-    }
+    startTransition(async function () {
+      const response = await signUpAction(values);
+      if (response.error) {
+        toast({
+          title: "Error",
+          description: response.error,
+          variant: "destructive",
+        });
+      } else if (response.success) {
+        toast({
+          title: "Succes",
+          description: response.success,
+        });
+      }
+    });
   }
   return (
     <>
@@ -112,14 +119,22 @@ const SignUpForm = () => {
               )}
             />
 
-            <Button type="submit" className={"w-full"}>
-              Sign Up
+            <Button
+              disabled={isPending}
+              type="submit"
+              className={"w-full text-lg"}
+            >
+              {isPending ? (
+                <>
+                  <span>Loading </span>
+                  <LoaderCircle className={"animate-spin"}></LoaderCircle>
+                </>
+              ) : (
+                <>
+                  Sign In <LogIn className={"size-full text-white"}></LogIn>
+                </>
+              )}
             </Button>
-            {error ? (
-              <FeedbackMessage type={"error"} message={error} />
-            ) : success ? (
-              <FeedbackMessage type={"success"} message={success} />
-            ) : null}
           </form>
         </Form>
       </div>

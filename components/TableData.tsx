@@ -24,12 +24,13 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Trash } from "lucide-react";
+import { LoaderCircle, MoreHorizontal, Trash } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -41,7 +42,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
 
 interface TableData<TData, TValue> {
   queryKey: string;
@@ -51,6 +54,131 @@ interface TableData<TData, TValue> {
   deleteFNAction: (ids: string[]) => Promise<Record<string, string>>;
 }
 
+export function selectColumn<TData>(): ColumnDef<TData> {
+  return {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        className={"max-w-[100px]"}
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value: boolean) =>
+          table.toggleAllPageRowsSelected(value)
+        }
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        className={"max-w-[100px]"}
+        checked={row.getIsSelected()}
+        onCheckedChange={(value: boolean) => row.toggleSelected(value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  };
+}
+
+export function numberColumn<TData>(): ColumnDef<TData> {
+  return {
+    accessorKey: "number",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        className={"max-w-8"}
+        column={column}
+        title={"no"}
+      />
+    ),
+    cell: ({ row, table }) => (
+      <div className={"flex max-w-8 justify-center"}>
+        {table.getRowModel().rows.indexOf(row) + 1}
+      </div>
+    ),
+  };
+}
+export function moreActionColumn<TData>({
+  deleteFNAction,
+}: {
+  deleteFNAction?: (ids: string[]) => Promise<Record<string, string>>;
+}): ColumnDef<TData> {
+  return {
+    id: "actions",
+    header: () => <div className="max-w-16 text-center">More actions</div>,
+    cell: ({ row }) => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="size-8 w-full max-w-16 justify-center p-0"
+          >
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {deleteFNAction ? (
+            <DropdownMenuItem className={"p-0"} asChild>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="destructive" size="sm">
+                    Delete
+                    <Trash />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                  </DialogHeader>
+                  <DialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </DialogDescription>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button type="button" className={"w-1/2"}>
+                        Cancel
+                      </Button>
+                    </DialogClose>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => {
+                        // @ts-expect-error the id should always there, typescript just doesn't know
+                        deleteFNAction([row.original.id]).then((response) => {
+                          if (response.error) {
+                            toast({
+                              title: "Error",
+                              description: response.error,
+                              variant: "destructive",
+                            });
+                          } else if (response.success) {
+                            toast({
+                              title: "Success",
+                              description: response.success,
+                            });
+                          }
+                        });
+                      }}
+                      className={"w-1/2"}
+                    >
+                      Delete Anyway
+                      <Trash />
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+          ) : null}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ),
+  };
+}
+
 export function DataTable<TData, TValue>({
   queryKey,
   queryAction,
@@ -58,7 +186,7 @@ export function DataTable<TData, TValue>({
   filterBy,
   deleteFNAction,
 }: TableData<TData, TValue>) {
-  const { data, status } = useQuery({
+  const { data, status, isFetching } = useQuery({
     queryKey: [queryKey],
     queryFn: async () => queryAction(),
     initialData: [],
@@ -211,7 +339,21 @@ export function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length > 0 ? (
+          {isFetching ? (
+            <>
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className={"h-24 text-center"}
+                >
+                  <span className={"ml-4"}>Loading </span>
+                  <LoaderCircle
+                    className={"inline animate-spin"}
+                  ></LoaderCircle>
+                </TableCell>
+              </TableRow>
+            </>
+          ) : table.getRowModel().rows?.length > 0 ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (

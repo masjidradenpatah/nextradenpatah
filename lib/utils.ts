@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { ReactNode } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -58,3 +59,12 @@ export function mapEnum<T extends object, R>(
     callback(key as keyof T, value as T[keyof T]),
   );
 }
+
+// export function mapEnum<T>(
+//   enumObject: T,
+//   callback: (key: keyof T, value: T[keyof T]) => ReactNode,
+// ): ReactNode[] {
+//   return Object.keys(enumObject).map(([key, value]) =>
+//     callback(key as keyof T, value as T[keyof T]),
+//   );
+// }

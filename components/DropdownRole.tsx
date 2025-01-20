@@ -13,6 +13,7 @@ import UserRole = $Enums.UserRole;
 import { cn, mapEnum } from "@/lib/utils";
 import { updateUserRole } from "@/actions/user";
 import { toast } from "@/hooks/use-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   role: UserRole;
@@ -39,6 +40,29 @@ export function getRoleBgColor(role: UserRole): string {
 }
 
 const DropdownRole = ({ role, userId }: Props) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (variables: { id: string; newData: UserRole }) =>
+      updateUserRole(variables.id, variables.newData),
+    onSuccess: () => {
+      toast({
+        title: "Success",
+        description: "Success updating user role",
+      });
+      queryClient.invalidateQueries(["user roles"]).then(() => {});
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed on updating user role",
+        variant: "destructive",
+      });
+    },
+  });
+
+  function handleUpdate(newData: UserRole) {
+    mutation.mutate({ id: userId, newData });
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -59,20 +83,7 @@ const DropdownRole = ({ role, userId }: Props) => {
             key={key}
             className={getRoleBgColor(key)}
             onClick={() => {
-              updateUserRole(userId, key).then((response) => {
-                if (response.error) {
-                  toast({
-                    title: "Error",
-                    description: response.error,
-                    variant: "destructive",
-                  });
-                } else if (response.success) {
-                  toast({
-                    title: "Congratulations!!! Success updating role",
-                    description: response.success,
-                  });
-                }
-              });
+              handleUpdate(key);
             }}
           >
             {value}

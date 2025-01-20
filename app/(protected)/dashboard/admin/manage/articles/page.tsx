@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { DataTable } from "@/components/TableData";
-import { columns } from "@/app/(protected)/dashboard/admin/manage-articles/articles-column";
+import { columns } from "@/app/(protected)/dashboard/admin/manage/articles/articles-column";
 import { deleteManyArticlesByID, getAllArticle } from "@/actions/articleAction";
 
 const Page = async () => {

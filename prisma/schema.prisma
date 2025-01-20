@@ -101,6 +101,7 @@ enum programStatus {
 
 model programExecution {
   id        String        @id
+  title     String
   program   program       @relation(fields: [programId], references: [id])
   date      DateTime
   programId String
@@ -121,6 +122,6 @@ model article {
   content  String
   views    Int           @default(0)
   status   articleStatus @default(DRAFT)
-  author   User          @relation(fields: [authorId], references: [id])
+  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
 }

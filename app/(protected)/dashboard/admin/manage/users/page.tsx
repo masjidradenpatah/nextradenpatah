@@ -1,7 +1,6 @@
-import React, { Suspense } from "react";
-import { prisma } from "@/lib/db";
+import React from "react";
 import { DataTable } from "@/components/TableData";
-import { columns } from "@/app/(protected)/dashboard/admin/manage-users/user-column";
+import { columns } from "@/app/(protected)/dashboard/admin/manage/users/user-column";
 import { deleteManyUserByID, getAllUser } from "@/actions/user";
 
 const Page = async () => {

@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { DataTable } from "@/components/TableData";
-import { columns } from "@/app/(protected)/dashboard/admin/manage-upcoming-programs/upcoming-program-column";
+import { columns } from "@/app/(protected)/dashboard/admin/manage/upcoming-programs/upcoming-program-column";
 import {
   deleteManyUpcomingProgramByID,
   getAllUpcomingProgram,
