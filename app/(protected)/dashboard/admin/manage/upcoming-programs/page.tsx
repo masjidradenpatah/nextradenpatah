@@ -1,5 +1,5 @@
 import React from "react";
-import { DataTable } from "@/components/TableData";
+import { DataTable } from "@/components/Table/TableData";
 import { columns } from "@/app/(protected)/dashboard/admin/manage/upcoming-programs/upcoming-program-column";
 import {
   deleteManyUpcomingProgramByID,

@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CirclePlus } from "lucide-react";
-import { DataTable } from "@/components/TableData";
+import { DataTable } from "@/components/Table/TableData";
 import {
   deleteManyArticlesByID,
   getUserArticle,

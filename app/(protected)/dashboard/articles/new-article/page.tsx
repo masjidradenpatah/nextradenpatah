@@ -1,23 +1,42 @@
 import React from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { CirclePlus } from "lucide-react";
-import TailwindEditor from "@/components/editor/TailwindEditor";
-import AdvancedEditor from "@/components/editor/advanced-editor";
 import NewArticleForm from "@/components/forms/NewArticleForm";
 import { auth } from "@/auth";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { generateJSON } from "@tiptap/html";
+import {
+  createNewArticle,
+  createNewBlankArticle,
+} from "@/actions/articleAction";
+import { article } from "@prisma/client";
+import { defaultExtensions } from "@/components/editor/TailwindEditorExtensions";
+import { slashCommand } from "@/components/editor/TailwindEditorSlashCommands";
+import { redirect } from "next/navigation";
 
 const Page = async () => {
   const session = await auth();
   if (!session) return null;
 
-  return (
-    <div className={""}>
-      <h1 className={"mb-8 text-7xl font-bold text-primary"}>
-        Membuat Artikel Baru
-      </h1>
-      <NewArticleForm user={session.user} />
-    </div>
-  );
+  // Create new article here
+  const { status, data } = await createNewBlankArticle(session.user.id);
+
+  // TODO: show loading status
+
+  if (status === "ERROR") {
+    return (
+      <div className={"size-full pt-12"}>
+        <Card>
+          <CardHeader className={"flex w-full flex-row justify-between"}>
+            <h2 className={"text-xl font-medium"}>Membuat Artikel Baru</h2>
+          </CardHeader>
+          <CardContent>
+            <p>Sorry failed to create new article. Please try again later.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  } else {
+    const blankArticle = data as article;
+    redirect(`/dashboard/articles/editor/${blankArticle.id}`);
+  }
 };
 export default Page;

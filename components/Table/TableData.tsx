@@ -30,7 +30,7 @@ import {
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { LoaderCircle, MoreHorizontal, Trash } from "lucide-react";
+import { LoaderCircle, MoreHorizontal, SquarePen, Trash } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -44,39 +44,46 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
+import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
+import { ActionResponse } from "@/types";
+import Link from "next/link";
 
 interface TableData<TData, TValue> {
   queryKey: string;
   queryAction: () => Promise<TData[]>;
   columns: ColumnDef<TData, TValue>[];
   filterBy: string;
-  deleteFNAction: (ids: string[]) => Promise<Record<string, string>>;
+  editFNAction?: (id: string) => void;
+  deleteFNAction: (ids: string[]) => Promise<ActionResponse<TData>>;
 }
 
 export function selectColumn<TData>(): ColumnDef<TData> {
   return {
     id: "select",
     header: ({ table }) => (
-      <Checkbox
-        className={"max-w-[100px]"}
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value: boolean) =>
-          table.toggleAllPageRowsSelected(value)
-        }
-        aria-label="Select all"
-      />
+      <div className={"grid w-12 place-content-center"}>
+        <Checkbox
+          className={""}
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value: boolean) =>
+            table.toggleAllPageRowsSelected(value)
+          }
+          aria-label="Select all"
+        />
+      </div>
     ),
     cell: ({ row }) => (
-      <Checkbox
-        className={"max-w-[100px]"}
-        checked={row.getIsSelected()}
-        onCheckedChange={(value: boolean) => row.toggleSelected(value)}
-        aria-label="Select row"
-      />
+      <div className={"grid w-12 place-content-center"}>
+        <Checkbox
+          className={"max-w-[100px]"}
+          checked={row.getIsSelected()}
+          onCheckedChange={(value: boolean) => row.toggleSelected(value)}
+          aria-label="Select row"
+        />
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -101,81 +108,100 @@ export function numberColumn<TData>(): ColumnDef<TData> {
   };
 }
 export function moreActionColumn<TData>({
+  editFNAction,
   deleteFNAction,
 }: {
-  deleteFNAction?: (ids: string[]) => Promise<Record<string, string>>;
+  editFNAction?: boolean;
+  deleteFNAction?: (ids: string[]) => Promise<ActionResponse<TData>>;
 }): ColumnDef<TData> {
   return {
     id: "actions",
     header: () => <div className="max-w-16 text-center">More actions</div>,
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="size-8 w-full max-w-16 justify-center p-0"
-          >
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="size-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          {deleteFNAction ? (
-            <DropdownMenuItem className={"p-0"} asChild>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="destructive" size="sm">
-                    Delete
-                    <Trash />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
-                  </DialogHeader>
-                  <DialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </DialogDescription>
-                  <DialogFooter>
-                    <DialogClose asChild>
-                      <Button type="button" className={"w-1/2"}>
-                        Cancel
-                      </Button>
-                    </DialogClose>
+    cell: ({ row }) => {
+      // @ts-expect-error the id should always there, typescript just doesn't know*/
+      const itemId = row.original.id;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="size-8 w-full max-w-16 justify-center p-0"
+            >
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="size-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className={"space-y-2"}>
+            {editFNAction ? (
+              <DropdownMenuItem className={"p-0"} asChild>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link href={`/dashboard/articles/edit-article/${itemId}`}>
+                    Edit
+                    <SquarePen />
+                  </Link>
+                </Button>
+              </DropdownMenuItem>
+            ) : null}
+            {deleteFNAction ? (
+              <DropdownMenuItem className={"p-0"} asChild>
+                <Dialog>
+                  <DialogTrigger asChild>
                     <Button
                       variant="destructive"
                       size="sm"
-                      onClick={() => {
-                        // @ts-expect-error the id should always there, typescript just doesn't know
-                        deleteFNAction([row.original.id]).then((response) => {
-                          if (response.error) {
-                            toast({
-                              title: "Error",
-                              description: response.error,
-                              variant: "destructive",
-                            });
-                          } else if (response.success) {
-                            toast({
-                              title: "Success",
-                              description: response.success,
-                            });
-                          }
-                        });
-                      }}
-                      className={"w-1/2"}
+                      className={"w-full"}
                     >
-                      Delete Anyway
+                      Delete
                       <Trash />
                     </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </DropdownMenuItem>
-          ) : null}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    </DialogHeader>
+                    <DialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </DialogDescription>
+                    <DialogFooter>
+                      <DialogClose asChild>
+                        <Button type="button" className={"w-1/2"}>
+                          Cancel
+                        </Button>
+                      </DialogClose>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => {
+                          deleteFNAction([itemId]).then((response) => {
+                            if (response.error) {
+                              toast({
+                                title: "Error",
+                                description: response.error,
+                                variant: "destructive",
+                              });
+                            } else if (response.success) {
+                              toast({
+                                title: "Success",
+                                description: response.success,
+                              });
+                            }
+                          });
+                        }}
+                        className={"w-1/2"}
+                      >
+                        Delete Anyway
+                        <Trash />
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </DropdownMenuItem>
+            ) : null}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   };
 }
 
@@ -186,7 +212,7 @@ export function DataTable<TData, TValue>({
   filterBy,
   deleteFNAction,
 }: TableData<TData, TValue>) {
-  const { data, status, isFetching } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: [queryKey],
     queryFn: async () => queryAction(),
     initialData: [],
@@ -290,23 +316,23 @@ export function DataTable<TData, TValue>({
                       .rows.filter((row) => row.getIsSelected());
 
                     // deleted selected user here
-                    deleteFNAction(selected.map((item) => item.id)).then(
-                      (response: Record<string, string>) => {
-                        if (response.error) {
-                          toast({
-                            title: "Error",
-                            description: response.error,
-                            variant: "destructive",
-                          });
-                        } else if (response.success) {
-                          toast({
-                            title:
-                              "Congratulations!!! User successfully deleted",
-                            description: response.success,
-                          });
-                        }
-                      },
-                    );
+                    deleteFNAction(
+                      // @ts-expect-error typescript just somehow don't know the type
+                      selected.map((item) => item.original.id),
+                    ).then((response: ActionResponse<TData>) => {
+                      if (response.status === "ERROR") {
+                        toast({
+                          title: "Error",
+                          description: response.error,
+                          variant: "destructive",
+                        });
+                      } else {
+                        toast({
+                          title: "Congratulations!!! User successfully deleted",
+                          description: response.success,
+                        });
+                      }
+                    });
                   }}
                   disabled={
                     !table.getRowModel().rows.some((row) => row.getIsSelected())
@@ -326,7 +352,7 @@ export function DataTable<TData, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead key={header.id} className={"relative"}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -357,7 +383,7 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className={""}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

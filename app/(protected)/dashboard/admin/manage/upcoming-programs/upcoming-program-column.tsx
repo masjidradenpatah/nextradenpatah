@@ -2,13 +2,13 @@
 
 import { ColumnDef } from "@tanstack/table-core";
 import { programExecution } from "@prisma/client";
-import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
+import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import { DropdownUpcomingProgramStatus } from "@/components/DropdownUpcomingProgramStatus";
 import {
   moreActionColumn,
   numberColumn,
   selectColumn,
-} from "@/components/TableData";
+} from "@/components/Table/TableData";
 import { deleteManyUserByID } from "@/actions/user";
 import { deleteManyUpcomingProgramByID } from "@/actions/programActions";
 

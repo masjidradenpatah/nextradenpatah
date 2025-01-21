@@ -1,12 +1,12 @@
 "use server";
 
-import { User, UserRole } from "@prisma/client";
+import { User } from "@prisma/client";
 import { getUserById } from "@/data/User";
 import { prisma } from "@/lib/db";
-import { error } from "next/dist/build/output/log";
+import { ActionResponse } from "@/types";
 
 export async function getAllUser(): Promise<User[]> {
-  return await prisma.user.findMany();
+  return prisma.user.findMany();
 }
 
 export async function updateUserRole<UserRole>(
@@ -40,7 +40,7 @@ export async function updateUserRole<UserRole>(
 
 export async function deleteManyUserByID(
   ids: string[],
-): Promise<Record<string, string>> {
+): Promise<ActionResponse> {
   try {
     // Check if users exist or not
     const users = await prisma.user.findMany({
@@ -50,7 +50,7 @@ export async function deleteManyUserByID(
     });
 
     if (users.length === 0) {
-      return { error: "Users do not exist" };
+      return { status: "ERROR", error: "Users do not exist" };
     }
 
     // Check for foreign key constraints (e.g., articles related to the users)
@@ -65,6 +65,7 @@ export async function deleteManyUserByID(
 
     if (usersWithArticles.length > 0) {
       return {
+        status: "ERROR",
         error: "Tidak bisa menghapus user yang memiliki artikel.",
       };
     }
@@ -78,14 +79,15 @@ export async function deleteManyUserByID(
 
     await Promise.all(deletePromises);
 
-    return { success: "Successfully deleted users" };
+    return { status: "SUCCESS", success: "Successfully deleted users" };
   } catch (err: unknown) {
     // @ts-expect-error the error object here could be anything
     if (err.code && err.code === "P2003") {
       return {
+        status: "ERROR",
         error: "Tidak bisa menghapus user yang memiliki artikel.",
       };
     }
-    return { error: err.toString() };
+    return { status: "ERROR", error: err.toString() };
   }
 }

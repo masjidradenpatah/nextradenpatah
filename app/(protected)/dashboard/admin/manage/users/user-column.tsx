@@ -3,8 +3,8 @@
 import { ColumnDef } from "@tanstack/table-core";
 import { User } from "@prisma/client";
 import { cn } from "@/lib/utils";
-import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
-import DropdownRole from "@/components/DropdownRole";
+import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
+import DropdownRole from "@/components/Table/DropdownRole";
 
 import {
   deleteManyUserByID,
@@ -15,7 +15,7 @@ import {
   moreActionColumn,
   numberColumn,
   selectColumn,
-} from "@/components/TableData";
+} from "@/components/Table/TableData";
 
 type UserColumn = User;
 

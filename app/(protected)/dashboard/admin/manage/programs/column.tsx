@@ -3,13 +3,13 @@
 import { ColumnDef } from "@tanstack/table-core";
 import { program } from "@prisma/client";
 import { cn } from "@/lib/utils";
-import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
+import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import { deleteManyProgramsByID } from "@/actions/programActions";
 import {
   moreActionColumn,
   numberColumn,
   selectColumn,
-} from "@/components/TableData";
+} from "@/components/Table/TableData";
 
 export const columns: ColumnDef<program>[] = [
   selectColumn<program>(),

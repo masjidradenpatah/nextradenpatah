@@ -1,5 +1,5 @@
 import React from "react";
-import { DataTable } from "@/components/TableData";
+import { DataTable } from "@/components/Table/TableData";
 import { columns } from "@/app/(protected)/dashboard/admin/manage/articles/articles-column";
 import { deleteManyArticlesByID, getAllArticle } from "@/actions/articleAction";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

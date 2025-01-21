@@ -112,8 +112,8 @@ model programExecution {
 
 enum articleStatus {
   DRAFT
-  PUBLISHED
   ARCHIVED
+  PUBLISHED
 }
 
 model article {
@@ -122,8 +122,14 @@ model article {
   slug     String        @unique
   category String
   content  String
+  coverUrl String?
   views    Int           @default(0)
   status   articleStatus @default(DRAFT)
   author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
+
+  // Self-relation fields
+  backupId String? // Field to store the ID of the backup article
+  backup   article?  @relation("BackupRelation", fields: [backupId], references: [id])
+  original article[] @relation("BackupRelation") // Field for the original article referencing backups
 }

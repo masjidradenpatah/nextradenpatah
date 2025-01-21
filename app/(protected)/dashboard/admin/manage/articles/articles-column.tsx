@@ -5,12 +5,12 @@ import { ColumnDef } from "@tanstack/table-core";
 import { article } from "@prisma/client";
 import { convert } from "html-to-text";
 import { cn } from "@/lib/utils";
-import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
+import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import {
   moreActionColumn,
   numberColumn,
   selectColumn,
-} from "@/components/TableData";
+} from "@/components/Table/TableData";
 import { deleteManyUserByID } from "@/actions/user";
 import { deleteManyArticlesByID } from "@/actions/articleAction";
 

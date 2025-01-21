@@ -2,14 +2,15 @@
 import { Program, ProgramExecution } from "@/types/Program";
 import { prisma } from "@/lib/db";
 import { program, programExecution, programStatus } from "@prisma/client";
+import { ActionResponse } from "@/types";
 
 export async function getAllPrograms(): Promise<program[]> {
-  return await prisma.program.findMany();
+  return prisma.program.findMany();
 }
 
 export async function deleteManyProgramsByID(
   ids: string[],
-): Promise<Record<string, string>> {
+): Promise<ActionResponse<program>> {
   try {
     // Check if users exist or not
     const programs = await prisma.program.findMany({
@@ -19,7 +20,7 @@ export async function deleteManyProgramsByID(
     });
 
     if (programs.length === 0) {
-      return { error: "Programs do not exist" };
+      return { status: "ERROR", error: "Programs do not exist" };
     }
 
     // Delete programs in parallel
@@ -31,20 +32,20 @@ export async function deleteManyProgramsByID(
 
     await Promise.all(deletePromises);
 
-    return { success: "Successfully deleted programs" };
+    return { status: "SUCCESS", success: "Successfully deleted programs" };
   } catch {
     // handle if error
-    return { error: "Something went wrong" };
+    return { status: "ERROR", error: "Something went wrong" };
   }
 }
 
 export async function getAllUpcomingProgram(): Promise<programExecution[]> {
-  return await prisma.programExecution.findMany();
+  return prisma.programExecution.findMany();
 }
 
 export async function deleteManyUpcomingProgramByID(
   ids: string[],
-): Promise<Record<string, string>> {
+): Promise<ActionResponse<programExecution>> {
   try {
     // Check if upcoming program exist or not
     const upcomingPrograms = await prisma.programExecution.findMany({
@@ -54,7 +55,7 @@ export async function deleteManyUpcomingProgramByID(
     });
 
     if (upcomingPrograms.length === 0) {
-      return { error: "Upcoming programs do not exist" };
+      return { status: "ERROR", error: "Upcoming programs do not exist" };
     }
 
     // Delete upcomingPrograms in parallel
@@ -66,10 +67,10 @@ export async function deleteManyUpcomingProgramByID(
 
     await Promise.all(deletePromises);
 
-    return { success: "Successfully deleted programs" };
+    return { status: "SUCCESS", success: "Successfully deleted programs" };
   } catch {
     // handle if error
-    return { error: "Something went wrong" };
+    return { status: "ERROR", error: "Something went wrong" };
   }
 }
 

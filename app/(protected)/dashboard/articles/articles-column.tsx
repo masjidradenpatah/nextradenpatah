@@ -5,13 +5,14 @@ import { ColumnDef } from "@tanstack/table-core";
 import { article } from "@prisma/client";
 import { convert } from "html-to-text";
 import { cn } from "@/lib/utils";
-import { DataTableColumnHeader } from "@/components/TableHeaderSortable";
+import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import {
   moreActionColumn,
   numberColumn,
   selectColumn,
-} from "@/components/TableData";
+} from "@/components/Table/TableData";
 import { deleteManyArticlesByID } from "@/actions/articleAction";
+import DropdownArticleStatus from "@/components/Table/DropdownArticleStatus";
 
 export const columns: ColumnDef<article>[] = [
   selectColumn<article>(),
@@ -45,21 +46,11 @@ export const columns: ColumnDef<article>[] = [
     ),
     cell: ({ row }) => {
       const status = row.original.status;
-
-      let statusColor = "bg-secondary";
-      if (status === "DRAFT") statusColor = "bg-gray-400/50";
-      else if (status === "PUBLISHED") statusColor = "bg-emerald-400";
-      else if (status === "ARCHIVED") statusColor = "bg-secondary";
-
       return (
-        <div
-          className={cn(
-            "flex items-center justify-center rounded-md bg-secondary px-2 py-4",
-            statusColor,
-          )}
-        >
-          {row.getValue("status")}
-        </div>
+        <DropdownArticleStatus
+          status={status}
+          articleId={row.original.id}
+        ></DropdownArticleStatus>
       );
     },
   },
@@ -97,6 +88,7 @@ export const columns: ColumnDef<article>[] = [
     ),
   },
   moreActionColumn<article>({
+    editFNAction: true,
     deleteFNAction: deleteManyArticlesByID,
   }),
 ];

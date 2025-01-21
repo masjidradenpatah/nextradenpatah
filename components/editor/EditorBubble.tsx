@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { LinkSelector } from "@/components/editor/selectors/LinkSelector";
 import { MathSelector } from "@/components/editor/selectors/MathSelector";
@@ -13,37 +13,22 @@ import Magic from "@/components/editor/icons/magic";
 import { removeAIHighlight } from "novel/extensions";
 import { Editor } from "@tiptap/core";
 
-const EditorBubbleMenu = ({
-  open,
-  onOpenChange,
-  openNode,
-  setOpenNode,
-  openLink,
-  setOpenLink,
-  openColor,
-  setOpenColor,
-}: {
-  open: boolean;
-  onOpenChange: (item: boolean) => void;
-  openNode: boolean;
-  setOpenNode: (item: boolean) => void;
-  openLink: boolean;
-  setOpenLink: (item: boolean) => void;
-  openColor: boolean;
-  setOpenColor: (item: boolean) => void;
-}) => {
+const EditorBubbleMenu = () => {
   const { editor } = useEditor();
-
+  const [openNode, setOpenNode] = useState(false);
+  const [openColor, setOpenColor] = useState(false);
+  const [openLink, setOpenLink] = useState(false);
+  const [openAI, setOpenAI] = useState(false);
   useEffect(() => {
     if (!open) removeAIHighlight(editor as Editor);
-  }, [editor, open]);
+  }, [editor]);
 
   return (
     <EditorBubble
       tippyOptions={{
-        placement: open ? "bottom-start" : "top",
+        placement: openAI ? "bottom-start" : "top",
         onHidden: () => {
-          onOpenChange(false);
+          setOpenAI(false);
           if (!editor) return null;
           editor.chain().unsetHighlight().run();
         },
@@ -51,15 +36,14 @@ const EditorBubbleMenu = ({
       className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
       pluginKey={""}
     >
-      {open && <AISelector open={open} onOpenChange={onOpenChange} />}
-      {!open && (
+      {openAI && <AISelector open={openAI} onOpenChange={setOpenAI} />}
+      {!openAI && (
         <Fragment>
           <Button
             className="gap-1 rounded-none text-purple-500"
             variant="ghost"
             onClick={() => {
-              return;
-              onOpenChange(true);
+              return setOpenAI(true);
             }}
             size="sm"
           >

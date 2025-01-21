@@ -14,6 +14,7 @@ import { cn, mapEnum } from "@/lib/utils";
 import { updateUserRole } from "@/actions/user";
 import { toast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import UserRoleBadge, { ROLE_COLOR } from "@/components/UserRoleBadge";
 
 interface Props {
   role: UserRole;
@@ -65,28 +66,26 @@ const DropdownRole = ({ role, userId }: Props) => {
   }
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger className={"flex size-full h-[52px]"}>
         <Button
-          variant="default"
-          className={cn(
-            "!size-full grow justify-center p-0 py-4 text-black",
-            getRoleBgColor(role),
-          )}
+          asChild
+          variant="ghost"
+          className={cn("flex h-full w-full grow justify-center p-0")}
         >
-          {role}
+          <UserRoleBadge role={role}></UserRoleBadge>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={"space-y-2"}>
         <DropdownMenuLabel>Roles</DropdownMenuLabel>
         {mapEnum(UserRole, (key, value) => (
           <DropdownMenuItem
+            className={"size-full bg-none p-0"}
             key={key}
-            className={getRoleBgColor(key)}
             onClick={() => {
               handleUpdate(key);
             }}
           >
-            {value}
+            <UserRoleBadge role={key} className={"!size-full"} />
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

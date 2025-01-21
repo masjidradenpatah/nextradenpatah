@@ -5,5 +5,4 @@ export const newArticleSchema = z.object({
   slug: z.string(),
   category: z.string(),
   content: z.string(),
-  authorId: z.string(),
 });

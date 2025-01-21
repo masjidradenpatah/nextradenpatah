@@ -7,8 +7,6 @@ import {
   TextQuote,
   ListOrdered,
   TextIcon,
-  Code,
-  CheckSquare,
   type LucideIcon,
 } from "lucide-react";
 import { EditorBubbleItem, useEditor } from "novel";
@@ -58,12 +56,6 @@ const items: SelectorItem[] = [
     isActive: (editor) => editor!.isActive("heading", { level: 3 }),
   },
   {
-    name: "To-do List",
-    icon: CheckSquare,
-    command: (editor) => editor!.chain().focus().toggleTaskList().run(),
-    isActive: (editor) => editor!.isActive("taskItem"),
-  },
-  {
     name: "Bullet List",
     icon: ListOrdered,
     command: (editor) => editor!.chain().focus().toggleBulletList().run(),
@@ -86,12 +78,6 @@ const items: SelectorItem[] = [
         .toggleBlockquote()
         .run(),
     isActive: (editor) => editor!.isActive("blockquote"),
-  },
-  {
-    name: "Code",
-    icon: Code,
-    command: (editor) => editor!.chain().focus().toggleCodeBlock().run(),
-    isActive: (editor) => editor!.isActive("codeBlock"),
   },
 ];
 interface NodeSelectorProps {
