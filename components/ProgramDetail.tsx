@@ -35,7 +35,7 @@ const ProgramDetail = ({ program, className }: Props) => {
                 "mx-auto w-fit rounded-lg bg-emerald-500 px-4 py-2 text-white"
               }
             >
-              {program.type === "ANNUALY"
+              {program.type !== "ANNUALY"
                 ? "Program Rutin Harian"
                 : "Program Tahunan"}
             </p>

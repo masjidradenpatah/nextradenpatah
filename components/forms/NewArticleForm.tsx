@@ -1,6 +1,8 @@
 "use client";
 import React, { ChangeEvent, useMemo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 import z from "zod";
 import { newArticleSchema } from "@/schemas/ArticleSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,15 +12,14 @@ import {
   updateArticleById,
 } from "@/actions/articleAction";
 import AdvancedEditor from "@/components/editor/advanced-editor";
-import { Button } from "@/components/ui/button";
-
-import { Input } from "@/components/ui/input";
-import { toast, useToast } from "@/hooks/use-toast";
-import { type EditorInstance, JSONContent } from "novel";
+import { JSONContent } from "novel";
 import { LoaderCircle, Send, Trash } from "lucide-react";
 import { generateJSON } from "@tiptap/html";
 import { defaultExtensions } from "@/components/editor/TailwindEditorExtensions";
 import { slashCommand } from "@/components/editor/TailwindEditorSlashCommands";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogClose,
@@ -26,26 +27,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
-import ImageUpload from "@/components/ImageUpload";
-import ImageUploadDropzone from "@/components/ImageUploadDropzone";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const NewArticleForm = ({
-  initialArticle,
-  type,
-}: {
-  initialArticle: article;
-  type: "NEW" | "EDIT";
-}) => {
-  // article sudah ada ketika disini
-  // article masih dalam versi draft
-  // Jika tipe edit maka akan membuat salinan baru (untuk backup).
-  // Hanya ada 1 maksimal salinan untuk 1 article. Jika sudah ada salinan, maka akan mengambil salinan itu
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const articleField = ["content", "title", "category", "slug"] as const;
+type ArticleFields = (typeof articleField)[number];
 
-  // Komponen ini tidak tahu apakah ini salinan atau tidak
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const articleCategory = ["FIQIH", "AKIDAH", "PENDIDIKAN", "NOT_SET"] as const;
+type ArticleCategory = (typeof articleCategory)[number];
 
-  const [isPending, startTransition] = useTransition();
+const NewArticleForm = ({ initialArticle }: { initialArticle: article }) => {
+  const [, startTransition] = useTransition();
   const output = useMemo(() => {
     const extensions = [...defaultExtensions, slashCommand];
     return generateJSON(initialArticle.content, [...extensions]);
@@ -64,12 +63,6 @@ const NewArticleForm = ({
 
   const title = form.watch("title");
   const slug = form.watch("slug");
-  const category = form.watch("category");
-  // PUBLISH
-
-  function onDelete() {
-    // Akan menghapus original dan draftnya
-  }
 
   function onDraft() {
     //  Hanya akan update status menjadi draft
@@ -79,14 +72,12 @@ const NewArticleForm = ({
         id: initialArticle.id,
         title: form.getValues("title"),
         slug: form.getValues("slug"),
-        category: form.getValues("category"),
+        category: form.getValues("category") as ArticleCategory,
         content: form.getValues("content"),
 
         status: "DRAFT",
       };
-
-      const response = await updateArticleById(newArticle);
-      console.log({ response });
+      await updateArticleById(newArticle);
     });
   }
 
@@ -97,23 +88,17 @@ const NewArticleForm = ({
         id: initialArticle.id,
         title: form.getValues("title"),
         slug: form.getValues("slug"),
-        category: form.getValues("category"),
+        category: form.getValues("category") as ArticleCategory,
         content: form.getValues("content"),
 
         status: "ARCHIVED",
       };
 
-      const response = await updateArticleById(newArticle);
-      console.log({ response });
+      await updateArticleById(newArticle);
     });
   }
 
-  function onPublish(event) {
-    // const submitType = event.target.;
-    // console.log({ submitType });
-
-    // Jika ini murni artikel baru dan tidak punya salinan, maka hanya akan mengubah status nya
-    // Jika ini salinan dari yang sudah di publishm, maka akan mengupdate versi publish dan menghapus versi salinan
+  function onPublish() {
     setShowDialog(true);
     startTransition(async () => {
       const newArticle: article = {
@@ -121,81 +106,53 @@ const NewArticleForm = ({
         id: initialArticle.id,
         title: form.getValues("title"),
         slug: form.getValues("slug"),
-        category: form.getValues("category"),
+        category: form.getValues("category") as ArticleCategory,
         content: form.getValues("content"),
 
         status: "PUBLISHED",
       };
 
-      const response = await updateArticleById(newArticle);
-      console.log("PUBLISH");
-      console.log({ response });
+      await updateArticleById(newArticle);
     });
     setShowDialog(false);
     router.push("/dashboard/articles");
   }
 
-  // const response = await createNewArticle(values);
-  // if (response.error) {
-  //   toast({
-  //     title: "Error",
-  //     description: response.error,
-  //     variant: "destructive",
-  //   });
-  // } else if (response.success) {
-  //   toast({
-  //     title: "Congratulations!!! Success creating new article",
-  //     description: response.error,
-  //   });
-  // }
-  // }
-
   function onUpdate(value: string) {
     form.setValue("content", value);
     form.trigger("content");
 
-    console.log({ value });
-    // update to DB
     startTransition(async () => {
       const newArticle: article = {
         ...initialArticle,
         id: initialArticle.id,
         title: form.getValues("title"),
         slug: form.getValues("slug"),
-        category: form.getValues("category"),
+        category: form.getValues("category") as ArticleCategory,
         content: value,
       };
-
-      const response = await updateArticleById(newArticle);
-      console.log({ response });
+      await updateArticleById(newArticle);
     });
   }
 
-  function titleChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
-    // console.log({ event });
-    const name = event.target.name;
-    const value = event.target.value as
-      | "title"
-      | "slug"
-      | "category"
-      | "content";
-    // console.log({ name, value });
+    const name = event.target.name as ArticleFields;
+    const value = event.target.value as ArticleFields;
     form.setValue(name, value);
     form.trigger(name);
-
     debouncedUpdates(name, value);
+  }
 
-    // onUpdate(form.getValues("content"));
+  function categoryChange(value: string) {
+    form.setValue("category", value);
+    debouncedUpdates("category", value);
   }
 
   const debouncedUpdates = useDebouncedCallback(
-    async (name: string, value: string) => {
-      // Set nilai setelah debounce selesai
+    async (name: ArticleFields, value: string) => {
       form.setValue(name, value);
       await form.trigger(name);
-
-      // Panggil callback setelah nilai diupdate
       onUpdate(form.getValues("content"));
     },
     500,
@@ -216,7 +173,6 @@ const NewArticleForm = ({
           </DialogContent>
         </Dialog>
       )}
-      <ImageUpload onFileChange={() => {}}></ImageUpload>
       <div className="flex w-full gap-8">
         <div className={"w-full space-y-2"}>
           <label htmlFor="title" className={"text-sm font-medium"}>
@@ -226,7 +182,7 @@ const NewArticleForm = ({
             type="text"
             placeholder="Judul artikel"
             value={title}
-            onChange={titleChange}
+            onChange={handleChange}
             name={"title"}
           />
         </div>
@@ -239,7 +195,7 @@ const NewArticleForm = ({
             type="text"
             placeholder="slug"
             value={slug}
-            onChange={titleChange}
+            onChange={handleChange}
             name={"slug"}
           />
         </div>
@@ -249,21 +205,19 @@ const NewArticleForm = ({
         <label htmlFor="title" className={"text-sm font-medium"}>
           Category
         </label>
-        <Input
-          type="text"
-          placeholder="Fiqih, Akidah, dll"
-          value={category}
-          onChange={titleChange}
-          name={"category"}
-        />
+        <Select onValueChange={categoryChange}>
+          <SelectTrigger>
+            <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={"PENDIDIKAN"}>Pendidikan</SelectItem>
+            <SelectItem value={"FIQIH"}>Fiqih</SelectItem>
+            <SelectItem value={"AKIDAH"}>Akidah</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
-      {/*<p>{JSON.stringify(output)}</p>*/}
-      <AdvancedEditor
-        // type={type}
-        initialData={output as JSONContent}
-        onUpdate={onUpdate}
-      />
+      <AdvancedEditor initialData={output as JSONContent} onUpdate={onUpdate} />
       <div className="flex justify-between gap-4">
         <DeleteArticle id={initialArticle.id} />
         <Button

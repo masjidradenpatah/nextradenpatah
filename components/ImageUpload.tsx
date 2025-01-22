@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { IKImage, IKUpload, ImageKitProvider } from "imagekitio-next";
 import config from "@/lib/config";
 
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { Images } from "lucide-react";
 
 const { publicKey, urlEndpoint } = config.env.imageKit;

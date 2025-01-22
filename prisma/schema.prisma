@@ -31,7 +31,7 @@ model User {
   role          UserRole  @default(JAMAAH)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  article       article[]
+  article       Article[]
 }
 
 model Account {
@@ -81,55 +81,65 @@ model resetPasswordRequest {
   email String
 }
 
-enum programType {
+enum ProgramType {
   DAILY
   ANNUALY
 }
 
-model program {
+model Program {
   id               String             @id // title-year-identifier
   title            String
   description      String
+  content          String
   image            String
-  type             programType
-  programExecution programExecution[]
+  type             ProgramType
+  customeUrl       String?
+  programExecution ProgramExecution[]
 }
 
-enum programStatus {
+enum ProgramStatus {
   UPCOMING
   DONE
   CANCELED
 }
 
-model programExecution {
-  id        String        @id
+model ProgramExecution {
+  id        String        @id @default(cuid())
   title     String
-  program   program       @relation(fields: [programId], references: [id])
+  image     String
   date      DateTime
+  status    ProgramStatus
+  program   Program       @relation(fields: [programId], references: [id])
   programId String
-  status    programStatus
 }
 
-enum articleStatus {
+enum ArticleStatus {
   DRAFT
   ARCHIVED
   PUBLISHED
 }
 
-model article {
-  id       String        @id @default(cuid())
+enum ArticleCategory {
+  NOT_SET
+  PENDIDIKAN
+  AKIDAH
+  FIQIH
+}
+
+model Article {
+  id       String          @id @default(cuid())
   title    String
-  slug     String        @unique
-  category String
+  slug     String          @unique
+  category ArticleCategory @default(NOT_SET)
   content  String
   coverUrl String?
-  views    Int           @default(0)
-  status   articleStatus @default(DRAFT)
-  author   User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  views    Int             @default(0)
+  status   ArticleStatus   @default(DRAFT)
+  author   User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
 
   // Self-relation fields
   backupId String? // Field to store the ID of the backup article
-  backup   article?  @relation("BackupRelation", fields: [backupId], references: [id])
-  original article[] @relation("BackupRelation") // Field for the original article referencing backups
+  backup   Article?  @relation("BackupRelation", fields: [backupId], references: [id])
+  original Article[] @relation("BackupRelation") // Field for the original article referencing backups
 }

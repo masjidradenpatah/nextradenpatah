@@ -66,9 +66,11 @@ export async function getArticleById(
 }
 
 export async function getUserArticle(id: string): Promise<article[]> {
-  return prisma.article.findMany({
+  const result = await prisma.article.findMany({
     where: { authorId: id },
   });
+  console.log(result);
+  return result;
 }
 
 export async function createNewArticle(
@@ -110,7 +112,7 @@ export async function createNewBlankArticle(
         authorId: userId,
         views: 0,
         content: "<h2>Start writing your article</h2>",
-        category: "not set",
+        category: "NOT_SET",
         slug: `article-${generatedToken}`,
         status: "DRAFT",
         title: "Untitled",
