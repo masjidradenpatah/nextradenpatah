@@ -30,7 +30,8 @@ export const publicRoutes: string[] = [
   "/",
   "/new-verification",
   "/reset-password",
-
+  "/unauthorized",
+  "/not-found",
   "/contact",
 ];
 

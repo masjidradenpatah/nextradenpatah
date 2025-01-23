@@ -6,7 +6,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -16,9 +15,12 @@ import z from "zod";
 import { resetPasswordSchema } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordAction } from "@/actions/auth";
+import { FeedbackMessage } from "@/components/FeedbackMessage";
+import Link from "next/link";
 
 const ResetPasswordForm = () => {
-  const [message, setMessage] = useState<Record<string, string> | undefined>();
+  const [error, setError] = useState<string>();
+  const [success, setSuccess] = useState<string>();
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
@@ -27,42 +29,62 @@ const ResetPasswordForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
-    try {
-      const response = await resetPasswordAction(values);
-      setMessage(response);
-    } catch {
-      setMessage({ error: "Something went wrong from on submit function" });
+    const response = await resetPasswordAction(values);
+    if (response.error) {
+      setError(response.error);
+    } else if (response.success) {
+      setSuccess(response.success);
     }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="jhondoe@example.com"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-              <FormDescription />
-            </FormItem>
-          )}
-        />
-        {message?.error && <p>{message.error}</p>}
-        {message?.success && (
-          <p>Success generating and sending new reset token</p>
-        )}
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <>
+      <div
+        className={
+          "mx-auto flex w-full max-w-[460px] flex-col items-center justify-center gap-8"
+        }
+      >
+        <p
+          className={
+            "mb-4 text-center text-3xl font-semibold text-muted-foreground"
+          }
+        >
+          Reset Password
+        </p>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-2"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  <FormDescription />
+                </FormItem>
+              )}
+            />
+            {error && <FeedbackMessage type={"error"} message={error} />}
+            {success && <FeedbackMessage type={"success"} message={success} />}
+            <Button type="submit" className={"w-full"}>
+              Submit
+            </Button>
+          </form>
+        </Form>
+        <Button asChild={true} variant={"link"}>
+          <Link href={"/signIn"}>Back to signIn</Link>
+        </Button>
+      </div>
+    </>
   );
 };
 export default ResetPasswordForm;

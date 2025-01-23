@@ -4,6 +4,7 @@ import "./globals.css";
 import { ImageKitProvider } from "@/components/ImageKit";
 import { ReactNode } from "react";
 import QueryClientWrapper from "@/components/QueryClientWrapper";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -12,8 +13,11 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Masjid Raden Patah",
-  description: "Masjid Raden Patah Universitas Brawijaya",
+  title: {
+    default: "Masjid Raden Patah",
+    template: "%s - Masjid Raden Patah",
+  },
+  description: "Masjid Raden Patah Universitas Brawijaya, Malang",
 };
 
 export default function RootLayout({
@@ -32,6 +36,7 @@ export default function RootLayout({
           >
             {modal}
             {children}
+            <Toaster />
           </body>
         </ImageKitProvider>
       </QueryClientWrapper>

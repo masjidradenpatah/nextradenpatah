@@ -1,45 +1,100 @@
 "use client";
+
 import React, { useCallback, useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import { useSearchParams } from "next/navigation";
 import { verifyEmail } from "@/actions/auth";
+import { House } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { FeedbackMessage } from "@/components/FeedbackMessage";
 
 const NewVerificationForm = () => {
-  const [message, setMessage] = useState<Record<string, string> | undefined>();
+  const [state, setState] = useState({
+    isLoading: false,
+    errorMessage: null as string | null,
+    successMessage: null as string | null,
+  });
   const searchParams = useSearchParams();
-
   const token = searchParams.get("token");
 
-  const onSubmit = useCallback(() => {
+  const handleEmailVerification = useCallback(async () => {
     if (!token) {
-      setMessage({ error: "Token is missing" });
+      setState({
+        isLoading: false,
+        errorMessage: "Token is missing",
+        successMessage: null,
+      });
       return;
     }
 
-    verifyEmail(token)
-      .then((data) => setMessage(data))
-      .catch(() => {});
+    setState((prev) => ({
+      ...prev,
+      isLoading: true,
+      errorMessage: null,
+      successMessage: null,
+    }));
+
+    try {
+      const response = await verifyEmail(token);
+
+      if (response.error) {
+        setState({
+          isLoading: false,
+          errorMessage: response.error,
+          successMessage: null,
+        });
+      } else if (response.success) {
+        setState({
+          isLoading: false,
+          errorMessage: null,
+          successMessage: response.success,
+        });
+      }
+    } catch {
+      setState({
+        isLoading: false,
+        errorMessage: "An unexpected error occurred. Please try again later.",
+        successMessage: null,
+      });
+    }
   }, [token]);
 
   useEffect(() => {
-    onSubmit();
-  }, [onSubmit]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    handleEmailVerification().then((_) => {});
+  }, [handleEmailVerification]);
 
   return (
-    <Card>
-      <CardHeader>Confirm Your Email</CardHeader>
-      <CardContent>
-        {!message && <BeatLoader />}
-        {message && <p>message</p>}
-      </CardContent>
-      <CardFooter></CardFooter>
-    </Card>
+    <div className="mx-auto w-full max-w-xl space-y-8">
+      <div className="text-center text-3xl font-semibold text-primary">
+        Confirm Your Email
+      </div>
+
+      {state.isLoading && (
+        <FeedbackMessage message="Confirming your email" type="loading" />
+      )}
+
+      {state.errorMessage && (
+        <>
+          <FeedbackMessage message={state.errorMessage} type="error" />
+          <Button
+            className="w-full text-lg text-muted-foreground"
+            asChild
+            variant="link"
+          >
+            <Link href="/">
+              <House />
+              Back to Home
+            </Link>
+          </Button>
+        </>
+      )}
+
+      {state.successMessage && (
+        <FeedbackMessage message={state.successMessage} type="success" />
+      )}
+    </div>
   );
 };
+
 export default NewVerificationForm;

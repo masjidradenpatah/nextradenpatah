@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `article` MODIFY `status` ENUM('DRAFT', 'ARCHIVED', 'PUBLISHED') NOT NULL DEFAULT 'DRAFT';

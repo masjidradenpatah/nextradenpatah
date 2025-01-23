@@ -7,7 +7,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
   return (
     <>
-      <Navbar isLoggedIn={!!session} />
+      <Navbar isLoggedIn={!!session} username={session?.user.name} />
       <main className={"w-full"}>{children}</main>
       <Footer />
     </>

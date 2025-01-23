@@ -2,14 +2,14 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ProgramCard } from "@/components/ProgramCard";
-import { getUpcomingProgramsAction } from "@/actions/programActions";
+import { getUpcomingPrograms } from "@/actions/programActions";
 import {
   ErrorMessage,
   ProgramListLoading,
   ProgramListWrapper,
 } from "@/components/ProgramUtils";
-import { ProgramExecution } from "@/types/Program";
 import { getFormattedDate } from "@/lib/utils";
+import { Program, ProgramExecution } from "@prisma/client";
 
 interface UpcomingProgramListProps {
   title: string;
@@ -18,13 +18,16 @@ interface UpcomingProgramListProps {
   showMoreOption?: boolean;
 }
 
+type ProgramExecutionWithProgram = ProgramExecution & {
+  program: Program;
+};
 const UpcomingProgramList = ({
   programs,
   title,
   subtitle,
   showMoreOption,
 }: {
-  programs: ProgramExecution[];
+  programs: ProgramExecutionWithProgram[];
   title: string;
   subtitle: string;
   showMoreOption?: boolean;
@@ -50,10 +53,11 @@ export const UpcomingProgramRender = ({
   showMoreOption,
   numberItemShown = 3,
 }: UpcomingProgramListProps) => {
-  const { data: programs, status } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ["upcoming programs", numberItemShown],
-    queryFn: () => getUpcomingProgramsAction(numberItemShown),
+    queryFn: () => getUpcomingPrograms(numberItemShown),
   });
+  const programs = data?.data;
 
   if (status === "pending") {
     return (
@@ -63,7 +67,7 @@ export const UpcomingProgramRender = ({
     );
   }
 
-  if (status === "error" || programs === null) {
+  if (status === "error" || !programs) {
     return (
       <ErrorMessage
         title={title}

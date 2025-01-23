@@ -2,13 +2,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ProgramCard } from "@/components/ProgramCard";
-import { getProgramsAction } from "@/actions/programActions";
+import { getProgramGroupByType } from "@/actions/programActions";
 import {
   ErrorMessage,
   ProgramListLoading,
   ProgramListWrapper,
 } from "@/components/ProgramUtils";
-import { Program } from "@/types/Program";
+import { Program } from "@prisma/client";
 
 interface ProgramListProps {
   title: string;
@@ -46,10 +46,11 @@ export const ProgramRender = ({
   showMoreOption,
   numberItemShown = 3,
 }: ProgramListProps) => {
-  const { data: programs, status } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ["programs", type, numberItemShown],
-    queryFn: () => getProgramsAction(type, numberItemShown),
+    queryFn: () => getProgramGroupByType(type, numberItemShown),
   });
+  const programs = data?.data;
 
   if (status === "pending") {
     return (
@@ -59,7 +60,7 @@ export const ProgramRender = ({
     );
   }
 
-  if (status === "error" || programs === null) {
+  if (status === "error" || !programs) {
     return (
       <ErrorMessage
         title={title}

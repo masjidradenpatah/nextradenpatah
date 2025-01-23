@@ -3,15 +3,9 @@ import NewPasswordForm from "@/components/forms/NewPasswordForm";
 
 const Page = () => {
   return (
-    <div
-      className={
-        "flex h-full w-full items-center justify-center" + " min-h-screen"
-      }
-    >
-      <Suspense>
-        <NewPasswordForm />
-      </Suspense>
-    </div>
+    <Suspense>
+      <NewPasswordForm />
+    </Suspense>
   );
 };
 export default Page;

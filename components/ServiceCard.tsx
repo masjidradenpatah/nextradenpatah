@@ -16,9 +16,7 @@ interface Props {
 
 const ServiceCard = ({ title, description, link, image, location }: Props) => {
   return (
-    <Card
-      className={"glassmorphic-lg border-8 border-white bg-white/35 md:pt-6"}
-    >
+    <Card className={"glassmorphic-lg border-8 border-white bg-white/35"}>
       <CardHeader className={"p-4 text-center lg:hidden"}>
         <h2 className={"text-3xl font-bold text-primary md:text-4xl"}>
           {title}

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `article` MODIFY `category` ENUM('NOT_SET', 'PENDIDIKAN', 'AKIDAH', 'FIQIH') NOT NULL DEFAULT 'NOT_SET';

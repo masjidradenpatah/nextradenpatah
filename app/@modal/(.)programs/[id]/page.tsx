@@ -1,19 +1,23 @@
 import React from "react";
 import { getProgramByIdAction } from "@/actions/programActions";
-import ProgramDetail from "@/components/ProgramDetail";
+import ProgramPreview from "@/components/ProgramPreview";
 import Modal from "@/components/Modal";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
-  const program = await getProgramByIdAction(id);
+  const { status, data: program } = await getProgramByIdAction(id);
 
-  if (!program) {
+  if (!program || status === "ERROR") {
     throw new Error("Program doesn't exist");
   }
 
   return (
-    <Modal modalTitle={"Program Masjid Raden Patah"}>
-      <ProgramDetail program={program} className={""} />
+    <Modal
+      modalTitle={"Program Masjid Raden Patah"}
+      className={"container overflow-visible xl:max-w-screen-lg"}
+      fullUrl={`/programs/full/${program.id}`}
+    >
+      <ProgramPreview program={program} className={""} />
     </Modal>
   );
 };
