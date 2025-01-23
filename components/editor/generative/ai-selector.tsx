@@ -16,7 +16,7 @@ import Magic from "@/components/editor/icons/magic";
 import AICompletionCommands from "./ai-completion-command";
 import AISelectorCommands from "./ai-selector-command";
 import { Editor } from "@tiptap/core";
-//TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
+//I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 interface AISelectorProps {
   open: boolean;

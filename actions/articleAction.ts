@@ -3,24 +3,39 @@
 import z from "zod";
 import { newArticleSchema } from "@/schemas/ArticleSchemas";
 import { prisma } from "@/lib/db";
-import { article, articleStatus } from "@prisma/client";
+import { Article, ArticleStatus } from "@prisma/client";
 import { ActionResponse } from "@/types";
 import { v4 as uuidv4 } from "uuid";
 
-interface ArticleColumn extends article {
+interface ArticleColumn extends Article {
   author: { name: string | null };
 }
 
-export async function getAllArticle(): Promise<ArticleColumn[]> {
-  return prisma.article.findMany({
-    include: {
-      author: {
-        select: {
-          name: true,
+export async function getAllArticle(): Promise<
+  ActionResponse<ArticleColumn[]>
+> {
+  try {
+    const allArtilces = await prisma.article.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+          },
         },
       },
-    },
-  });
+    });
+
+    if (!allArtilces)
+      return { status: "ERROR", error: "Article doesn't exist" };
+
+    return {
+      status: "SUCCESS",
+      success: "Success fetching the article",
+      data: allArtilces,
+    };
+  } catch {
+    return { status: "ERROR", error: "Something went wrong" };
+  }
 }
 
 export async function getArticleTitleById(
@@ -47,7 +62,7 @@ export async function getArticleTitleById(
 
 export async function getArticleById(
   id: string,
-): Promise<ActionResponse<article>> {
+): Promise<ActionResponse<Article>> {
   try {
     const article = await prisma.article.findUnique({
       where: { id },
@@ -65,24 +80,41 @@ export async function getArticleById(
   }
 }
 
-export async function getUserArticle(id: string): Promise<article[]> {
-  const result = await prisma.article.findMany({
-    where: { authorId: id },
-  });
-  console.log(result);
-  return result;
+export async function getUserArticle(
+  id: string,
+): Promise<ActionResponse<Article[]>> {
+  try {
+    const article = await prisma.article.findMany({
+      where: { authorId: id },
+    });
+
+    if (!article) return { status: "ERROR", error: "Article not found" };
+
+    return {
+      status: "SUCCESS",
+      success: "Success fetching the user article",
+      data: article,
+    };
+  } catch {
+    return { status: "ERROR", error: "Something went wrong" };
+  }
 }
 
 export async function createNewArticle(
   values: z.infer<typeof newArticleSchema>,
   userId: string,
-): Promise<ActionResponse<article>> {
+): Promise<ActionResponse<Article>> {
   const validatedFields = newArticleSchema.safeParse(values);
 
   if (!validatedFields.success)
     return { status: "ERROR", error: "Invalid input" };
 
   const { data } = validatedFields;
+  const articleCategory = data.category as
+    | "PENDIDIKAN"
+    | "NOT_SET"
+    | "AKIDAH"
+    | "FIQIH";
   try {
     const newArticle = await prisma.article.create({
       data: {
@@ -90,6 +122,7 @@ export async function createNewArticle(
         views: 0,
         status: "DRAFT",
         ...data,
+        category: articleCategory,
       },
     });
     return {
@@ -104,7 +137,7 @@ export async function createNewArticle(
 
 export async function createNewBlankArticle(
   userId: string,
-): Promise<ActionResponse<article>> {
+): Promise<ActionResponse<Article>> {
   const generatedToken = uuidv4();
   try {
     const newArticle = await prisma.article.create({
@@ -129,8 +162,8 @@ export async function createNewBlankArticle(
 }
 
 export async function updateArticleById(
-  newArticle: article,
-): Promise<ActionResponse<article>> {
+  newArticle: Article,
+): Promise<ActionResponse<Article>> {
   try {
     const existingArticle = await prisma.article.findUnique({
       where: {
@@ -152,7 +185,11 @@ export async function updateArticleById(
     });
 
     // console.log({ result });
-    return { status: "SUCCESS", success: "Successfully updating article" };
+    return {
+      status: "SUCCESS",
+      success: "Successfully updating article",
+      data: result,
+    };
   } catch {
     return { status: "ERROR", error: "Something went wrong" };
   }
@@ -160,8 +197,8 @@ export async function updateArticleById(
 
 export async function updateArticleStatusById(
   articleId: string,
-  newStatus: articleStatus,
-): Promise<ActionResponse<article>> {
+  newStatus: ArticleStatus,
+): Promise<ActionResponse<Article>> {
   try {
     const existingArticle = await prisma.article.findUnique({
       where: {
@@ -195,7 +232,7 @@ export async function updateArticleStatusById(
 
 export async function deleteManyArticlesByID(
   ids: string[],
-): Promise<ActionResponse<article>> {
+): Promise<ActionResponse<never>> {
   try {
     // Check if articles exist or not
     const articles = await prisma.article.findMany({

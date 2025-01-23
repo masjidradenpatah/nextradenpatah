@@ -11,7 +11,8 @@ import { columns } from "@/app/(protected)/dashboard/articles/articles-column";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { article } from "@prisma/client";
+import { Article } from "@prisma/client";
+import { ActionResponse } from "@/types";
 
 const Page = async () => {
   const session = await auth();
@@ -36,7 +37,7 @@ const Page = async () => {
         <CardContent>
           <DataTable
             queryKey={`${userId} article`}
-            queryAction={async (): Promise<article[]> => {
+            queryAction={async (): Promise<ActionResponse<Article[]>> => {
               "use server";
               return await getUserArticle(userId);
             }}

@@ -8,17 +8,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-import { programStatus } from "@prisma/client";
+import { ProgramStatus } from "@prisma/client";
 import { cn, mapEnum } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 import { updateUpcomingProgramStatus } from "@/actions/programActions";
 
 interface Props {
-  status: programStatus;
+  status: ProgramStatus;
   userId: string;
 }
 
-export function getStatusBgColor(status: programStatus): string {
+export function getStatusBgColor(status: ProgramStatus): string {
   switch (status) {
     case "CANCELED":
       return "bg-rose-400/50 hover:bg-rose-400/75 active:bg-rose-400";
@@ -45,7 +45,7 @@ export const DropdownUpcomingProgramStatus = ({ status, userId }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={"space-y-2"}>
         <DropdownMenuLabel>Roles</DropdownMenuLabel>
-        {mapEnum(programStatus, (key, value) => (
+        {mapEnum(ProgramStatus, (key, value) => (
           <DropdownMenuItem
             key={key}
             className={getStatusBgColor(key)}

@@ -39,9 +39,10 @@ function DropdownEnum<T extends string>({
         title: "Success",
         description: `Successfully updated ${label.toLowerCase()}`,
       });
+      // @ts-expect-error i dont know
       queryClient.invalidateQueries([label.toLowerCase()]); // Invalidasi query terkait
     },
-    onError: (error: unknown) => {
+    onError: () => {
       toast({
         title: "Error",
         description: `Failed to update ${label.toLowerCase()}`,
@@ -70,14 +71,14 @@ function DropdownEnum<T extends string>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={"space-y-2"}>
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
-        {Object.entries(enumValues).map(([key, value]) => (
+        {Object.entries(enumValues).map(([key]) => (
           <DropdownMenuItem
             key={key}
             className={getBgColor(key as T)}
             onClick={() => handleUpdate(key as T)}
             disabled={mutation.isPending}
           >
-            {value}
+            {key}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

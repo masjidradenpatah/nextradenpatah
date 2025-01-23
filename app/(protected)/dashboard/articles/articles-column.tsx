@@ -2,9 +2,8 @@
 
 import { ColumnDef } from "@tanstack/table-core";
 
-import { article } from "@prisma/client";
+import { Article } from "@prisma/client";
 import { convert } from "html-to-text";
-import { cn } from "@/lib/utils";
 import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import {
   moreActionColumn,
@@ -14,9 +13,9 @@ import {
 import { deleteManyArticlesByID } from "@/actions/articleAction";
 import DropdownArticleStatus from "@/components/Table/DropdownArticleStatus";
 
-export const columns: ColumnDef<article>[] = [
-  selectColumn<article>(),
-  numberColumn<article>(),
+export const columns: ColumnDef<Article>[] = [
+  selectColumn<Article>(),
+  numberColumn<Article>(),
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -87,7 +86,7 @@ export const columns: ColumnDef<article>[] = [
       </div>
     ),
   },
-  moreActionColumn<article>({
+  moreActionColumn<Article>({
     editFNAction: true,
     deleteFNAction: deleteManyArticlesByID,
   }),

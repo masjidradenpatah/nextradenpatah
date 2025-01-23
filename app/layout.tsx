@@ -13,8 +13,11 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Masjid Raden Patah",
-  description: "Masjid Raden Patah Universitas Brawijaya",
+  title: {
+    default: "Masjid Raden Patah",
+    template: "%s - Masjid Raden Patah",
+  },
+  description: "Masjid Raden Patah Universitas Brawijaya, Malang",
 };
 
 export default function RootLayout({

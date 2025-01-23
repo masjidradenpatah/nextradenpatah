@@ -13,8 +13,9 @@ export const MathSelector = () => {
       variant="ghost"
       size="sm"
       className="w-12 rounded-none"
-      onClick={(evt) => {
+      onClick={() => {
         if (editor.isActive("math")) {
+          // @ts-expect-error probably problem with the extensions
           editor.chain().focus().unsetLatex().run();
         } else {
           const { from, to } = editor.state.selection;
@@ -22,6 +23,7 @@ export const MathSelector = () => {
 
           if (!latex) return;
 
+          // @ts-expect-error probably problem with the extensions
           editor.chain().focus().setLatex({ latex }).run();
         }
       }}

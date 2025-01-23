@@ -1,6 +1,12 @@
 import React from "react";
 import ServiceCTA from "@/components/ServiceCTA";
 import { ImageKitImage } from "@/components/ImageKit";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Layanan Mualaf Center",
+  description: "Layanan Mualaf Center Masjid Raden Patah Universitas Brawijaya",
+};
 
 const Page = () => {
   return (
@@ -24,27 +30,23 @@ const Page = () => {
       <section className="container flex justify-between gap-8 xl:max-w-screen-lg">
         <div className={"space-y-8 text-lg"}>
           <p className={"text-justify"}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-            aspernatur beatae commodi corporis cum cupiditate delectus, dolore
-            dolores doloribus ducimus ea esse ex expedita fugiat hic ipsum iste
-            laboriosam, necessitatibus nemo nulla obcaecati officia omnis
-            placeat recusandae repellendus saepe sit soluta suscipit tempora
-            tempore totam, voluptate voluptates voluptatum! Cum, iusto.
+            Masjid Raden Patah Universitas Brawijaya menyediakan layanan khusus
+            bagi para mualaf yang membutuhkan dukungan dalam proses memulai
+            perjalanan baru sebagai seorang Muslim. Kami hadir untuk memberikan
+            bimbingan, pembelajaran, serta pendampingan spiritual agar para
+            mualaf dapat memahami Islam dengan baik dan mendalam.
           </p>
 
           <h2 className={"mb-4 text-center text-2xl font-medium"}>
             Kami Hadir sebagai solusi
           </h2>
           <p className="text-justify">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
-            placeat praesentium tempora? Ab accusamus accusantium asperiores
-            atque cupiditate dignissimos ea earum eius fugit impedit laboriosam
-            maxime, mollitia nemo odit officia perspiciatis placeat quidem
-            reiciendis rem, saepe sint soluta unde voluptas! A ad adipisci animi
-            aspernatur, cum ducimus enim, expedita explicabo fugit in inventore
-            iste necessitatibus numquam obcaecati perferendis quasi reiciendis
-            reprehenderit sequi tempora ullam vitae voluptatem voluptatibus
-            voluptatum! Aperiam cum expedita illo neque nisi quia.
+            Kami memahami tantangan yang dihadapi para mualaf dalam beradaptasi
+            dengan ajaran Islam. Oleh karena itu, Mualaf Center menawarkan
+            program bimbingan agama, kelas pengenalan dasar Islam, hingga
+            dukungan emosional dan sosial. Dengan suasana yang hangat dan penuh
+            perhatian, kami siap membantu setiap mualaf dalam menemukan
+            kedamaian dan keyakinan di dalam Islam.
           </p>
 
           <h2 className={"mb-4 text-center text-2xl font-medium"}>

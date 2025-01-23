@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/table-core";
 
-import { article } from "@prisma/client";
+import { Article } from "@prisma/client";
 import { convert } from "html-to-text";
 import { cn } from "@/lib/utils";
 import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
@@ -11,10 +11,9 @@ import {
   numberColumn,
   selectColumn,
 } from "@/components/Table/TableData";
-import { deleteManyUserByID } from "@/actions/user";
 import { deleteManyArticlesByID } from "@/actions/articleAction";
 
-interface ArticleColumn extends article {
+interface ArticleColumn extends Article {
   author: { name: string | null };
 }
 

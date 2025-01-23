@@ -14,7 +14,7 @@ import { cn, mapEnum } from "@/lib/utils";
 import { updateUserRole } from "@/actions/user";
 import { toast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import UserRoleBadge, { ROLE_COLOR } from "@/components/UserRoleBadge";
+import UserRoleBadge from "@/components/UserRoleBadge";
 
 interface Props {
   role: UserRole;
@@ -50,6 +50,7 @@ const DropdownRole = ({ role, userId }: Props) => {
         title: "Success",
         description: "Success updating user role",
       });
+      // @ts-expect-error i dont know
       queryClient.invalidateQueries(["user roles"]).then(() => {});
     },
     onError: () => {
@@ -77,7 +78,7 @@ const DropdownRole = ({ role, userId }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={"space-y-2"}>
         <DropdownMenuLabel>Roles</DropdownMenuLabel>
-        {mapEnum(UserRole, (key, value) => (
+        {mapEnum(UserRole, (key) => (
           <DropdownMenuItem
             className={"size-full bg-none p-0"}
             key={key}

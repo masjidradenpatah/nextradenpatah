@@ -1,24 +1,24 @@
 import React from "react";
 import { getProgramByIdAction } from "@/actions/programActions";
 import ProgramPreview from "@/components/ProgramPreview";
-import Modal from "@/components/Modal";
+import { notFound } from "next/navigation";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const { status, data: program } = await getProgramByIdAction(id);
 
-  if (!program || status === "ERROR") {
-    throw new Error("Program doesn't exist");
+  if (status === "ERROR" || !program) {
+    return notFound();
   }
 
   return (
-    <Modal
-      modalTitle={"Program Masjid Raden Patah"}
-      className={"container overflow-visible xl:max-w-screen-lg"}
-      fullUrl={`/programs/full/${program.id}`}
+    <div
+      className={"mt-32 flex size-full flex-col items-center overflow-hidden"}
     >
-      <ProgramPreview program={program} className={""} />
-    </Modal>
+      <section className={"container flex w-full flex-col gap-32"}>
+        <ProgramPreview program={program} className={""} />
+      </section>
+    </div>
   );
 };
 export default Page;

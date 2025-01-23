@@ -6,11 +6,7 @@ import { cn } from "@/lib/utils";
 import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import DropdownRole from "@/components/Table/DropdownRole";
 
-import {
-  deleteManyUserByID,
-  deleteUserByID,
-  updateUserRole,
-} from "@/actions/user";
+import { deleteManyUserByID } from "@/actions/user";
 import {
   moreActionColumn,
   numberColumn,

@@ -50,7 +50,7 @@ import Link from "next/link";
 
 interface TableData<TData, TValue> {
   queryKey: string;
-  queryAction: () => Promise<TData[]>;
+  queryAction: () => Promise<ActionResponse<TData[]>>;
   columns: ColumnDef<TData, TValue>[];
   filterBy: string;
   editFNAction?: (id: string) => void;
@@ -112,7 +112,7 @@ export function moreActionColumn<TData>({
   deleteFNAction,
 }: {
   editFNAction?: boolean;
-  deleteFNAction?: (ids: string[]) => Promise<ActionResponse<TData>>;
+  deleteFNAction?: (ids: string[]) => Promise<ActionResponse<never>>;
 }): ColumnDef<TData> {
   return {
     id: "actions",
@@ -215,14 +215,14 @@ export function DataTable<TData, TValue>({
   const { data, isFetching } = useQuery({
     queryKey: [queryKey],
     queryFn: async () => queryAction(),
-    initialData: [],
+    initialData: { status: "PENDING" },
   });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
-    data,
+    data: data.data || [],
     columns,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),

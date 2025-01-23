@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/table-core";
-import { programExecution } from "@prisma/client";
+import { ProgramExecution } from "@prisma/client";
 import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import { DropdownUpcomingProgramStatus } from "@/components/DropdownUpcomingProgramStatus";
 import {
@@ -9,12 +9,11 @@ import {
   numberColumn,
   selectColumn,
 } from "@/components/Table/TableData";
-import { deleteManyUserByID } from "@/actions/user";
 import { deleteManyUpcomingProgramByID } from "@/actions/programActions";
 
-export const columns: ColumnDef<programExecution>[] = [
-  selectColumn<programExecution>(),
-  numberColumn<programExecution>(),
+export const columns: ColumnDef<ProgramExecution>[] = [
+  selectColumn<ProgramExecution>(),
+  numberColumn<ProgramExecution>(),
   {
     accessorKey: "date",
     header: ({ column }) => (
@@ -43,7 +42,7 @@ export const columns: ColumnDef<programExecution>[] = [
     },
   },
 
-  moreActionColumn<programExecution>({
+  moreActionColumn<ProgramExecution>({
     deleteFNAction: deleteManyUpcomingProgramByID,
   }),
 ];

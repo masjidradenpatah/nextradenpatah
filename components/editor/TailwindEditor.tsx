@@ -7,10 +7,8 @@ import {
   EditorCommandItem,
   EditorCommandList,
   EditorContent,
-  EditorInstance,
   EditorRoot,
   JSONContent,
-  useEditor,
 } from "novel";
 import { useState } from "react";
 import { defaultExtensions } from "@/components/editor/TailwindEditorExtensions";
@@ -27,7 +25,6 @@ const extensions = [...defaultExtensions, slashCommand];
 
 const TailwindEditor = () => {
   const [content, setContent] = useState<JSONContent>();
-  const [saveStatus, setSaveStatus] = useState<string>();
 
   // const debouncedUpdates = useDebouncedCallback(
   //   async (editor: EditorInstance) => {
@@ -41,7 +38,6 @@ const TailwindEditor = () => {
   const [openNode, setOpenNode] = useState<boolean>(false);
   const [openLink, setOpenLink] = useState<boolean>(false);
   const [openColor, setOpenColor] = useState<boolean>(false);
-  const editor = useEditor();
   return (
     <EditorRoot>
       <EditorContent
@@ -63,7 +59,9 @@ const TailwindEditor = () => {
             {suggestionItems.map((item) => (
               <EditorCommandItem
                 value={item.title}
-                onCommand={(val) => item.command(val)}
+                onCommand={() => {
+                  // if (item) item.command(val);
+                }}
                 className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent`}
                 key={item.title}
               >

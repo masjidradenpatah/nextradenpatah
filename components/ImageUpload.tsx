@@ -5,6 +5,7 @@ import config from "@/lib/config";
 
 import { toast } from "@/hooks/use-toast";
 import { Images } from "lucide-react";
+import { IKUploadResponse } from "imagekitio-next/src/components/IKUpload/props";
 
 const { publicKey, urlEndpoint } = config.env.imageKit;
 
@@ -23,6 +24,7 @@ const authenticator = async () => {
     const { signature, expire, token } = data;
     return { signature, expire, token };
   } catch (error) {
+    // @ts-expect-error safe
     throw new Error(`Authenticator request failed. ${error.message}`);
   }
 };
@@ -33,7 +35,7 @@ const ImageUpload = ({
   onFileChange: (filepath: string) => void;
 }) => {
   const ikUplaodRef = useRef(null);
-  const [file, setFile] = useState<{ path: string } | null>(null);
+  const [file, setFile] = useState<{ filePath: string } | null>(null);
   const onError = () => {
     toast({
       title: "Failed",
@@ -41,8 +43,9 @@ const ImageUpload = ({
       variant: "destructive",
     });
   };
-  const onSuccess = (res: any) => {
-    setFile(res);
+  const onSuccess = (res: IKUploadResponse) => {
+    const filePath: string = res.filePath;
+    setFile({ filePath });
     onFileChange(res.filePath);
   };
 
@@ -80,8 +83,8 @@ const ImageUpload = ({
 
       {file && (
         <IKImage
-          alt={file.path}
-          path={file.path}
+          alt={file.filePath}
+          path={file.filePath}
           width={500}
           height={500}
         ></IKImage>

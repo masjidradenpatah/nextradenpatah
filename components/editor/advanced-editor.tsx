@@ -1,5 +1,4 @@
 "use client";
-import { defaultEditorContent } from "@/lib/content";
 import {
   EditorCommand,
   EditorCommandEmpty,
@@ -9,20 +8,13 @@ import {
   type EditorInstance,
   EditorRoot,
   type JSONContent,
-  useEditor,
 } from "novel";
 import EditorBubbleMenu from "@/components/editor/EditorBubble";
-import {
-  ImageResizer,
-  handleCommandNavigation,
-  StarterKit,
-} from "novel/extensions";
-import { handleImagePaste, handleImageDrop } from "novel/plugins";
+import { ImageResizer, handleCommandNavigation } from "novel/extensions";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { defaultExtensions } from "./TailwindEditorExtensions";
-import { uploadFn } from "./image-upload";
 import {
   slashCommand,
   suggestionItems,
@@ -86,10 +78,6 @@ const TailwindAdvancedEditor = ({
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event),
             },
-            handlePaste: (view, event) =>
-              handleImagePaste(view, event, uploadFn),
-            handleDrop: (view, event, _slice, moved) =>
-              handleImageDrop(view, event, moved, uploadFn),
             attributes: {
               class:
                 "prose !p-8 prose-lg dark:prose-invert prose-headings:font-title font-default  focus:outline-none max-w-full",

@@ -6,7 +6,7 @@ import { useDebouncedCallback } from "use-debounce";
 import z from "zod";
 import { newArticleSchema } from "@/schemas/ArticleSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { article } from "@prisma/client";
+import { Article } from "@prisma/client";
 import {
   deleteManyArticlesByID,
   updateArticleById,
@@ -43,7 +43,7 @@ type ArticleFields = (typeof articleField)[number];
 const articleCategory = ["FIQIH", "AKIDAH", "PENDIDIKAN", "NOT_SET"] as const;
 type ArticleCategory = (typeof articleCategory)[number];
 
-const NewArticleForm = ({ initialArticle }: { initialArticle: article }) => {
+const NewArticleForm = ({ initialArticle }: { initialArticle: Article }) => {
   const [, startTransition] = useTransition();
   const output = useMemo(() => {
     const extensions = [...defaultExtensions, slashCommand];
@@ -67,7 +67,7 @@ const NewArticleForm = ({ initialArticle }: { initialArticle: article }) => {
   function onDraft() {
     //  Hanya akan update status menjadi draft
     startTransition(async () => {
-      const newArticle: article = {
+      const newArticle: Article = {
         ...initialArticle,
         id: initialArticle.id,
         title: form.getValues("title"),
@@ -83,7 +83,7 @@ const NewArticleForm = ({ initialArticle }: { initialArticle: article }) => {
 
   function onArchived() {
     startTransition(async () => {
-      const newArticle: article = {
+      const newArticle: Article = {
         ...initialArticle,
         id: initialArticle.id,
         title: form.getValues("title"),
@@ -101,7 +101,7 @@ const NewArticleForm = ({ initialArticle }: { initialArticle: article }) => {
   function onPublish() {
     setShowDialog(true);
     startTransition(async () => {
-      const newArticle: article = {
+      const newArticle: Article = {
         ...initialArticle,
         id: initialArticle.id,
         title: form.getValues("title"),
@@ -123,7 +123,7 @@ const NewArticleForm = ({ initialArticle }: { initialArticle: article }) => {
     form.trigger("content");
 
     startTransition(async () => {
-      const newArticle: article = {
+      const newArticle: Article = {
         ...initialArticle,
         id: initialArticle.id,
         title: form.getValues("title"),

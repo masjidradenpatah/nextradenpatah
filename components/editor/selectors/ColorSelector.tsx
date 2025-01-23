@@ -1,5 +1,4 @@
 import { Check, ChevronDown } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
 import { EditorBubbleItem, useEditor } from "novel";
 
 import {
@@ -13,10 +12,10 @@ export interface BubbleColorMenuItem {
   color: string;
 }
 
-interface ColorSelectorProps {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}
+// interface ColorSelectorProps {
+//   isOpen: boolean;
+//   setIsOpen: Dispatch<SetStateAction<boolean>>;
+// }
 
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
@@ -96,10 +95,10 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   },
 ];
 
-interface ColorSelectorProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+// interface ColorSelectorProps {
+//   open: boolean;
+//   onOpenChange: (open: boolean) => void;
+// }
 
 export const ColorSelector = ({
   open,

@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { Program } from "@/types/Program";
 import { Button } from "@/components/ui/button";
 import { ImageKitImage } from "@/components/ImageKit";
+import { Program } from "@prisma/client";
 
 export type ProgramCardProps = {} & Program;
 

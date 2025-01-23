@@ -1,17 +1,13 @@
 import {
-  CheckSquare,
-  Code,
   Heading1,
   Heading2,
   Heading3,
   List,
   ListOrdered,
-  MessageSquarePlus,
   Text,
   TextQuote,
 } from "lucide-react";
 import { createSuggestionItems } from "novel/extensions";
-import { startImageUpload } from "novel/plugins";
 import { Command, renderItems } from "novel/extensions";
 
 export const suggestionItems = createSuggestionItems([

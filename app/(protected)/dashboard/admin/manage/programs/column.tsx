@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/table-core";
-import { program } from "@prisma/client";
+import { Program } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { DataTableColumnHeader } from "@/components/Table/TableHeaderSortable";
 import { deleteManyProgramsByID } from "@/actions/programActions";
@@ -11,9 +11,9 @@ import {
   selectColumn,
 } from "@/components/Table/TableData";
 
-export const columns: ColumnDef<program>[] = [
-  selectColumn<program>(),
-  numberColumn<program>(),
+export const columns: ColumnDef<Program>[] = [
+  selectColumn<Program>(),
+  numberColumn<Program>(),
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -58,7 +58,7 @@ export const columns: ColumnDef<program>[] = [
     },
   },
 
-  moreActionColumn<program>({
+  moreActionColumn<Program>({
     deleteFNAction: deleteManyProgramsByID,
   }),
 ];

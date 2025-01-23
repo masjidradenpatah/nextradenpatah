@@ -10,8 +10,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const session = await auth();
   if (!session) return null;
 
-  // TODO: show loading status
-
   // Get existing article from database here
   const { status, data } = await getArticleById(articleId);
 

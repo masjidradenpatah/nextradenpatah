@@ -3,8 +3,9 @@ import React, { useRef, useState } from "react";
 import { IKImage, IKUpload, ImageKitProvider } from "imagekitio-next";
 import config from "@/lib/config";
 
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { Images } from "lucide-react";
+import { IKUploadResponse } from "imagekitio-next/src/components/IKUpload/props";
 
 const { publicKey, urlEndpoint } = config.env.imageKit;
 
@@ -13,18 +14,16 @@ const authenticator = async () => {
     const response = await fetch(`http://localhost:3000/api/auth/imagekit`);
     if (!response.ok) {
       const errorText = await response.text();
-      console.log(config.env.appUrl);
-      console.log("authenticator Failed");
 
       throw new Error(
         `Request failed with status ${response.status}: ${errorText}`,
       );
     }
-    console.log("authenticator success");
     const data = await response.json();
     const { signature, expire, token } = data;
     return { signature, expire, token };
   } catch (error) {
+    // @ts-expect-error safe
     throw new Error(`Authenticator request failed. ${error.message}`);
   }
 };
@@ -43,8 +42,7 @@ const ImageUploadDropzone = ({
       variant: "destructive",
     });
   };
-  const onSuccess = (res: any) => {
-    console.log(res);
+  const onSuccess = (res: IKUploadResponse) => {
     toast({
       title: "Success",
       description: "Your has been uploaded",

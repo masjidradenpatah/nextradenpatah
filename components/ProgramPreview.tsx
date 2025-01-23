@@ -9,19 +9,14 @@ type Props = {
   className: string;
 };
 
-const ProgramDetail = ({ program, className }: Props) => {
+const ProgramPreview = ({ program, className }: Props) => {
   return (
-    <div
-      className={cn(
-        "flex size-full flex-col items-center gap-4 p-4 md:gap-8 md:p-8 lg:py-12",
-        className,
-      )}
-    >
+    <div className={cn("flex flex-col items-center gap-4", className)}>
       {program && !(program instanceof Error) ? (
         <>
           <ImageKitImage
-            height={400}
-            width={400}
+            height={300}
+            width={300}
             alt={`Gambar dari program ${program.title}`}
             path={program.image}
             className={"rounded-2xl border-4 border-white shadow-xl"}
@@ -40,7 +35,7 @@ const ProgramDetail = ({ program, className }: Props) => {
                 : "Program Tahunan"}
             </p>
           </div>
-          <p>{program.description}</p>
+          <p className={"line-clamp-6 text-justify"}>{program.description}</p>
         </>
       ) : (
         <div className={"flex size-full flex-col items-center gap-8 p-8 py-24"}>
@@ -53,4 +48,4 @@ const ProgramDetail = ({ program, className }: Props) => {
     </div>
   );
 };
-export default ProgramDetail;
+export default ProgramPreview;

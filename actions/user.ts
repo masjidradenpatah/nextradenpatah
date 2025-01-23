@@ -1,27 +1,38 @@
 "use server";
 
-import { User } from "@prisma/client";
+import { User, UserRole } from "@prisma/client";
 import { getUserById } from "@/data/User";
 import { prisma } from "@/lib/db";
 import { ActionResponse } from "@/types";
 
-export async function getAllUser(): Promise<User[]> {
-  return prisma.user.findMany();
+export async function getAllUser(): Promise<ActionResponse<User[]>> {
+  try {
+    const allUsers = await prisma.user.findMany();
+    if (!allUsers) return { status: "ERROR", error: "users not found" };
+
+    return {
+      status: "SUCCESS",
+      success: "Successfully fetching user",
+      data: allUsers,
+    };
+  } catch {
+    return { status: "ERROR", error: "Something went wrong" };
+  }
 }
 
-export async function updateUserRole<UserRole>(
+export async function updateUserRole(
   id: string,
   newRole: UserRole,
-): Promise<Record<string, string>> {
+): Promise<ActionResponse<User>> {
   try {
     // check if user exist or not
     const user = await getUserById(id);
 
     // handle if error
-    if (!user) return { error: "User doesn't exist" };
+    if (!user) return { status: "ERROR", error: "User doesn't exist" };
 
     // update the role
-    await prisma.user.update({
+    const updatedUser = await prisma.user.update({
       data: {
         ...user,
         role: newRole,
@@ -31,16 +42,19 @@ export async function updateUserRole<UserRole>(
       },
     });
 
-    return { success: "Success updating new role" };
+    return {
+      status: "SUCCESS",
+      success: "Success updating new role",
+      data: updatedUser,
+    };
   } catch {
-    // handle if error
-    return { error: "Something went wrong" };
+    return { status: "ERROR", error: "users not found" };
   }
 }
 
 export async function deleteManyUserByID(
   ids: string[],
-): Promise<ActionResponse> {
+): Promise<ActionResponse<never>> {
   try {
     // Check if users exist or not
     const users = await prisma.user.findMany({
@@ -88,6 +102,7 @@ export async function deleteManyUserByID(
         error: "Tidak bisa menghapus user yang memiliki artikel.",
       };
     }
+    // @ts-expect-error should be okay
     return { status: "ERROR", error: err.toString() };
   }
 }

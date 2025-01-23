@@ -1,5 +1,4 @@
 import { TriangleAlert } from "lucide-react";
-import { BeatLoader } from "react-spinners";
 import React from "react";
 
 export const FeedbackMessage = ({
@@ -22,7 +21,6 @@ export const FeedbackMessage = ({
       }`}
     >
       {type === "error" && <TriangleAlert className="stroke-1" />}
-      {type === "loading" && <BeatLoader />}
       {message}
     </div>
   );
