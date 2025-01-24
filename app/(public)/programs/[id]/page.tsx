@@ -1,4 +1,4 @@
-import Program from "@/app/(public)/programs/[id]/page";
+import Program from "@/app/(public)/programs/full/[id]/page";
 
 const Page = async (Props: { params: Promise<{ id: string }> }) => {
   return <Program {...Props} />;

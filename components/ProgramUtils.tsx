@@ -2,7 +2,8 @@ import React, { ReactNode } from "react";
 import SectionTitle from "@/components/SectionTitle";
 import handPray from "@/public/hand-pray.svg";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { LoaderCircle } from "lucide-react";
 
 export const ProgramListLoading = ({
   numberItemShown,
@@ -21,43 +22,31 @@ export const ProgramListLoading = ({
           <div
             key={i}
             className={
-              "md:rounded-5xl group relative flex aspect-square size-full flex-col justify-end gap-4 rounded-2xl bg-white/50 p-4 md:p-8"
+              "glassmorphic-lg sm:rounded-5xl flex h-fit flex-col justify-end gap-4 rounded-2xl border-2 border-white px-2 py-2 " +
+              " sm:px-6 sm:pb-8" +
+              " mt-0 sm:mt-24 lg:mt-12 xl:mt-36 2xl:mt-56" +
+              " relative sm:h-[323px]"
             }
           >
-            <Skeleton
-              className={"md:rounded-4xl relative size-full rounded-2xl"}
-            />
-            <Skeleton
+            <div
               className={
-                "rounded-4xl h-24 w-full items-center justify-center gap-2 rounded-md"
+                "relative flex aspect-square items-center justify-center rounded-2xl border-2 border-white bg-[#ededed]"
               }
-            />
+            >
+              <LoaderCircle
+                className={"size-12 animate-spin text-gray-400 lg:size-16"}
+              />
+            </div>
+            <Button variant={"fullPrgram"} className={"py-6"} disabled>
+              Loading{" "}
+              <LoaderCircle className={"size-12 animate-spin"}> </LoaderCircle>
+            </Button>
           </div>
         );
       })}
     </>
   );
 };
-
-export const ErrorMessage = ({
-  title,
-  subtitle,
-  message,
-}: {
-  title: string;
-  subtitle: string;
-  message: string;
-}) => (
-  <div className="container relative flex flex-col items-center gap-8 max-sm:px-4 lg:gap-16">
-    <SectionTitle title={title} subtitle={subtitle} className="sm:w-full" />
-    <div className="flex items-center gap-8">
-      <Image src={handPray} alt="ikon mohon maaf" className="inline size-16" />
-      <p className="py-8 text-center text-4xl font-semibold text-primary/75">
-        {message}
-      </p>
-    </div>
-  </div>
-);
 
 export const ProgramListWrapper = ({
   title,
@@ -79,5 +68,52 @@ export const ProgramListWrapper = ({
         {children}
       </div>
     </div>
+  );
+};
+
+export const ErrorMessage = ({
+  title,
+  subtitle,
+  message,
+}: {
+  title: string;
+  subtitle: string;
+  message: string;
+}) => {
+  return (
+    <ProgramListWrapper title={title} subtitle={subtitle}>
+      <div className={"relative w-full sm:col-span-2 lg:col-span-3"}>
+        {/*<ProgramListLoading numberItemShown={1}></ProgramListLoading>*/}
+        <div
+          className={
+            "flex h-fit w-full flex-col gap-4 rounded-2xl px-2 py-2 " +
+            " min-h-[400px] sm:px-6 sm:pb-8" +
+            " mt-0 sm:mt-24 lg:mt-12 xl:mt-36 2xl:mt-56" +
+            " sm:h-[323px]"
+          }
+        >
+          {/*<div*/}
+          {/*  className={*/}
+          {/*    "relative hidden aspect-square rounded-2xl border-2 border-white bg-[#ededed]"*/}
+          {/*  }*/}
+          {/*></div>*/}
+          {/*<Button variant={"ghost"} className={"py-6"} disabled></Button>*/}
+          <div
+            className={
+              "absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+            }
+          >
+            <Image
+              src={handPray}
+              alt="ikon mohon maaf"
+              className="inline size-16"
+            />
+            <p className="py-8 text-center text-4xl font-semibold text-primary/75">
+              {message}
+            </p>
+          </div>
+        </div>
+      </div>
+    </ProgramListWrapper>
   );
 };

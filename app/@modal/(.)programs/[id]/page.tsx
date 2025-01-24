@@ -15,7 +15,10 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     <Modal
       modalTitle={"Program Masjid Raden Patah"}
       className={"container overflow-visible xl:max-w-screen-lg"}
-      fullUrl={`/programs/full/${program.id}`}
+      // fullUrl={  `/programs/full/${program.id}`}
+      fullUrl={
+        program.customeUrl ? program.customeUrl : `/programs/full/${program.id}`
+      }
     >
       <ProgramPreview program={program} className={""} />
     </Modal>

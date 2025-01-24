@@ -28,6 +28,7 @@ export function checkDevelopmentRoute(route: string): boolean {
  */
 export const publicRoutes: string[] = [
   "/",
+  "/tahfidz-camp",
   "/new-verification",
   "/reset-password",
   "/unauthorized",
