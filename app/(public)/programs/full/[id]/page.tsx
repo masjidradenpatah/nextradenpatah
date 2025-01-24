@@ -1,7 +1,7 @@
 import React from "react";
 import { getProgramByIdAction } from "@/actions/programActions";
-import ProgramPreview from "@/components/ProgramPreview";
 import { notFound } from "next/navigation";
+import ProgramFull from "@/components/ProgramFull";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
@@ -15,9 +15,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     <div
       className={"mt-32 flex size-full flex-col items-center overflow-hidden"}
     >
-      <section className={"container flex w-full flex-col gap-32"}>
-        <ProgramPreview program={program} className={""} />
-      </section>
+      <ProgramFull program={program} className={""} />
     </div>
   );
 };
