@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ImageKitProvider } from "@/components/ImageKit";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import QueryClientWrapper from "@/components/QueryClientWrapper";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -35,7 +37,9 @@ export default function RootLayout({
             className={`${poppins.variable} ${poppins.className} flex flex-col bg-[#EDEDED] antialiased`}
           >
             {modal}
-            {children}
+            <Navbar />
+            <main className={"w-full"}>{children}</main>
+            <Footer />
             <Toaster />
           </body>
         </ImageKitProvider>

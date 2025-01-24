@@ -1,11 +1,8 @@
 "use server";
 
-import z from "zod";
-import { newArticleSchema } from "@/schemas/ArticleSchemas";
 import { prisma } from "@/lib/db";
 import { Article, ArticleStatus } from "@prisma/client";
 import { ActionResponse } from "@/types";
-import { v4 as uuidv4 } from "uuid";
 
 interface ArticleColumn extends Article {
   author: { name: string | null };
@@ -94,67 +91,6 @@ export async function getUserArticle(
       status: "SUCCESS",
       success: "Success fetching the user article",
       data: article,
-    };
-  } catch {
-    return { status: "ERROR", error: "Something went wrong" };
-  }
-}
-
-export async function createNewArticle(
-  values: z.infer<typeof newArticleSchema>,
-  userId: string,
-): Promise<ActionResponse<Article>> {
-  const validatedFields = newArticleSchema.safeParse(values);
-
-  if (!validatedFields.success)
-    return { status: "ERROR", error: "Invalid input" };
-
-  const { data } = validatedFields;
-  const articleCategory = data.category as
-    | "PENDIDIKAN"
-    | "NOT_SET"
-    | "AKIDAH"
-    | "FIQIH";
-  try {
-    const newArticle = await prisma.article.create({
-      data: {
-        authorId: userId,
-        views: 0,
-        status: "DRAFT",
-        ...data,
-        category: articleCategory,
-      },
-    });
-    return {
-      status: "SUCCESS",
-      success: "Success creating new article",
-      data: newArticle,
-    };
-  } catch {
-    return { status: "ERROR", error: "function hasn't implemented yet" };
-  }
-}
-
-export async function createNewBlankArticle(
-  userId: string,
-): Promise<ActionResponse<Article>> {
-  const generatedToken = uuidv4();
-  try {
-    const newArticle = await prisma.article.create({
-      data: {
-        authorId: userId,
-        views: 0,
-        content: "<h2>Start writing your article</h2>",
-        category: "NOT_SET",
-        slug: `article-${generatedToken}`,
-        status: "DRAFT",
-        title: "Untitled",
-      },
-    });
-    return {
-      status: "SUCCESS",
-      success: "Success creating new article",
-      data: newArticle,
     };
   } catch {
     return { status: "ERROR", error: "Something went wrong" };
