@@ -21,10 +21,12 @@ const Page = () => {
           " py-12"
         }
       >
-        <p className={"max-w-prose"}>
+        <p className={"max-w-prose text-center"}>
           Layanan Masjid Raden Patah Universitas Brawijaya
         </p>
-        <h1 className={"text-5xl font-bold tracking-wide"}>Mualaf Center</h1>
+        <h1 className={"text-center text-5xl font-bold tracking-wide"}>
+          Mualaf Center
+        </h1>
       </section>
 
       <section className="container flex justify-between gap-8 xl:max-w-screen-lg">
@@ -82,20 +84,20 @@ const Page = () => {
             </div>
           </div>
 
-          <h2 className={"mb-4 text-center text-2xl font-medium"}>
-            Apa kata mereka
-          </h2>
-          <p className="text-justify">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
-            placeat praesentium tempora? Ab accusamus accusantium asperiores
-            atque cupiditate dignissimos ea earum eius fugit impedit laboriosam
-            maxime, mollitia nemo odit officia perspiciatis placeat quidem
-            reiciendis rem, saepe sint soluta unde voluptas! A ad adipisci animi
-            aspernatur, cum ducimus enim, expedita explicabo fugit in inventore
-            iste necessitatibus numquam obcaecati perferendis quasi reiciendis
-            reprehenderit sequi tempora ullam vitae voluptatem voluptatibus
-            voluptatum! Aperiam cum expedita illo neque nisi quia.
-          </p>
+          {/*<h2 className={"mb-4 text-center text-2xl font-medium"}>*/}
+          {/*  Apa kata mereka*/}
+          {/*</h2>*/}
+          {/*<p className="text-justify">*/}
+          {/*  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis*/}
+          {/*  placeat praesentium tempora? Ab accusamus accusantium asperiores*/}
+          {/*  atque cupiditate dignissimos ea earum eius fugit impedit laboriosam*/}
+          {/*  maxime, mollitia nemo odit officia perspiciatis placeat quidem*/}
+          {/*  reiciendis rem, saepe sint soluta unde voluptas! A ad adipisci animi*/}
+          {/*  aspernatur, cum ducimus enim, expedita explicabo fugit in inventore*/}
+          {/*  iste necessitatibus numquam obcaecati perferendis quasi reiciendis*/}
+          {/*  reprehenderit sequi tempora ullam vitae voluptatem voluptatibus*/}
+          {/*  voluptatum! Aperiam cum expedita illo neque nisi quia.*/}
+          {/*</p>*/}
         </div>
       </section>
 
