@@ -25,11 +25,13 @@ const Page = () => {
           <ServiceCard
             title={"Mualaf Center"}
             description={
+
               "Masjid Raden Patah Universitas Brawijaya menyediakan layanan khusus\n" +
               " bagi para mualaf yang membutuhkan dukungan dalam proses memulai\n" +
               " perjalanan baru sebagai seorang Muslim. Kami hadir untuk memberikan\n" +
               " bimbingan, pembelajaran, serta pendampingan spiritual agar para\n" +
               " mualaf dapat memahami Islam dengan baik dan mendalam."
+
             }
             image={mualaf}
             location={"Ruang layanan bersama Masjid Raden Patah"}
@@ -38,10 +40,12 @@ const Page = () => {
           <ServiceCard
             title={"Konsultasi Keagamaan"}
             description={
+
               " Masjid Raden Patah Universitas Brawijaya menyediakan layanan" +
               " konsultasi keagamaan untuk membantu jamaah dalam menyelesaikan" +
               " berbagai permasalahan yang berkaitan dengan kehidupan spiritual," +
               " sosial, maupun pribadi dari sudut pandang Islam."
+
             }
             image={consult}
             location={"Ruang layanan bersama Masjid Raden Patah"}
@@ -50,11 +54,13 @@ const Page = () => {
           <ServiceCard
             title={"Akad Nikah"}
             description={
+
               "Dengan didukung oleh para ustadz dan pembimbing yang berkompeten," +
               " layanan ini dirancang untuk memberikan panduan yang sesuai dengan" +
               " prinsip syariat Islam. Apakah Anda menghadapi pertanyaan tentang" +
               " fiqih, keluarga, atau isu-isu lain, kami siap menjadi teman diskusi" +
               " yang terpercaya, memberikan nasihat dan solusi yang mendalam."
+
             }
             image={marriage}
             location={"Ruang layanan bersama Masjid Raden Patah"}
