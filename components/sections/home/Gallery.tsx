@@ -4,13 +4,12 @@ import SectionTitle from "@/components/SectionTitle";
 import { BgSingle, BgTriple } from "@/components/decorations/shades";
 import { GalleryDecoration, GalleryImageArr } from "@/data/GalleryImage";
 import { GalleryImageDecoration } from "@/components/GalleryImage";
-import { addBlurredDataUrls } from "@/lib/getBase64";
 
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { ImageKitImage } from "@/components/ImageKit";
 
 const Gallery = async () => {
-  const processedImages = await addBlurredDataUrls(GalleryImageArr);
+  // const processedImages = await addBlurredDataUrls(GalleryImageArr);
   return (
     <section
       data-testid="gallery-section"
@@ -35,21 +34,21 @@ const Gallery = async () => {
                 "relative grid grid-cols-4 grid-rows-6 gap-3 md:gap-6 lg:basis-8/12"
               }
             >
-              {processedImages.map(({ alt, className, ...props }, index) => (
-                <Image
-                  key={index}
-                  {...props}
-                  className={cn(
-                    "size-full object-cover object-center",
-                    className,
-                  )}
-                  alt={alt}
-                  placeholder={"blur"}
-                  width={302}
-                  height={537}
-                  priority
-                />
-              ))}
+              {GalleryImageArr.map(
+                ({ src, alt, className, ...props }, index) => (
+                  <div key={index} className={cn("overflow-hidden", className)}>
+                    <ImageKitImage
+                      key={index}
+                      {...props}
+                      height={537}
+                      width={302}
+                      alt={alt}
+                      path={src as string}
+                      className={cn("size-full object-contain object-center")}
+                    />
+                  </div>
+                ),
+              )}
 
               {GalleryDecoration.map((decoration, index) => (
                 <GalleryImageDecoration key={index} {...decoration} />
