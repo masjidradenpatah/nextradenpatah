@@ -21,10 +21,11 @@ const Page = () => {
           " py-12"
         }
       >
-        <p className={"max-w-prose"}>
+        <p className={"max-w-prose text-center"}>
           Layanan Masjid Raden Patah Universitas Brawijaya
         </p>
-        <h1 className={"text-5xl font-bold tracking-wide"}>
+        <h1 className={"text-center text-5xl font-bold tracking-wide"}>
+
           Konsultasi Keagamaan
         </h1>
       </section>
@@ -38,16 +39,18 @@ const Page = () => {
             sosial, maupun pribadi dari sudut pandang Islam.
           </p>
 
-          <h2 className={"mb-4 text-center text-2xl font-medium"}>
-            Kami Hadir sebagai solusi
-          </h2>
-          <p className="text-justify">
-            Dengan didukung oleh para ustadz dan pembimbing yang berkompeten,
-            layanan ini dirancang untuk memberikan panduan yang sesuai dengan
-            prinsip syariat Islam. Apakah Anda menghadapi pertanyaan tentang
-            fiqih, keluarga, atau isu-isu lain, kami siap menjadi teman diskusi
-            yang terpercaya, memberikan nasihat dan solusi yang mendalam.
-          </p>
+
+          {/*<h2 className={"mb-4 text-center text-2xl font-medium"}>*/}
+          {/*  Kami Hadir sebagai solusi*/}
+          {/*</h2>*/}
+          {/*<p className="text-justify">*/}
+          {/*  Dengan didukung oleh para ustadz dan pembimbing yang berkompeten,*/}
+          {/*  layanan ini dirancang untuk memberikan panduan yang sesuai dengan*/}
+          {/*  prinsip syariat Islam. Apakah Anda menghadapi pertanyaan tentang*/}
+          {/*  fiqih, keluarga, atau isu-isu lain, kami siap menjadi teman diskusi*/}
+          {/*  yang terpercaya, memberikan nasihat dan solusi yang mendalam.*/}
+          {/*</p>*/}
+
         </div>
       </section>
 

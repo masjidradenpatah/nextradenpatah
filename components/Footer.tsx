@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <div
       className={
-        "glassmorphic-lg relative flex h-fit flex-col rounded-3xl" +
+        "glassmorphic-lg relative flex h-fit flex-col rounded-3xl shadow-2xl" +
         " rounded-b-none border-8 border-x-0 border-b-0 border-white !bg-white/25 p-8 lg:p-16"
       }
     >
