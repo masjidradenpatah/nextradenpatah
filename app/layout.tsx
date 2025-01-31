@@ -37,9 +37,9 @@ export default function RootLayout({
             className={`${poppins.variable} ${poppins.className} flex flex-col bg-[#EDEDED] antialiased`}
           >
             {modal}
-            {/*<Navbar />*/}
+            <Navbar />
             <main className={"w-full"}>{children}</main>
-            {/*<Footer />*/}
+            <Footer />
             <Toaster />
           </body>
         </ImageKitProvider>
