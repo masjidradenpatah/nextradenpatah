@@ -1,7 +1,9 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogOverlay,
   DialogTitle,
@@ -24,34 +26,40 @@ const Modal = ({
   fullUrl: string;
 }) => {
   const router = useRouter();
-
+  const pathname = usePathname();
   const [isGotoFull, setIsGotoFull] = useState<boolean>(false);
-
+  const closeButton = useRef<HTMLButtonElement>(null);
   function handleOpenChange() {
     router.back();
   }
 
-  useEffect(() => {
-    if (isGotoFull) router.push(fullUrl);
-  }, [fullUrl, isGotoFull, router]);
+  function handleClick() {
+    router.push(fullUrl);
+    console.log("push to " + fullUrl);
+    closeButton.current?.click();
+  }
+
+  // useEffect(() => {
+  //   if (isGotoFull && fullUrl) {
+  //     setIsGotoFull(false);
+  //     router.push(fullUrl);
+  //   }
+  // }, [fullUrl, isGotoFull, router]);
 
   return (
-    <Dialog
-      open={!isGotoFull}
-      defaultOpen={true}
-      onOpenChange={handleOpenChange}
-    >
+    <Dialog open={true} defaultOpen={true} onOpenChange={handleOpenChange}>
       <DialogOverlay className={"glassmorphic-lg"}>
         <DialogContent className={cn("overflow-hidden", className)}>
           <DialogTitle className={"h-8"}>{modalTitle}</DialogTitle>
           {children}
           <Button
             variant={"outline"}
-            onClick={() => setIsGotoFull(true)}
+            onClick={handleClick}
             className={"ms-auto mt-2"}
           >
             See full detail <Maximize2 />
           </Button>
+          <DialogClose ref={closeButton}></DialogClose>
         </DialogContent>
       </DialogOverlay>
     </Dialog>

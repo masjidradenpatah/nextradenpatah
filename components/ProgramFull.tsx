@@ -12,7 +12,7 @@ type Props = {
   className: string;
 };
 
-const ProgramPreview = ({ program, className }: Props) => {
+const ProgramFull = ({ program, className }: Props) => {
   return (
     <Card
       className={cn(
@@ -47,17 +47,8 @@ const ProgramPreview = ({ program, className }: Props) => {
           }
           dangerouslySetInnerHTML={{ __html: program.content }}
         />
-        {program.customeUrl && (
-          <>
-            <Button variant={"outline"} asChild>
-              <Link href={program.customeUrl} className={"mt-4"}>
-                See full detail <Maximize2 />
-              </Link>
-            </Button>
-          </>
-        )}
       </CardContent>
     </Card>
   );
 };
-export default ProgramPreview;
+export default ProgramFull;

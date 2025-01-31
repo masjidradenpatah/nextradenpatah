@@ -6,7 +6,12 @@ import { Program } from "@prisma/client";
 
 export type ProgramCardProps = {} & Program;
 
-export const ProgramCard = ({ title, id, image }: ProgramCardProps) => {
+export const ProgramCard = ({
+  title,
+  id,
+  image,
+  customeUrl,
+}: ProgramCardProps) => {
   return (
     <div
       className={
@@ -27,7 +32,7 @@ export const ProgramCard = ({ title, id, image }: ProgramCardProps) => {
         alt={`Gambar dari program ${title}`}
       />
       <Button variant={"fullPrgram"} className={"py-6"} asChild>
-        <Link href={`/programs/${id}`}>Selengkapnya</Link>
+        <Link href={customeUrl || `/programs/${id}`}>Selengkapnya</Link>
       </Button>
     </div>
   );

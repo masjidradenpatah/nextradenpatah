@@ -81,13 +81,11 @@ export const ProgramRender = ({
   }
 
   return (
-    <>
-      <ProgramList
-        programs={programs}
-        title={title}
-        subtitle={subtitle}
-        showMoreOption={showMoreOption}
-      />
-    </>
+    <ProgramList
+      programs={programs}
+      title={title}
+      subtitle={subtitle}
+      showMoreOption={showMoreOption}
+    />
   );
 };
