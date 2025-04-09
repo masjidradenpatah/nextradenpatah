@@ -1,11 +1,11 @@
 import React from "react";
 import { ImageKitImage } from "@/components/ImageKit";
 import { cn } from "@/lib/utils";
-import { Maximize2 } from "lucide-react";
+// import { Maximize2 } from "lucide-react";
 import { Program } from "@prisma/client";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+// import { Button } from "@/components/ui/button";
+// import Link from "next/link";
 
 type Props = {
   program: Program; // Program bisa null
@@ -15,10 +15,7 @@ type Props = {
 const ProgramFull = ({ program, className }: Props) => {
   return (
     <Card
-      className={cn(
-        "container relative my-24 items-center shadow-2xl",
-        className,
-      )}
+      className={cn("container relative items-center shadow-2xl", className)}
     >
       <CardHeader>
         <h2 className={"text-center text-3xl font-bold"}>{program.title}</h2>

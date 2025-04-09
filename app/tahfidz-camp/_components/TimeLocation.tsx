@@ -1,3 +1,5 @@
+import { Calendar, MapPinned } from "lucide-react";
+
 export default function TimeLocation() {
   return (
     <section id="timeLocation" className="timeLocationBG w-full px-4 md:p-12">
@@ -8,15 +10,19 @@ export default function TimeLocation() {
           </h2>
           <div className="flex flex-col gap-6">
             <div className="flex gap-[10px] rounded-[19px] bg-white p-4 shadow md:p-8">
-              <img src="/tc/icons/date_icon.svg" alt="" />
+              <Calendar
+                className={"size-8 text-[var(--tc-primary)]"}
+              ></Calendar>
               <div className="flex flex-col justify-center">
                 <h3 className="text-[20px] text-[var(--tc-primary)] lg:text-2xl">
                   22 Desember - 29 Desember 2024
                 </h3>
               </div>
             </div>
-            <div className="flex gap-[10px] rounded-[19px] bg-white p-4 shadow md:p-8">
-              <img src="/tc/icons/location_icon.svg" alt="" />
+            <div className="flex items-center gap-[10px] rounded-[19px] bg-white p-4 shadow md:p-8">
+              <MapPinned
+                className={"size-8 text-[var(--tc-primary)]"}
+              ></MapPinned>
               <div className="flex flex-col justify-center">
                 <h3 className="text-[20px] text-[var(--tc-primary)] lg:text-2xl">
                   Masjid Raden Patah

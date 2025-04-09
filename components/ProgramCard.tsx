@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ImageKitImage } from "@/components/ImageKit";
 import { Program } from "@prisma/client";
+import { getImagePathById } from "@/actions/image";
+import { useQuery } from "@tanstack/react-query";
 
 export type ProgramCardProps = {} & Program;
 
@@ -12,6 +15,12 @@ export const ProgramCard = ({
   image,
   customeUrl,
 }: ProgramCardProps) => {
+  const { data: path } = useQuery({
+    queryKey: ["image", image],
+    queryFn: () => getImagePathById(image),
+    initialData: "",
+  });
+
   return (
     <div
       className={
@@ -26,7 +35,7 @@ export const ProgramCard = ({
           "relative w-full rounded-2xl border-2 border-white transition duration-200 " +
           " group-hover:-translate-y-12 group-hover:scale-[105%] group-hover:shadow-[0_0_18px_0_rgba(30,170,200,0.7)]"
         }
-        path={image}
+        path={path}
         width={400}
         height={400}
         alt={`Gambar dari program ${title}`}

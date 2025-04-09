@@ -1,6 +1,6 @@
 "use client";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { ReactNode, useRef } from "react";
+// import { usePathname } from "next/navigation";
 import {
   Dialog,
   DialogClose,
@@ -26,8 +26,8 @@ const Modal = ({
   fullUrl: string;
 }) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const [isGotoFull, setIsGotoFull] = useState<boolean>(false);
+  // const pathname = usePathname();
+  // const [isGotoFull, setIsGotoFull] = useState<boolean>(false);
   const closeButton = useRef<HTMLButtonElement>(null);
   function handleOpenChange() {
     router.back();
@@ -35,7 +35,6 @@ const Modal = ({
 
   function handleClick() {
     router.push(fullUrl);
-    console.log("push to " + fullUrl);
     closeButton.current?.click();
   }
 

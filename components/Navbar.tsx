@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import mrplogo from "@/public/mrp-logo.png";
+import mrplogo from "@/public/icons/Logo MRP Horizontal Text Black.png";
 
 import MenuToggle from "@/components/MenuToggle";
 import MobileNavbar from "@/components/MobileNavbar";
@@ -11,13 +11,14 @@ const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false);
   return (
     <header className={"fixed inset-x-0 z-40 bg-white/50 backdrop-blur-2xl"}>
-      <nav
-        className={
-          "container mt-2 flex w-full items-center justify-between p-4 px-2"
-        }
-      >
+      <nav className={"container flex w-full items-center justify-between"}>
         <div>
-          <Image height={82} src={mrplogo} alt={"Logo Masjid Raden Patah"} />
+          <Image
+            height={70}
+            src={mrplogo}
+            alt={"Logo Masjid Raden Patah"}
+            quality={100}
+          />
         </div>
         <div className={"hidden gap-4 md:flex lg:gap-8"}>
           <NavLink link={"/"} text={"Home"} />

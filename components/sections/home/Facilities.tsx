@@ -27,23 +27,14 @@ const Facilities = () => {
       numberItem: number;
       boxWidth: number;
     }) => {
-      const boxWidth = parentWidth / numberItem;
+      const boxWidth = 1536 / numberItem;
       let calculatedBoxStartPos: number = index * boxWidth;
-      if (boxWidth <= 301) calculatedBoxStartPos += 32 * index - 1;
+      if (boxWidth <= 301) calculatedBoxStartPos += 32 * index - 1 + 16 * index;
 
-      let opacity = 1;
-      let blur: string = "blur(0px)";
-      if (index === 4 || index === 0) {
-        if (parentWidth > 1536) {
-          opacity = 0.7;
-          blur = "blur(2px)";
-        }
-      }
       return {
-        opacity,
         x: calculatedBoxStartPos,
         y: 0,
-        filter: blur,
+        opacity: 1,
         transition: {
           ease: "easeInOut",
           type: "tween",
@@ -59,11 +50,10 @@ const Facilities = () => {
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
-    if (parentWidth === 0) setParentWidth(window.innerWidth);
+    if (parentWidth === 0) setParentWidth(1536);
 
     const handleResize = () => {
-      setParentWidth(window.innerWidth);
-      if (window.innerWidth < 1536) setParentWidth(1536);
+      setParentWidth(1536);
     };
 
     // Tambahkan event listener
@@ -76,8 +66,7 @@ const Facilities = () => {
   }, [parentWidth]);
 
   const prev = () => {
-    setParentWidth(window.innerWidth);
-    if (window.innerWidth < 1536) setParentWidth(1536);
+    setParentWidth(1536);
 
     // Update current and loop
     const newCurrent = (current - 1) % facilities.length;
@@ -86,8 +75,7 @@ const Facilities = () => {
   };
 
   const next = () => {
-    setParentWidth(window.innerWidth);
-    if (window.innerWidth < 1536) setParentWidth(1536);
+    setParentWidth(1536);
 
     // Update current and loop
     const newCurrent = (current + 1) % facilities.length;
@@ -116,7 +104,9 @@ const Facilities = () => {
             ease: "easeInOut",
             type: "tween",
           }}
-          className={"relative flex h-fit min-h-20 min-w-[1536px] gap-12"}
+          className={
+            "container relative mx-auto flex h-fit min-h-20 min-w-[1536px] gap-12"
+          }
         >
           {/* Children Starts Here */}
           {Array.from({ length: 5 }).map((_, i) => {
