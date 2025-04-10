@@ -19,7 +19,6 @@ const Facilities = () => {
     exit: { opacity: 0, y: 0, x: 0 },
     justifyBetween: ({
       index,
-      parentWidth,
       numberItem,
     }: {
       index: number;

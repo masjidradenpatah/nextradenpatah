@@ -8,6 +8,7 @@ import {
   ProgramStatus,
 } from "@prisma/client";
 import { ActionResponse } from "@/types";
+import { prismaErrorChecker } from "@/lib/prismaErrorChecker";
 
 export async function getAllPrograms(): Promise<ActionResponse<Program[]>> {
   try {
@@ -77,9 +78,9 @@ export async function getAllUpcomingProgram(): Promise<
       success: "Successfully get all upcoming program",
       data: programExecutions,
     };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 }
 
@@ -108,9 +109,9 @@ export async function deleteManyUpcomingProgramByID(
     await Promise.all(deletePromises);
 
     return { status: "SUCCESS", success: "Successfully deleted programs" };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 }
 
@@ -144,9 +145,9 @@ export async function updateUpcomingProgramStatus(
       success: "Success updating new status",
       data: updatedProgram,
     };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 }
 
@@ -190,59 +191,9 @@ export const getUpcomingPrograms = async (
       success: "Success get upcoming program",
       data: programs,
     };
-  } catch (error) {
-    // console.error("Error fetching upcoming programs:", error);
-
-    if (error === null) {
-      console.error("Error fetching upcoming programs: error is null");
-    }
-    // Handle specific error types
-    else if (error instanceof Prisma.PrismaClientInitializationError) {
-      // Database connection error
-      console.error("Database connection error:", error.message);
-      return {
-        status: "ERROR",
-        error:
-          "Database connection error. Please check your database configuration.",
-      };
-    } else if (error instanceof Prisma.PrismaClientValidationError) {
-      // Validation error (e.g., invalid query parameters)
-      console.error("Validation error:", error.message);
-      return {
-        status: "ERROR",
-        error: "Invalid query parameters. Please check your input.",
-      };
-    } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // Known request error (e.g., unique constraint violation)
-      console.error("Database request error:", error.message);
-      return {
-        status: "ERROR",
-        error: `Database request error: ${error.message}`,
-      };
-    } else if (error instanceof Prisma.PrismaClientUnknownRequestError) {
-      // Unknown request error
-      console.error("Unknown database error:", error.message);
-      return {
-        status: "ERROR",
-        error: "An unknown database error occurred.",
-      };
-    } else if (error instanceof Prisma.PrismaClientRustPanicError) {
-      // Critical database error (e.g., Rust panic in Prisma)
-      console.error("Critical database error (Rust panic):", error.message);
-      return {
-        status: "ERROR",
-        error: "A critical database error occurred. Please contact support.",
-      };
-    } else {
-      // Generic error (e.g., network issues, unexpected errors)
-      console.error("Unexpected error:", error.message || error);
-      return {
-        status: "ERROR",
-        error:
-          error.message ||
-          "Something went wrong while fetching upcoming programs.",
-      };
-    }
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 };
 
@@ -263,56 +214,9 @@ export const getProgramGroupByType = async (
     };
 
     // return programs as Program[];
-  } catch (error) {
-    console.error("Error fetching upcoming programs:", error);
-
-    // Handle specific error types
-    if (error instanceof Prisma.PrismaClientInitializationError) {
-      // Database connection error
-      console.error("Database connection error:", error.message);
-      return {
-        status: "ERROR",
-        error:
-          "Database connection error. Please check your database configuration.",
-      };
-    } else if (error instanceof Prisma.PrismaClientValidationError) {
-      // Validation error (e.g., invalid query parameters)
-      console.error("Validation error:", error.message);
-      return {
-        status: "ERROR",
-        error: "Invalid query parameters. Please check your input.",
-      };
-    } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // Known request error (e.g., unique constraint violation)
-      console.error("Database request error:", error.message);
-      return {
-        status: "ERROR",
-        error: `Database request error: ${error.message}`,
-      };
-    } else if (error instanceof Prisma.PrismaClientUnknownRequestError) {
-      // Unknown request error
-      console.error("Unknown database error:", error.message);
-      return {
-        status: "ERROR",
-        error: "An unknown database error occurred.",
-      };
-    } else if (error instanceof Prisma.PrismaClientRustPanicError) {
-      // Critical database error (e.g., Rust panic in Prisma)
-      console.error("Critical database error (Rust panic):", error.message);
-      return {
-        status: "ERROR",
-        error: "A critical database error occurred. Please contact support.",
-      };
-    } else {
-      // Generic error (e.g., network issues, unexpected errors)
-      console.error("Unexpected error:", error.message || error);
-      return {
-        status: "ERROR",
-        error:
-          error.message ||
-          "Something went wrong while fetching upcoming programs.",
-      };
-    }
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 };
 
@@ -331,7 +235,8 @@ export const getProgramByIdAction = async (
       success: "Success get program by ID",
       data: program,
     };
-  } catch {
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 };
