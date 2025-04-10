@@ -12,7 +12,7 @@ const Page = () => {
   return (
     <div
       className={
-        "mt-32 flex size-full flex-col items-center gap-12 overflow-hidden px-4 py-24 sm:px-0 md:gap-24"
+        "flex size-full flex-col items-center gap-12 overflow-hidden px-4 py-32 sm:px-0 md:gap-24"
       }
     >
       <section

@@ -10,12 +10,12 @@ const Page = () => {
   return (
     <div
       className={
-        "mt-32 flex size-full flex-col items-center gap-12 overflow-hidden px-4 py-32 sm:px-0 md:gap-24"
+        "flex size-full flex-col items-center gap-12 overflow-hidden px-4 py-32 sm:px-0 md:gap-24"
       }
     >
       <section
         data-testid="services-section"
-        className={"container relative w-full space-y-24 p-4"}
+        className={"container relative w-full space-y-8 p-4"}
       >
         <SectionTitle
           title={"Layanan Jama'ah"}

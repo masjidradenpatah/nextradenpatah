@@ -1,0 +1,121 @@
+:root {
+    --tc-primary: #B0183E;
+    --tc-white: #FCEDD8;
+    --yellow: #FDD564;
+    --orange: #FE5E5E;
+    --tc-secondary: #E13C64;
+
+    --heading-color-white: linear-gradient(180deg, #FFF 12.5%, #E3A090 100%);
+    --heading-color-yellow: linear-gradient(180deg, #FDD564 12.5%, #E13C64 100%);
+}
+
+
+
+.tc-container {
+    max-width: 1128px;
+    position: relative;
+    padding: 2rem;
+}
+
+@media (max-width: 684px) {
+    .tc-container {
+        max-width: 684px;
+        padding: 1rem;
+    }
+}
+@media (max-width: 1024px) {
+    .tc-container {
+        max-width: 1024px;
+        padding: 1.5rem;
+    }
+}
+
+.whatTC {
+    background: var(--heading-color-white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.faqTC,
+.documentationTC,
+.whatActivitiesTC,
+.activitiesTC,
+.targetTC {
+    background: var(--heading-color-yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sectionTitle {
+    font-size: 40px;
+}
+@media (max-width: 1024px) {
+    .sectionTitle {
+        font-size: 25px;
+    }
+}
+
+.activitiesLeft {
+    border-radius: 0 32px 32px 0;
+    background: linear-gradient(95deg, #FDD564 -11.97%, #B0183C 99.73%);
+}
+
+.activitiesRight {
+    border-radius: 32px 0 0 32px;
+    background: linear-gradient(94deg, #B0183C 2.49%, #FDD564 112.12%);
+}
+
+/*Target Activity*/
+.targetActivityTC {
+    position: relative;
+    background: radial-gradient(circle, #D24669 0%, #B11A40 100%);
+    /* background-image: url("/public/tc/images/activitiesTargetBG.png"); */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /*opacity: 0.6; !* Mengatur opasitas gambar *!*/
+    z-index: 1;
+    overflow: hidden;
+}
+
+.requirementTC {
+    padding: 32px;
+}
+/*.targetActivityTC::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-color: black; !* Warna solid hitam *!*/
+/*    opacity: 0.4;*/
+/*    z-index: -1; !* Memastikan layer tetap di belakang konten utama *!*/
+/*}*/
+
+.timeLocationBG {
+    background-image: url("/public/tc/images/timeLocationBG.png") ;
+    background-size: cover;
+    background-position: center;
+}
+
+/*for CTA*/
+.ctaRadialGradientBG {
+    background: radial-gradient(circle, #D24669 0%, #B11A40 100%);
+}
+
+.ctaTC {
+    padding: 64px;
+}
+
+@media (max-width: 684px) {
+    .ctaTC {
+        padding: 32px;
+    }
+}
+
+.linearContactBG {
+    /*TODO CHANGE*/
+    background: radial-gradient(circle, #D24669 0%, #B11A40 100%);
+}
+
+.activeFAQ {
+    width: 100px;
+}

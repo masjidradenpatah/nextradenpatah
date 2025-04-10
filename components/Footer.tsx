@@ -21,7 +21,7 @@ const Footer = () => {
     >
       <div
         className={
-          "pointer-events-none absolute inset-0 overflow-hidden rounded-3xl"
+          "pointer-events-none absolute inset-0 overflow-hidden rounded-3xl rounded-b-none"
         }
       >
         <Shades

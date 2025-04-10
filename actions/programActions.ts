@@ -1,8 +1,14 @@
 "use server";
 // import { Program, ProgramExecution } from "@/types/Program";
 import { prisma } from "@/lib/db";
-import { Program, ProgramExecution, ProgramStatus } from "@prisma/client";
+import {
+  Prisma,
+  Program,
+  ProgramExecution,
+  ProgramStatus,
+} from "@prisma/client";
 import { ActionResponse } from "@/types";
+import { prismaErrorChecker } from "@/lib/prismaErrorChecker";
 
 export async function getAllPrograms(): Promise<ActionResponse<Program[]>> {
   try {
@@ -72,9 +78,9 @@ export async function getAllUpcomingProgram(): Promise<
       success: "Successfully get all upcoming program",
       data: programExecutions,
     };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 }
 
@@ -103,9 +109,9 @@ export async function deleteManyUpcomingProgramByID(
     await Promise.all(deletePromises);
 
     return { status: "SUCCESS", success: "Successfully deleted programs" };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 }
 
@@ -139,9 +145,9 @@ export async function updateUpcomingProgramStatus(
       success: "Success updating new status",
       data: updatedProgram,
     };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 }
 
@@ -154,6 +160,16 @@ export const getUpcomingPrograms = async (
   const now = new Date();
 
   try {
+    // Validate numberItem
+    const isValidNumberItem =
+      numberItem === "all" ||
+      (Number.isInteger(Number(numberItem)) && Number(numberItem) > 0);
+    if (!isValidNumberItem) {
+      throw new Error(
+        "Invalid numberItem value. It must be 'all' or a positive integer.",
+      );
+    }
+
     const programs = await prisma.programExecution.findMany({
       where: {
         status: "UPCOMING",
@@ -164,7 +180,7 @@ export const getUpcomingPrograms = async (
       orderBy: {
         date: "asc", // Urutkan berdasarkan tanggal terdekat
       },
-      take: numberItem === "all" ? undefined : numberItem || 3, // Batasi jumlah hasil
+      take: numberItem === "all" ? undefined : Number(numberItem) || 3, // Limit the number of results
       include: {
         program: true, // Sertakan informasi program jika diperlukan
       },
@@ -175,8 +191,9 @@ export const getUpcomingPrograms = async (
       success: "Success get upcoming program",
       data: programs,
     };
-  } catch {
-    return { status: "ERROR", success: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 };
 
@@ -197,8 +214,9 @@ export const getProgramGroupByType = async (
     };
 
     // return programs as Program[];
-  } catch {
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 };
 
@@ -217,7 +235,8 @@ export const getProgramByIdAction = async (
       success: "Success get program by ID",
       data: program,
     };
-  } catch {
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error: error };
   }
 };

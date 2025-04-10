@@ -12,7 +12,7 @@ const Page = () => {
     >
       <section
         data-testid="daily-program-section"
-        className={"flex w-full flex-col gap-32 py-24"}
+        className={"flex w-full flex-col gap-32"}
       >
         <UpcomingProgramRender
           title={"Program yang Akan Datang"}
