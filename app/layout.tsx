@@ -7,6 +7,7 @@ import QueryClientWrapper from "@/components/QueryClientWrapper";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,6 +42,7 @@ export default function RootLayout({
             <main className={"w-full"}>{children}</main>
             <Footer />
             <Toaster />
+            <SpeedInsights />
           </body>
         </ImageKitProvider>
       </QueryClientWrapper>
