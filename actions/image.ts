@@ -9,6 +9,18 @@ const imageKit = new ImageKit({
 
 export async function getImagePathById(fileId: string): Promise<string> {
   return new Promise((resolve, reject) => {
+    /* eslint-disable no-console */
+    console.log(
+      `process.env.IMAGEKIT_PRIVATE_KEY = ${process.env.IMAGEKIT_PRIVATE_KEY}`,
+    );
+    /* eslint-disable no-console */
+    console.log(
+      `process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY = ${process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY}`,
+    );
+    /* eslint-disable no-console */
+    console.log(
+      `process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT = ${process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT}`,
+    );
     imageKit.getFileDetails(fileId, (error, result) => {
       if (error) {
         reject(error);
