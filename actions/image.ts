@@ -23,6 +23,7 @@ export async function getImagePathById(fileId: string): Promise<string> {
     );
     imageKit.getFileDetails(fileId, (error, result) => {
       if (error) {
+        console.log(error);
         reject(error);
       } else {
         const path = result?.filePath || "";

@@ -18,6 +18,8 @@ export const ProgramCard = ({
   const { data: path } = useQuery({
     queryKey: ["image", image],
     queryFn: () => {
+      /* eslint-disable no-console */
+      console.log(image);
       const path = getImagePathById(image);
       /* eslint-disable no-console */
       console.log(path);
