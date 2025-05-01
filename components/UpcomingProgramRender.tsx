@@ -2,7 +2,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ProgramCard } from "@/components/ProgramCard";
-import { getUpcomingPrograms } from "@/actions/programActions";
+import { getFirstUpcomingProgram } from "@/actions/programActions";
 import {
   ErrorMessage,
   ProgramListLoading,
@@ -55,7 +55,7 @@ export const UpcomingProgramRender = ({
 }: UpcomingProgramListProps) => {
   const { data, status } = useQuery({
     queryKey: ["upcoming programs", numberItemShown],
-    queryFn: () => getUpcomingPrograms(numberItemShown),
+    queryFn: () => getFirstUpcomingProgram(),
   });
   const programs = data?.data;
 

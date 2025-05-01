@@ -1,62 +1,53 @@
 "use client";
 import React from "react";
-import { ImageKitImage } from "@/components/ImageKit";
-import { cn } from "@/lib/utils";
-// import { Maximize2 } from "lucide-react";
+import { ImageKitImageById } from "@/components/ImageKit";
 import { Program } from "@prisma/client";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query";
-import { getImagePathById } from "@/actions/image";
-// import { Button } from "@/components/ui/button";
-// import Link from "next/link";
 
 type Props = {
   program: Program; // Program bisa null
-  className: string;
 };
 
-const ProgramFull = ({ program, className }: Props) => {
-  const { data: path } = useQuery({
-    queryKey: ["image", program.image],
-    queryFn: () => getImagePathById(program.image),
-    initialData: "",
-  });
+const ProgramFull = ({ program }: Props) => {
   return (
-    <Card
-      className={cn("container relative items-center shadow-2xl", className)}
+    <div
+      className={
+        "flex size-full flex-col items-center gap-12 overflow-hidden px-4 pb-32 sm:px-0"
+      }
     >
-      <CardHeader>
-        <h2 className={"text-center text-3xl font-bold"}>{program.title}</h2>
-        <p
-          className={
-            "absolute right-4 top-6 ms-auto mt-0 w-fit rounded-lg bg-emerald-500 px-4 py-2 text-white"
-          }
-        >
+      <section
+        className={
+          "glassmorphic-sm container relative flex w-full flex-col items-center justify-center gap-4 rounded-xl bg-white/35 px-4 xl:max-w-screen-lg" +
+          " py-12"
+        }
+      >
+        <p className={"max-w-prose text-center"}>
           {program.type !== "ANNUALY"
             ? "Program Rutin Harian"
-            : "Program Tahunan"}
+            : "Program Tahunan"}{" "}
+          Masjid Raden Patah Universitas Brawijaya{" "}
         </p>
-      </CardHeader>
-      <CardContent className={"relative"}>
-        <ImageKitImage
-          height={300}
-          width={300}
+        <h1 className={"text-center text-5xl font-bold tracking-wide"}>
+          {program.title}
+        </h1>
+      </section>
+      <section className="container xl:max-w-screen-lg">
+        <ImageKitImageById
+          height={500}
+          width={500}
           alt={`Gambar dari program ${program.title}`}
-          path={path}
+          id={program.image}
           className={"mx-auto mb-8 rounded-2xl border-4 border-white shadow-xl"}
         />
-
+      </section>
+      <section className="container xl:max-w-screen-lg">
         <div className="flex w-full justify-center">
           <article
-            className={
-              "prose prose-sm sm:prose-base lg:prose-lg" +
-              " m-5 focus:outline-none"
-            }
+            className={"tiptap container"}
             dangerouslySetInnerHTML={{ __html: program.content }}
           />
         </div>
-      </CardContent>
-    </Card>
+      </section>
+    </div>
   );
 };
 export default ProgramFull;

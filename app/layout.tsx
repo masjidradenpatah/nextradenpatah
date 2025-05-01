@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -43,6 +44,7 @@ export default function RootLayout({
             <Footer />
             <Toaster />
             <SpeedInsights />
+            <Analytics />
           </body>
         </ImageKitProvider>
       </QueryClientWrapper>

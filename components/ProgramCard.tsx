@@ -2,10 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ImageKitImage } from "@/components/ImageKit";
+import { ImageKitImageById } from "@/components/ImageKit";
 import { Program } from "@prisma/client";
-import { getImagePathById } from "@/actions/image";
-import { useQuery } from "@tanstack/react-query";
 
 export type ProgramCardProps = {} & Program;
 
@@ -15,19 +13,6 @@ export const ProgramCard = ({
   image,
   customeUrl,
 }: ProgramCardProps) => {
-  const { data: path } = useQuery({
-    queryKey: ["image", image],
-    queryFn: () => {
-      /* eslint-disable no-console */
-      console.log(image);
-      const path = getImagePathById(image);
-      /* eslint-disable no-console */
-      console.log(path);
-      return path;
-    },
-    initialData: "",
-  });
-
   return (
     <div
       className={
@@ -37,12 +22,12 @@ export const ProgramCard = ({
         " relative transition duration-200 sm:h-[323px]"
       }
     >
-      <ImageKitImage
+      <ImageKitImageById
         className={
           "relative w-full rounded-2xl border-2 border-white transition duration-200 " +
           " group-hover:-translate-y-12 group-hover:scale-[105%] group-hover:shadow-[0_0_18px_0_rgba(30,170,200,0.7)]"
         }
-        path={path}
+        id={image}
         width={400}
         height={400}
         alt={`Gambar dari program ${title}`}
