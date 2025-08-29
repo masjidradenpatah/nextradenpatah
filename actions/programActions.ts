@@ -152,7 +152,13 @@ export async function getFirstUpcomingProgram(): Promise<
     const programExecutions: ProgramExecutionWithProgram[] =
       await prisma.programExecution.findMany({
         where: {
-          showOrder: { not: null }, // Hanya ambil yang showOrder-nya tidak null
+          AND: [
+            { showOrder: { not: null } },
+            { status: "UPCOMING" },
+            {
+              OR: [{ date: { gte: new Date() } }, { date: null }],
+            },
+          ],
         },
         orderBy: {
           showOrder: "asc", // Opsional: urutkan berdasarkan showOrder

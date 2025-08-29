@@ -77,19 +77,21 @@ model Program {
   content          String
   image            String
   type             ProgramType
+  showMoreLink     Boolean            @default(false)
   customeUrl       String?
   programExecution ProgramExecution[]
 }
 
 model ProgramExecution {
-  id        String        @id @default(cuid())
-  title     String
-  image     String?
-  date      DateTime?
-  showOrder Int?
-  status    ProgramStatus
-  programId String
-  program   Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
+  id           String        @id @default(cuid())
+  title        String
+  image        String?
+  date         DateTime?
+  showOrder    Int?
+  status       ProgramStatus
+  showMoreLink Boolean       @default(false)
+  programId    String
+  program      Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
 }
 
 model Article {
