@@ -1,5 +1,9 @@
 import React from "react";
 import { Metadata } from "next";
+import tower from "@/public/hero section/menara mrp.png";
+import Image from "next/image";
+
+import styles from "./profile.module.css";
 
 export const metadata: Metadata = {
   title: "Layanan Mualaf Center",
@@ -13,62 +17,63 @@ const Page = () => {
         "flex size-full flex-col items-center gap-12 overflow-hidden px-4 py-32 sm:px-0 md:gap-24"
       }
     >
-      <section
-        className={
-          "glassmorphic-sm container relative flex w-full flex-col items-center justify-center gap-4 rounded-xl bg-white/35 px-4 xl:max-w-screen-lg" +
-          " py-12"
-        }
-      >
-        <p className={"max-w-prose text-center"}>
-          Layanan Masjid Raden Patah Universitas Brawijaya
-        </p>
-        <h1 className={"text-center text-5xl font-bold tracking-wide"}>
-          Mualaf Center
-        </h1>
-      </section>
-
-      <section className="container flex justify-between gap-8 xl:max-w-screen-lg">
-        <div className={"space-y-8 text-lg"}>
-          <p className={"text-justify"}>
-            Masjid Raden Patah Universitas Brawijaya menyediakan layanan khusus
-            bagi para mualaf yang membutuhkan dukungan dalam proses memulai
-            perjalanan baru sebagai seorang Muslim. Kami hadir untuk memberikan
-            bimbingan, pembelajaran, serta pendampingan spiritual agar para
-            mualaf dapat memahami Islam dengan baik dan mendalam.
-          </p>
-
-          <h2 className={"mb-4 text-center text-2xl font-medium"}>
-            Kami Hadir sebagai solusi
+      <section className={styles.parent + " container w-full"}>
+        <div className={styles.div1 + " h-fit"}>
+          <h2 className={"text-7xl font-bold text-primary"}>
+            Sejarah <br /> Masjid Raden Patah
           </h2>
-          <p className="text-justify">
-            Kami memahami tantangan yang dihadapi para mualaf dalam beradaptasi
-            dengan ajaran Islam. Oleh karena itu, Mualaf Center menawarkan
-            program bimbingan agama, kelas pengenalan dasar Islam, hingga
-            dukungan emosional dan sosial. Dengan suasana yang hangat dan penuh
-            perhatian, kami siap membantu setiap mualaf dalam menemukan
-            kedamaian dan keyakinan di dalam Islam.
+        </div>
+        <div
+          className={
+            styles.div2 +
+            " flex h-full flex-col items-center justify-center gap-4 text-justify indent-8 text-xl"
+          }
+        >
+          <p>
+            Masjid Raden Patah Universitas Brawijaya (MRP UB) dinamai untuk
+            menghormati Raden Patah, raja Islam pertama di tanah Jawa. Awalnya,
+            masjid ini didirikan pada tahun 1975 dengan kapasitas terbatas,
+            hanya mampu menampung sekitar 200 jamaah. Pada masa kepemimpinan
+            Rektor Prof. Dr. Harsono, masjid diperluas berkat bantuan dari
+            Yayasan Amal Bakti Muslim Pancasila, meningkatkan kapasitasnya
+            hingga 2.000 jamaah untuk memenuhi kebutuhan mahasiswa yang terus
+            bertambah.
           </p>
-
-          <h2 className={"mb-4 text-center text-2xl font-medium"}>
-            Gallery layanan mualaf center
-          </h2>
-
-          {/*<h2 className={"mb-4 text-center text-2xl font-medium"}>*/}
-          {/*  Apa kata mereka*/}
-          {/*</h2>*/}
-          {/*<p className="text-justify">*/}
-          {/*  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis*/}
-          {/*  placeat praesentium tempora? Ab accusamus accusantium asperiores*/}
-          {/*  atque cupiditate dignissimos ea earum eius fugit impedit laboriosam*/}
-          {/*  maxime, mollitia nemo odit officia perspiciatis placeat quidem*/}
-          {/*  reiciendis rem, saepe sint soluta unde voluptas! A ad adipisci animi*/}
-          {/*  aspernatur, cum ducimus enim, expedita explicabo fugit in inventore*/}
-          {/*  iste necessitatibus numquam obcaecati perferendis quasi reiciendis*/}
-          {/*  reprehenderit sequi tempora ullam vitae voluptatem voluptatibus*/}
-          {/*  voluptatum! Aperiam cum expedita illo neque nisi quia.*/}
-          {/*</p>*/}
+          <p>
+            Pada era Rektor Prof. Dr. Ir. Yogi Sugito, MRP UB menjalani
+            pemugaran total. Bangunan lama diratakan dan diganti dengan desain
+            baru bergaya Majapahit yang dirancang oleh arsitek Ir. Ali Sukirno.
+            Proyek pembangunan ini dimulai pada tahun 2010 dengan anggaran Rp43
+            miliar. Meskipun penyelesaiannya bertahap, lantai dasar dan ruang
+            utama masjid sudah dapat digunakan sejak diresmikan pada 5 Juni
+            2014.
+          </p>
+          <p>
+            Pembangunan total MRP UB berlangsung selama delapan tahap, dengan
+            pendanaan yang sepenuhnya berasal dari Penerimaan Negara Bukan Pajak
+            (PNBP) di masa kepemimpinan Rektor Prof. Dr. Mohammad Bisri. Total
+            anggaran yang dihabiskan mencapai Rp39 miliar. Dengan luas bangunan
+            6.830 m², masjid ini kini mampu menampung hingga 4.500 jamaah untuk
+            salat dan lebih dari 7.000 jamaah untuk kegiatan pengajian.
+            Pembangunan secara keseluruhan selesai dan diresmikan pada 6 April
+            2018 oleh Wakapolri sekaligus Wakil Ketua Umum Dewan Masjid
+            Indonesia (DMI).
+          </p>
+        </div>
+        <div
+          className={
+            styles.div3 + " relative flex h-fit items-center justify-center"
+          }
+        >
+          <Image
+            src={tower}
+            alt={"menara masjid raden patah"}
+            className={"object-cover"}
+          />
+          <div className="absolute bottom-0 right-0 -z-10 size-2/3 translate-x-12 translate-y-12 bg-primary" />
         </div>
       </section>
+      <section className="container w-full"></section>
     </div>
   );
 };
