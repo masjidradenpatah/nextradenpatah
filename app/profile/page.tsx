@@ -1,6 +1,4 @@
 import React from "react";
-import ServiceCTA from "@/app/services/_components/ServiceCTA";
-import { ImageKitImage } from "@/components/ImageKit";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -54,35 +52,6 @@ const Page = () => {
           <h2 className={"mb-4 text-center text-2xl font-medium"}>
             Gallery layanan mualaf center
           </h2>
-          <div className="flex gap-4">
-            <div className="aspect-square w-1/3 bg-white">
-              <ImageKitImage
-                height={330}
-                width={330}
-                path={"/services/mualaf1.jpg"}
-                className={"max-w-1/3"}
-                alt={"mualaf 1"}
-              />
-            </div>
-            <div className="aspect-square w-1/3 bg-white">
-              <ImageKitImage
-                height={330}
-                width={330}
-                path={"/services/mualaf2.jpg"}
-                className={"max-w-1/3"}
-                alt={"mualaf 1"}
-              />
-            </div>
-            <div className="aspect-square w-1/3 bg-white">
-              <ImageKitImage
-                height={330}
-                width={330}
-                path={"/services/mualaf3.png"}
-                alt={"mualaf 1"}
-                className={"max-w-1/3"}
-              />
-            </div>
-          </div>
 
           {/*<h2 className={"mb-4 text-center text-2xl font-medium"}>*/}
           {/*  Apa kata mereka*/}
@@ -100,8 +69,6 @@ const Page = () => {
           {/*</p>*/}
         </div>
       </section>
-
-      <ServiceCTA className={"container xl:max-w-screen-lg"}></ServiceCTA>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import ServiceCTA from "@/components/ServiceCTA";
+import ServiceCTA from "@/app/services/_components/ServiceCTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,7 +25,6 @@ const Page = () => {
           Layanan Masjid Raden Patah Universitas Brawijaya
         </p>
         <h1 className={"text-center text-5xl font-bold tracking-wide"}>
-
           Konsultasi Keagamaan
         </h1>
       </section>
@@ -39,7 +38,6 @@ const Page = () => {
             sosial, maupun pribadi dari sudut pandang Islam.
           </p>
 
-
           {/*<h2 className={"mb-4 text-center text-2xl font-medium"}>*/}
           {/*  Kami Hadir sebagai solusi*/}
           {/*</h2>*/}
@@ -50,7 +48,6 @@ const Page = () => {
           {/*  fiqih, keluarga, atau isu-isu lain, kami siap menjadi teman diskusi*/}
           {/*  yang terpercaya, memberikan nasihat dan solusi yang mendalam.*/}
           {/*</p>*/}
-
         </div>
       </section>
 

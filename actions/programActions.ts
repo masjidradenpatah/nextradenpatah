@@ -168,8 +168,9 @@ export async function getFirstUpcomingProgram(): Promise<
       success: "Successfully get all upcoming program",
       data: programExecutions,
     };
-  } catch {
+  } catch (err) {
     // handle if error
+    const {} = prismaErrorChecker(err);
     return { status: "ERROR", error: "Something went wrong" };
   }
 }

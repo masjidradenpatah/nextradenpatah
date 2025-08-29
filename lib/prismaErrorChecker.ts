@@ -1,7 +1,9 @@
 import { Prisma } from "@prisma/client";
+import * as Sentry from "@sentry/nextjs";
 
 // @ts-expect-error error object is hard to predice
 export function prismaErrorChecker(error) {
+  Sentry.captureException(error);
   if (error === null) {
     // console.error("Error fetching upcoming programs: error is null");
     return {
