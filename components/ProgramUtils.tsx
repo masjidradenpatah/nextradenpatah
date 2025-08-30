@@ -4,7 +4,6 @@ import handPray from "@/public/hand-pray.svg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "lucide-react";
-import Link from "next/link";
 
 export const ProgramListLoading = ({
   numberItemShown,

@@ -31,7 +31,7 @@ export const ProgramCard = ({
         height={400}
         alt={`Gambar dari program ${title}`}
       />
-      {/* todo: FIX disable state */}
+      {/* FIX disable state */}
       <Button
         variant={"default"}
         disabled={!showMoreLink}
