@@ -63,7 +63,7 @@ model resetPasswordToken {
 
   @@unique([email, token])
 }
- de
+
 model resetPasswordRequest {
   id    String   @id @default(cuid())
   date  DateTime
