@@ -22,10 +22,8 @@ export const ProgramListLoading = ({
           <div
             key={i}
             className={
-              "glassmorphic-lg sm:rounded-5xl flex h-fit flex-col justify-end gap-4 rounded-2xl border-2 border-white px-2 py-2 " +
-              " sm:px-6 sm:pb-8" +
-              " mt-0 sm:mt-24 lg:mt-12 xl:mt-36 2xl:mt-56" +
-              " relative sm:h-[323px]"
+              "glassmorphic-lg flex h-fit flex-col justify-end gap-4 rounded-2xl border-2 border-white px-2 py-2 " +
+              " p-4 hover:bg-white"
             }
           >
             <div
@@ -37,7 +35,7 @@ export const ProgramListLoading = ({
                 className={"size-12 animate-spin text-gray-400 lg:size-16"}
               />
             </div>
-            <Button variant={"fullPrgram"} className={"py-6"} disabled>
+            <Button variant={"default"} disabled className={"py-6"}>
               Loading{" "}
               <LoaderCircle className={"size-12 animate-spin"}> </LoaderCircle>
             </Button>
@@ -62,7 +60,8 @@ export const ProgramListWrapper = ({
       <SectionTitle title={title} subtitle={subtitle} className={"sm:w-full"} />
       <div
         className={
-          "grid w-full grid-cols-1 place-content-center gap-x-6 gap-y-12 max-sm:max-w-[400px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+          "grid w-full grid-cols-1 place-content-center gap-x-6 gap-y-12" +
+          " max-sm:max-w-[400px] sm:grid-cols-2 sm:gap-6 xl:grid-cols-3"
         }
       >
         {children}

@@ -15,7 +15,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     <div
       className={"flex size-full flex-col items-center overflow-hidden py-32"}
     >
-      <ProgramFull program={program} className={""} />
+      <ProgramFull program={program} />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 "use server";
-// import { Program, ProgramExecution } from "@/types/Program";
 import { prisma } from "@/lib/db";
 import {
   Prisma,
@@ -9,6 +8,59 @@ import {
 } from "@prisma/client";
 import { ActionResponse } from "@/types";
 import { prismaErrorChecker } from "@/lib/prismaErrorChecker";
+
+export async function createNewProgram(
+  input: Prisma.ProgramCreateInput,
+): Promise<ActionResponse<Program>> {
+  try {
+    const newProgram = await prisma.program.create({ data: input });
+
+    return {
+      status: "SUCCESS",
+      success: "Successfully creating new program",
+      data: newProgram,
+    };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return {
+      status: "ERROR",
+      error,
+    };
+  }
+}
+
+export async function createNewUpcomingProgram(
+  input: Prisma.ProgramExecutionCreateWithoutProgramInput,
+  programId: string,
+): Promise<ActionResponse<ProgramExecution>> {
+  try {
+    const newUpcomingProgram = await prisma.programExecution.create({
+      data: {
+        ...input,
+        program: {
+          connect: {
+            id: programId,
+          },
+        },
+      },
+      include: {
+        program: true,
+      },
+    });
+
+    return {
+      status: "SUCCESS",
+      success: "Successfully creating a new upcoming program",
+      data: newUpcomingProgram,
+    };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return {
+      status: "ERROR",
+      error,
+    };
+  }
+}
 
 export async function getAllPrograms(): Promise<ActionResponse<Program[]>> {
   try {
@@ -24,9 +76,12 @@ export async function getAllPrograms(): Promise<ActionResponse<Program[]>> {
       success: "Successfully fetching all programs",
       data: programs,
     };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 }
 
@@ -47,17 +102,23 @@ export async function deleteManyProgramsByID(
 
     // Delete programs in parallel
     const deletePromises = ids.map((id) =>
-      prisma.user.delete({
+      prisma.program.delete({
         where: { id },
       }),
     );
 
     await Promise.all(deletePromises);
 
+    // TODO
+    // also delete the image in imagekit
+
     return { status: "SUCCESS", success: "Successfully deleted programs" };
-  } catch {
-    // handle if error
-    return { status: "ERROR", error: "Something went wrong" };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 }
 
@@ -78,9 +139,45 @@ export async function getAllUpcomingProgram(): Promise<
       success: "Successfully get all upcoming program",
       data: programExecutions,
     };
+  } catch {
+    // handle if error
+    return { status: "ERROR", error: "Something went wrong" };
+  }
+}
+
+export async function getFirstUpcomingProgram(): Promise<
+  ActionResponse<ProgramExecutionWithProgram[]>
+> {
+  try {
+    const programExecutions: ProgramExecutionWithProgram[] =
+      await prisma.programExecution.findMany({
+        where: {
+          AND: [
+            { showOrder: { not: null } },
+            { status: "UPCOMING" },
+            {
+              OR: [{ date: { gte: new Date() } }, { date: null }],
+            },
+          ],
+        },
+        orderBy: {
+          showOrder: "asc", // Opsional: urutkan berdasarkan showOrder
+        },
+        take: 3, // Batasi hasil
+        include: {
+          program: true,
+        },
+      });
+
+    return {
+      status: "SUCCESS",
+      success: "Successfully get all upcoming program",
+      data: programExecutions,
+    };
   } catch (err) {
-    const { error } = prismaErrorChecker(err);
-    return { status: "ERROR", error: error };
+    // handle if error
+    const {} = prismaErrorChecker(err);
+    return { status: "ERROR", error: "Something went wrong" };
   }
 }
 
@@ -111,7 +208,10 @@ export async function deleteManyUpcomingProgramByID(
     return { status: "SUCCESS", success: "Successfully deleted programs" };
   } catch (err) {
     const { error } = prismaErrorChecker(err);
-    return { status: "ERROR", error: error };
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 }
 
@@ -147,7 +247,10 @@ export async function updateUpcomingProgramStatus(
     };
   } catch (err) {
     const { error } = prismaErrorChecker(err);
-    return { status: "ERROR", error: error };
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 }
 
@@ -160,16 +263,6 @@ export const getUpcomingPrograms = async (
   const now = new Date();
 
   try {
-    // Validate numberItem
-    const isValidNumberItem =
-      numberItem === "all" ||
-      (Number.isInteger(Number(numberItem)) && Number(numberItem) > 0);
-    if (!isValidNumberItem) {
-      throw new Error(
-        "Invalid numberItem value. It must be 'all' or a positive integer.",
-      );
-    }
-
     const programs = await prisma.programExecution.findMany({
       where: {
         status: "UPCOMING",
@@ -178,9 +271,9 @@ export const getUpcomingPrograms = async (
         },
       },
       orderBy: {
-        date: "asc", // Urutkan berdasarkan tanggal terdekat
+        showOrder: "asc", // Urutkan berdasarkan tanggal terdekat
       },
-      take: numberItem === "all" ? undefined : Number(numberItem) || 3, // Limit the number of results
+      take: numberItem === "all" ? undefined : numberItem || 3, // Batasi jumlah hasil
       include: {
         program: true, // Sertakan informasi program jika diperlukan
       },
@@ -193,7 +286,10 @@ export const getUpcomingPrograms = async (
     };
   } catch (err) {
     const { error } = prismaErrorChecker(err);
-    return { status: "ERROR", error: error };
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 };
 
@@ -216,19 +312,31 @@ export const getProgramGroupByType = async (
     // return programs as Program[];
   } catch (err) {
     const { error } = prismaErrorChecker(err);
-    return { status: "ERROR", error: error };
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 };
 
 export const getProgramByIdAction = async (
   programId: string,
-): Promise<ActionResponse<Program>> => {
+): Promise<
+  ActionResponse<Program & { programExecution: ProgramExecution[] }>
+> => {
   try {
     const program = await prisma.program.findUnique({
       where: { id: programId },
+      include: {
+        programExecution: true, // This will include all program executions
+      },
     });
 
-    if (!program) return { status: "ERROR", error: "Program not found" };
+    if (!program)
+      return {
+        status: "ERROR",
+        error: `Program with id (${programId})  not found`,
+      };
 
     return {
       status: "SUCCESS",
@@ -237,6 +345,57 @@ export const getProgramByIdAction = async (
     };
   } catch (err) {
     const { error } = prismaErrorChecker(err);
-    return { status: "ERROR", error: error };
+    return {
+      status: "ERROR",
+      error,
+    };
   }
 };
+
+export async function updateProgrambyId(
+  programId: string,
+  input: Prisma.ProgramUpdateInput,
+): Promise<ActionResponse<Program>> {
+  try {
+    const updatedProgram = await prisma.program.update({
+      where: { id: programId },
+      data: input,
+    });
+
+    return {
+      status: "SUCCESS",
+      success: `Successfully updating program ${updatedProgram.title}`,
+      data: updatedProgram,
+    };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return {
+      status: "ERROR",
+      error,
+    };
+  }
+}
+
+export async function updateManyUpcomingProgram(
+  updates: { id: string; data: Prisma.ProgramExecutionUpdateInput }[],
+): Promise<ActionResponse<ProgramExecution[]>> {
+  try {
+    const results = await prisma.$transaction(
+      updates.map((update) =>
+        prisma.programExecution.update({
+          where: { id: update.id },
+          data: update.data,
+        }),
+      ),
+    );
+
+    return {
+      status: "SUCCESS",
+      success: `Successfully updated ${results.length} upcoming program`,
+      data: results,
+    };
+  } catch (err) {
+    const { error } = prismaErrorChecker(err);
+    return { status: "ERROR", error };
+  }
+}

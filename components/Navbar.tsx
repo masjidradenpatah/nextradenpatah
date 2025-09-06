@@ -22,6 +22,7 @@ const Navbar = () => {
         </div>
         <div className={"hidden gap-4 md:flex lg:gap-8"}>
           <NavLink link={"/"} text={"Home"} />
+          <NavLink link={"/profile"} text={"Profile"} />
           <NavLink link={"/programs"} text={"Program"} />
           <NavLink link={"/services"} text={"Layanan"} />
           {/*<NavLink link={"/article"} text={"Artikel"} />*/}

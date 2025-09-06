@@ -31,7 +31,7 @@ const ProgramList = ({
 }) => (
   <ProgramListWrapper title={title} subtitle={subtitle}>
     {programs.map((program) => (
-      <div key={program.id} className="flex flex-col gap-7">
+      <div key={program.id} className="flex w-full flex-col gap-7">
         <ProgramCard {...program} />
       </div>
     ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import ServiceCTA from "@/components/ServiceCTA";
+import ServiceCTA from "@/app/services/_components/ServiceCTA";
 import { ImageKitImage } from "@/components/ImageKit";
 import { Metadata } from "next";
 
@@ -21,14 +21,12 @@ const Page = () => {
           " py-12"
         }
       >
-
         <p className={"max-w-prose text-center"}>
           Layanan Masjid Raden Patah Universitas Brawijaya
         </p>
         <h1 className={"text-center text-5xl font-bold tracking-wide"}>
           Mualaf Center
         </h1>
-
       </section>
 
       <section className="container flex justify-between gap-8 xl:max-w-screen-lg">
@@ -86,7 +84,6 @@ const Page = () => {
             </div>
           </div>
 
-
           {/*<h2 className={"mb-4 text-center text-2xl font-medium"}>*/}
           {/*  Apa kata mereka*/}
           {/*</h2>*/}
@@ -101,7 +98,6 @@ const Page = () => {
           {/*  reprehenderit sequi tempora ullam vitae voluptatem voluptatibus*/}
           {/*  voluptatum! Aperiam cum expedita illo neque nisi quia.*/}
           {/*</p>*/}
-
         </div>
       </section>
 
