@@ -36,7 +36,7 @@ export default function RootLayout({
       <QueryClientWrapper>
         <ImageKitProvider>
           <body
-            className={`${poppins.variable} ${poppins.className} flex flex-col bg-[#EDEDED] antialiased`}
+            className={`${poppins.variable} ${poppins.className} flex flex-col bg-white antialiased`}
           >
             {modal}
             <Navbar />
